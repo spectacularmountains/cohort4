@@ -37,9 +37,9 @@ html {
     /* background-image: url('https://www.w3schools.com/w3images/parallax1.jpg'); */
     background-image: url('./images/background.jpg');
     /* background-image: url('https://claudescafedavao.com/wp-content/uploads/2018/08/Right-Software-Development-Methodology.png'); */
-    min-height: 100%;
-    border-radius: 50%;
-    opacity: 0.3;
+    min-height: 80%;
+    border-radius: 95%;
+    opacity: 0.9;
 }
 
 
@@ -61,8 +61,8 @@ html {
 }
 
 #idNumber {
-    border: 0;
-    width: 50px;
+    border: 3;
+    width: 150px;
 }
 
 
