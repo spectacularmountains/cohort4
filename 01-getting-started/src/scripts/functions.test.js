@@ -15,3 +15,8 @@ test('Does that add function work?', () => {
     expect(functions.add(1,2)).toBe(3);
     expect(functions.add(101,202)).toBe(303);
 });
+
+test("Is number even or odd", () => {
+    expect(functions.isEven(2)).toBe(true);
+    expect(functions.isEven(1)).toBe(false);
+});
