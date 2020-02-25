@@ -28,3 +28,7 @@ test('Add letter to the end', () => {
 test('Update the second mountain name in the arrayu', () => {
     expect(functions.updateValues("Ha Ling Peak")).toEqual(["Ha Ling Peak", "East End of Rundle", "Grotto Mountain", "Mount Lady McDonald"]); 
 });
+
+test('Turn present tense into past tense', () => {
+    expect(functions.loopFor("ed")).toEqual(["started", "continued", "finished"]); 
+});

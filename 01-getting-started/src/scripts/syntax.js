@@ -64,6 +64,15 @@ const functions = {
                 arr[0] = newValue;
                 return arr;
         }, 
+        
+        // LOOPS
+        loopFor: (letters) => {
+                var verbs = ["start", "continue", "finish"]
+                for (let i = 0; i < verbs.length; i++) {
+                        verbs[i].concat(letters);
+                }
+                return verbs;
+        }, 
 }
 
 export default functions;
