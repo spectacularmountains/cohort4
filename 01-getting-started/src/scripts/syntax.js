@@ -22,3 +22,48 @@ loops
 Objects / Dictionaries
         declare object
         lookup key to retrieve value */
+
+const functions = {
+
+        // DEFINE ATTRIBUTES / VARIABLES  
+        defineType: (x) => {
+                return typeof(x);
+        },
+
+        // Separate test for Array (as arrays are really objects)
+        defineArray: (x) => {
+                return Array.isArray(x);
+        },
+
+        
+        // SAMPLE IF / ELSE 
+        isNegative: (num) => {
+                return (num < 0 ? true : false);
+        }, 
+
+        // FUNCTIONS PARAMETERS / RETURNS 
+        addTwoNumbers: (num1, num2) => {
+                return (num1 + num2);
+        }, 
+
+        // ARRAYS
+        addToFront: (firstNumber) => {
+                var arr = [2, 3];
+                arr.unshift(firstNumber);
+                return arr;
+        }, 
+
+        addToEnd: (lastNumber) => {
+                var arr = [1, 2, 3];
+                arr.push(lastNumber);
+                return arr;
+        }, 
+                
+        updateValues: (newValue) => {
+                var arr = ["Chinamans Peak", "East End of Rundle", "Grotto Mountain", "Mount Lady McDonald"];
+                arr[0] = newValue;
+                return arr;
+        }, 
+}
+
+export default functions;
