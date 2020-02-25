@@ -59,20 +59,27 @@ const functions = {
                 return arr;
         }, 
                 
-        updateValues: (newValue) => {
-                var arr = ["Chinamans Peak", "East End of Rundle", "Grotto Mountain", "Mount Lady McDonald"];
+        updateFirstValue: (arr, newValue) => {
                 arr[0] = newValue;
                 return arr;
         }, 
         
         // LOOPS
-        loopFor: (letters) => {
-                var verbs = ["start", "continue", "finish"]
+        loopFor: (verbs, letters) => {
+                
                 for (let i = 0; i < verbs.length; i++) {
-                        verbs[i].concat(letters);
+                        verbs[i] = verbs[i].concat(letters);
                 }
                 return verbs;
         }, 
+        
+        loopForIn: (basket) => {
+                let total = 0;
+                for (let item in basket) {
+                     total += basket[item];
+                }
+                return total;
+        }
 }
 
 export default functions;
