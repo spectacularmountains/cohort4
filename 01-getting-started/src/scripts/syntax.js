@@ -116,6 +116,12 @@ const functions = {
                 }); 
                 return arr;
         },
+
+        // OBJECTS / DICTIONARIES 
+        // Declare object and lookup key to access value
+        lookupKey: (obj) => {
+                return Object.values(obj)
+        },
 };
 
 

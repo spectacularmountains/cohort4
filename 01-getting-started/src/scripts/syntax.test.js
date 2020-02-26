@@ -58,3 +58,9 @@ test('Turn words into UPPERCASE', () => {
     expect(functions.dummyFunction(["First", "Second"])).toEqual(["FIRST", "SECOND"]);
     expect(functions.dummyFunction(["camelCase", "lower", "UPPER"])).toEqual(["CAMELCASE", "LOWER", "UPPER"]);
 });
+
+test('Access values of an object', () => {
+    expect(functions.lookupKey({firstName: "John", lastName: "Smith"})).toEqual(["John", "Smith"]);
+    expect(functions.lookupKey({Calgary: 200, Edmonton: 150})).toEqual([200, 150]);
+});
+
