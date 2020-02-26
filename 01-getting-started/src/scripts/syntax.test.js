@@ -43,3 +43,8 @@ test('Check how many items in basket', () => {
     expect(functions.loopForIn({apples: 5, oranges: 3, kiwis: 1})).toEqual(9);
     expect(functions.loopForIn({men: 23, women: 35})).toEqual(58);
 });
+
+test('Count from MIN to MAX', () => {
+    expect(functions.whileLoop(1, 5)).toEqual([1, 2, 3, 4, 5]);
+    expect(functions.whileLoop(-1, 3)).toEqual([-1, 0, 1, 2, 3]);
+});

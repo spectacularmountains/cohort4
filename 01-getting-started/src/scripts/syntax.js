@@ -79,6 +79,16 @@ const functions = {
                      total += basket[item];
                 }
                 return total;
+        }, 
+
+        whileLoop: (min, max) => {
+                let i = min; 
+                let newArray = [];
+                while (i < (max + 1)) {
+                        newArray = newArray.concat(i);
+                        i++;
+                }
+                return newArray;
         }
 }
 
