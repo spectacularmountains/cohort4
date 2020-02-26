@@ -44,7 +44,17 @@ test('Check how many items in basket', () => {
     expect(functions.loopForIn({men: 23, women: 35})).toEqual(58);
 });
 
-test('Count from MIN to MAX', () => {
+test('Array from MIN to MAX', () => {
     expect(functions.whileLoop(1, 5)).toEqual([1, 2, 3, 4, 5]);
     expect(functions.whileLoop(-1, 3)).toEqual([-1, 0, 1, 2, 3]);
+});
+
+test('Add ! to words in array', () => {
+    expect(functions.doWhileLoop(["First", "Second"])).toEqual(["First!", "Second!"]);
+    expect(functions.doWhileLoop(["Wow", "Amazing", "Well done"])).toEqual(["Wow!", "Amazing!", "Well done!"]);
+});
+
+test('Turn words into UPPERCASE', () => {
+    expect(functions.dummyFunction(["First", "Second"])).toEqual(["FIRST", "SECOND"]);
+    expect(functions.dummyFunction(["camelCase", "lower", "UPPER"])).toEqual(["CAMELCASE", "LOWER", "UPPER"]);
 });

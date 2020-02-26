@@ -65,6 +65,8 @@ const functions = {
         }, 
         
         // LOOPS
+
+        // Loop add letters to verbs, e.g. changing present to past tense
         loopFor: (verbs, letters) => {
                 
                 for (let i = 0; i < verbs.length; i++) {
@@ -73,6 +75,7 @@ const functions = {
                 return verbs;
         }, 
         
+        // Loop counts total number of fruits in basket
         loopForIn: (basket) => {
                 let total = 0;
                 for (let item in basket) {
@@ -81,6 +84,7 @@ const functions = {
                 return total;
         }, 
 
+        // Loop produces an array from MIN number to MAX number
         whileLoop: (min, max) => {
                 let i = min; 
                 let newArray = [];
@@ -89,7 +93,32 @@ const functions = {
                         i++;
                 }
                 return newArray;
-        }
-}
+        },
+        
+        // Loop to add ! to an array of words
+        doWhileLoop: (arr) => {
+                let i = 0;
+                let newArray = [];
+                do {
+                        newArray[i] = arr[i] + "!";
+                        i++;
+                }
+                while (i < arr.length) {
+                        
+                }
+                return newArray;
+        },
+
+        // Loop to transform each word into UPPERCASE
+        dummyFunction: (arr) => {
+                arr.forEach((item, index) => {
+                arr[index] = item.toUpperCase(); 
+                }); 
+                return arr;
+        },
+};
+
+
+
 
 export default functions;
