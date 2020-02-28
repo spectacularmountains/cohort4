@@ -21,6 +21,34 @@ const functions = {
         return false;
     }, 
 
+    addFunction: () => {
+        let number1 = Number(document.getElementById("number1").value);
+        let number2 = Number(document.getElementById("number2").value);
+        let final = number1 + number2;
+        return Number(final);
+     },
+     
+    subtractFunction: () => {
+        let number1 = Number(document.getElementById("number1").value);
+        let number2 = Number(document.getElementById("number2").value);
+        let final = number1 - number2;
+        return Number(final);
+     },
+     
+    multiplyFunction: () => {
+        let number1 = Number(document.getElementById("number1").value);
+        let number2 = Number(document.getElementById("number2").value);
+        let final = number1 * number2;
+        return Number(final);
+     },
+     
+    divideFunction: () => {
+        let number1 = Number(document.getElementById("number1").value);
+        let number2 = Number(document.getElementById("number2").value);
+        let final = number1 / number2;
+        return Number(final);
+     },
+
     calculateTax: (income) => {
         const l1 = 48535; const mr1 = 0.15;
         const l2 = 97069; const mr2 = 0.205;
