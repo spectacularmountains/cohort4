@@ -1,26 +1,7 @@
 
-const functions = {
-    
-    size: (num) => {
-        if (num < 10) return "small";
-        if (num < 20) return "medium";
-        if (num < 100) return "large";
-        return "extra large";
-    },
+alert("Hi");
 
-    add: (num1, num2) => {
-        return num1 + num2;
-    },
-
-    subtract: (num1, num2) => {
-        return num1 - num2;
-    },
-
-    isEven: (num) => {
-        if (num % 2 === 0) {return true};
-        return false;
-    }, 
-
+const taxFunctions = {
     calculateTax: (income) => {
         if (income < 48535.01) {
             return income * 0.15 
@@ -34,8 +15,10 @@ const functions = {
             return 54288.82 + ((income - 214368) * 0.33)
         }
     }
+}
 
-    
-};
+let result = calculateTax();
 
-export default functions;
+document.getElementById("tax").innerHTML = "asdf";
+
+// export default taxFunctions;

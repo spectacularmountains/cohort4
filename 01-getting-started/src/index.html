@@ -1,6 +1,6 @@
 <!-- 
 
-    Insporation drawn from: https://www.w3schools.com/w3css/tryw3css_templates_parallax.htm#about
+    Inspiration drawn from: https://www.w3schools.com/w3css/tryw3css_templates_parallax.htm#about
 
  -->
 
@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Audiowide'>
 
     <title>FSD</title>
 </head>
@@ -50,7 +51,7 @@
     <div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
         <div class="w3-display-middle" style="white-space:nowrap;">
             <div class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">
-                WELCOME TO <br> Full Stack Development
+                WELCOME TO <br> Full Stack Chocolate
             </div>
         </div>
     </div>
@@ -184,12 +185,50 @@
         <br>
         <br>
 
-        <button onclick="window.open('/code/cohort4/01-getting-started/src/calculator.html', '', 
-                'resizable=no, scrollable=no, top=100, left=800, width=400,height=520')">
+        <button onclick="window.open('./calculator.html', '', 
+                'resizable=no, scrollable=no, top=100, left=800, width=400,height=525')">
                 SIMCAL
         </button>
         
     </div>
+
+
+     
+   
+    <!-- FEDERAL TAX CALCULATOR -->
+    
+    <div class="bgimg-2 w3-display-container w3-opacity-min">
+        <div class="w3-display-middle">
+            <span class="w3-xxlarge w3-text-white w3-wide">FEDERAL TAXES</span>
+        </div>
+    </div>
+
+    <div class="myself">
+        <br>
+        <br>
+        <div class="property">Total income:</div><div class="value"><input id="income" placeholder="Please enter" style="text-align: right" maxlength="7" size="9"></div> 
+        <br>
+        <div class="property">Federal tax:</div><div class="value" id="tax">0</div> 
+        <br>
+        <div class="property">Marginal tax rate:</div><div class="value">xxxxxx</div> 
+        <br>
+        <br>
+    </div>
+
+    <!-- <div class="w3-content w3-container w3-padding-64 w3-center" id="idSize">
+        <br>
+        <br>
+        <input id="income" placeholder="Please enter your income" style="text-align: right" width="48" height="48">
+        <br>
+        <br>
+        <p id="tax"></p>
+        <br>
+        <br>
+    </div> -->
+
+
+
+
 
     <!-- Footer -->
     <footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
@@ -207,7 +246,6 @@
 
 
     <script type="module" src="./scripts/main.js"></script>
-
     <script>
         // Change style of navbar on scroll
         window.onscroll = function() {
@@ -235,5 +273,7 @@
     </script>
 
 </body>
+
+
 
 </html>

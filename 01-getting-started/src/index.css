@@ -76,3 +76,32 @@ html {
         min-height: 400px;
     }
 }
+
+/* FEDERAL TAX - Styling of text and input/output boxes  */
+
+.myself .property{
+    width:50%;
+    display:inline-block;
+    box-sizing:border-box;
+    text-align:right;
+
+    font-family: 'Audiowide';
+    font-size: 1.5em;
+    letter-spacing: 2.4px;
+    word-spacing: 2px;
+    color: rgb(53, 28, 94);
+    }
+  
+  .myself .value{
+    text-align:right;
+    padding-left:10px;
+    width:15%;
+    display:inline-block;
+    box-sizing:border-box;
+
+    font-family: 'Audiowide';
+    font-size: 1.5em;
+    letter-spacing: 1.5px;
+    word-spacing: 1px;
+    color: rgb(207, 24, 24);
+    }
