@@ -22,19 +22,26 @@ const functions = {
     }, 
 
     calculateTax: (income) => {
-        const l1 = 48535;
+        const l1 = 48535; const mr1 = 0.15;
+        const l2 = 97069; const mr2 = 0.205;
+        const l3 = 150473; const mr3 = 0.26;
+        const l4 = 214368; const mr4 = 0.29; 
+        const mr5 = 0.33;
+
         if (isNaN(income)) {
-            tax.innerHTML = "0";
+            tax.innerHTML = "";
+            margin.innerHTML = "";
+            howFar.innerHTML = "";
         } else if (income < l1+0.01) {
-            return [(income * 0.15), 15, l1-income] 
-        } else if (income < 97069.01) {
-            return [(7280.25 + ((income - 48535) * 0.205)), 20.5]
-        } else if (income < 150473.01) {
-            return [(17229.72 + ((income - 97069) * 0.26)), 26]
-        } else if (income < 214368.01) {
-            return [(35759.27 + ((income - 150473) * 0.29)), 29]
+            return [(income * mr1), mr1*100, l1-income] 
+        } else if (income < l2+0.01) {
+            return [((l1 * mr1) + ((income - l1) * mr2)), mr2*100, l2-income]
+        } else if (income < l3+0.01) {
+            return [(17229.72 + ((income - l2) * mr3)), mr3*100, l3-income]
+        } else if (income < l4+0.01) {
+            return [(35759.27 + ((income - l3) * mr4)), mr4*10*10, l4-income]
         } else {
-            return [(54288.82 + ((income - 214368) * 0.33)), 33]
+            return [(54288.82 + ((income - 214368) * mr5)), mr5*100, 0]
         }
     }
 
