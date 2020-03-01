@@ -9,68 +9,37 @@ idNumber.addEventListener('change', (() => {
 }));
 
 
+
 // Event listeners for simple CALCULATOR app 
+//      The toFixed() method rounds the input by the number of decimals specified (variable dec). Only works with text input. 
 
 plus.addEventListener("click", (() => {
     let dec = Number(document.getElementById("dec").value);
-    result.innerHTML = (functions.addFunction()).toFixed(dec);
+    result.innerHTML = (functions.addFunction()).toFixed(dec)
 }));
 
 minus.addEventListener("click", (() => {
-    result.innerHTML = functions.subtractFunction();
+    let dec = Number(document.getElementById("dec").value);
+    result.innerHTML = (functions.subtractFunction()).toFixed(dec)
 }));
 
 multiply.addEventListener("click", (() => {
-    result.innerHTML = functions.multiplyFunction();
+    let dec = Number(document.getElementById("dec").value);
+    result.innerHTML = (functions.multiplyFunction()).toFixed(dec)
 }));
 
 divide.addEventListener("click", (() => {
-    result.innerHTML = functions.divideFunction();
+    let dec = Number(document.getElementById("dec").value);
+    result.innerHTML = (functions.divideFunction()).toFixed(dec)
 }));
 
 
-// // MINUS
-// document.getElementById("minus").addEventListener("click", minusFunction(){
-//     let number1 = Number(document.getElementById("number1").value)
-//     let number2 = Number(document.getElementById("number2").value)
-//     let final = number1 - number2;
-//     if (isNaN(number1) || isNaN(number2)) {
-//         result.innerHTML = "Please enter a number!";
-//     } else {
-//     result.innerHTML = Number(final);
-//     };
-// });
-
-// // MULTIPLY
-// document.getElementById("multiply").addEventListener("click", multiplyFunction(){
-//     let number1 = Number(document.getElementById("number1").value)
-//     let number2 = Number(document.getElementById("number2").value)
-//     let final = number1 * number2;
-//     if (isNaN(number1) || isNaN(number2)) {
-//         result.innerHTML = "Please enter a number!";
-//     } else {
-//     result.innerHTML = Number(final);
-//     };
-// });
-
-// // DIVIDE
-// document.getElementById("divide").addEventListener("click", divideFunction(){
-//     let number1 = Number(document.getElementById("number1").value)
-//     let number2 = Number(document.getElementById("number2").value)
-//     let final = number1 / number2;
-//     if (isNaN(number1) || isNaN(number2)) {
-//         result.innerHTML = "Please enter a number!";
-//     } else {
-//     result.innerHTML = Number(final);
-//     };
-// });
 
 // Event listener for FEDERAL TAXES app 
-//      toFixed(2) method rounds the number down to 2 decimals and returns a string 
 
 income.addEventListener('change', (() => {
     const calculateTaxResult = functions.calculateTax(income.value); 
-    tax.textContent = calculateTaxResult[0].toFixed(2);
+    tax.textContent = calculateTaxResult[0];
     margin.textContent = calculateTaxResult[1];
     howFar.textContent = calculateTaxResult[2];
 }));
