@@ -11,7 +11,7 @@ h6 {
 body,
 html {
     height: 100%;
-    color: #777;
+    color: rgb(67, 36, 204);
     line-height: 1.8;
 }
 
@@ -92,7 +92,7 @@ html {
     color: rgb(53, 28, 94);
     }
   
-  .myself .value{
+.myself .value{
     text-align:right;
     padding-left:10px;
     width:15%;

@@ -50,6 +50,7 @@ const functions = {
      },
 
     calculateTax: (income) => {
+        // 2020 FEDERAL TAX RATES
         const l1 = 48535; const mr1 = 0.15; // First tax bracket (limit & marginal tax rate)
         const l2 = 97069; const mr2 = 0.205; // Second tax bracket (limit & marginal tax rate)
         const l3 = 150473; const mr3 = 0.26; // Third tax bracket (limit & marginal tax rate)

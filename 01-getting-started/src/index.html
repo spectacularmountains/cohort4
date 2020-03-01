@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Audiowide'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Audiowide|Oxanium'>
 
     <title>FSD</title>
 </head>
@@ -31,6 +31,8 @@
             <a href="#home" class="w3-bar-item w3-button">HOME</a>
             <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ABOUT</a>
             <a href="#idSize" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> SIZE</a>
+            <a href="#idCalc" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-calculator"></i> CALC</a>
+            <a href="#idTaxes" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-usd"></i> TAXES</a>
             <a href="https://www.evolveu.ca" class="w3-bar-item w3-button w3-hide-small" target="_blank"><i class="fa fa-envelope"></i> CONTACT</a>
             <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
                 <i class="fa fa-search"></i>
@@ -48,9 +50,10 @@
 
     <!-- -------------- First Parallax Image with Logo Text ----------- -->
 
+    <br>
     <div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
         <div class="w3-display-middle" style="white-space:nowrap;">
-            <div class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">
+            <div class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity" style="font-family: Oxanium;">
                 WELCOME TO <br> Full Stack Chocolate
             </div>
         </div>
@@ -87,7 +90,7 @@
 
     <div class="bgimg-2 w3-display-container w3-opacity-min">
         <div class="w3-display-middle">
-            <span class="w3-xxlarge w3-text-white w3-wide">SIZE</span>
+            <span class="w3-xxlarge w3-text-white w3-wide" style="font-family: Oxanium;">SIZE</span>
         </div>
     </div>
 
@@ -103,14 +106,14 @@
     
     <div class="bgimg-2 w3-display-container w3-opacity-min">
         <div class="w3-display-middle">
-            <span class="w3-xxlarge w3-text-white w3-wide">CALCULATOR</span>
+            <span class="w3-xxlarge w3-text-white w3-wide" style="font-family: Oxanium;">CALCULATOR</span>
         </div>
     </div>
 
 
     <!-- SIMPLE CALCULATOR -->
 
-    <div class="w3-content w3-container w3-padding-64 w3-center" id="idSize">
+    <div class="w3-content w3-container w3-padding-64 w3-center" id="idCalc">
         <br>
         <br>
         <input id="number1" type="number">
@@ -124,61 +127,9 @@
         <br>
         <p id="result" style="color:blue;text-align:center;font-weight: bold;">RESULT</p>
 
-        <!-- <script>
-            let result = document.getElementById("result");
-
-            // PLUS 
-            document.getElementById("plus").addEventListener("click", function(){
-                let number1 = Number(document.getElementById("number1").value)
-                let number2 = Number(document.getElementById("number2").value)
-                let final = number1 + number2;
-                if (isNaN(number1) || isNaN(number2)) {
-                    result.innerHTML = "Please enter a number!";
-                } else {
-                result.innerHTML = Number(final);
-                };
-            });
-            
-            // MINUS
-            document.getElementById("minus").addEventListener("click", function(){
-                let number1 = Number(document.getElementById("number1").value)
-                let number2 = Number(document.getElementById("number2").value)
-                let final = number1 - number2;
-                if (isNaN(number1) || isNaN(number2)) {
-                    result.innerHTML = "Please enter a number!";
-                } else {
-                result.innerHTML = Number(final);
-                };
-            });
-            
-            // MULTIPLY
-            document.getElementById("multiply").addEventListener("click", function(){
-                let number1 = Number(document.getElementById("number1").value)
-                let number2 = Number(document.getElementById("number2").value)
-                let final = number1 * number2;
-                if (isNaN(number1) || isNaN(number2)) {
-                    result.innerHTML = "Please enter a number!";
-                } else {
-                result.innerHTML = Number(final);
-                };
-            });
-            
-            // DIVIDE
-            document.getElementById("divide").addEventListener("click", function(){
-                let number1 = Number(document.getElementById("number1").value)
-                let number2 = Number(document.getElementById("number2").value)
-                let final = number1 / number2;
-                if (isNaN(number1) || isNaN(number2)) {
-                    result.innerHTML = "Please enter a number!";
-                } else {
-                result.innerHTML = Number(final);
-                };
-            });
-          
-        </script> -->
+       
         
-        
-        <!-- FANCY CALCULATOR -->
+    <!-- FANCY CALCULATOR -->
         <br>
         <br>
         Click here to access SIMCAL, the simple calculator! 
@@ -200,11 +151,11 @@
     
     <div class="bgimg-2 w3-display-container w3-opacity-min">
         <div class="w3-display-middle">
-            <span class="w3-xxlarge w3-text-white w3-wide">FEDERAL TAXES</span>
+            <span class="w3-xxlarge w3-text-white w3-wide" style="font-family: Oxanium;">FEDERAL TAXES</span>
         </div>
     </div>
 
-    <div class="myself">
+    <div class="myself" id="idTaxes">
         <br>
         <br>
         <div class="property">Total income ($):</div><div class="value"><input id="income" placeholder="Please enter" style="text-align: right" maxlength="7" size="9"></div> 
@@ -217,20 +168,6 @@
         <br>
         <br>
     </div>
-
-    <!-- <div class="w3-content w3-container w3-padding-64 w3-center" id="idSize">
-        <br>
-        <br>
-        <input id="income" placeholder="Please enter your income" style="text-align: right" width="48" height="48">
-        <br>
-        <br>
-        <p id="tax"></p>
-        <br>
-        <br>
-    </div> -->
-
-
-
 
 
     <!-- Footer -->
@@ -250,6 +187,7 @@
 
     <script type="module" src="./scripts/main.js"></script>
     <script>
+
         // Change style of navbar on scroll
         window.onscroll = function() {
             myFunction()

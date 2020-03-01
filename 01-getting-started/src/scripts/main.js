@@ -2,6 +2,14 @@ import functions from './functions.js';
 
 // **********
 //
+// Event listener for hashchange - if user clicks on NavBar, anchor will be offset upwards to reveal section heading. 
+
+window.addEventListener("hashchange", function () {
+    window.scrollTo(window.scrollX, window.scrollY - 200);
+});
+
+
+
 // Event listener for SIZE app
 
 idNumber.addEventListener('change', (() => {
