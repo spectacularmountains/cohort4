@@ -51,3 +51,29 @@ income.addEventListener('change', (() => {
     margin.textContent = calculateTaxResult[1];
     howFar.textContent = calculateTaxResult[2];
 }));
+
+
+
+// Event listener for WORKING WITH ARRAYS app 
+let resultArray = [];
+let total = 0;
+
+addArr.addEventListener("click", (() => {
+    functions.addToArray(inputArray.value, resultArray);
+    message.innerHTML = "Array has been added!"
+}));
+
+showArr.addEventListener("click", (() => {
+    message.innerHTML = resultArray;
+}));
+
+totalArr.addEventListener("click", (() => {
+    const result = functions.totalInArray(resultArray, total);
+    message.innerHTML = "The total is: " + result;
+}));
+
+clearArr.addEventListener("click", (() => {
+    resultArray = []; 
+    message.innerHTML = "Array cleared!"; 
+    document.getElementById("inputArray").value = "";
+}));

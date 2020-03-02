@@ -105,3 +105,14 @@ html {
     word-spacing: 1px;
     color: rgb(207, 24, 24);
     }
+
+/* WORKING WITH ARRAYS */
+
+.workingArrays {
+    text-align:center;
+    font-family: 'Audiowide';
+    font-size: 1.5em;
+    letter-spacing: 1.5px;
+    word-spacing: 1px;
+    color: rgb(68, 2, 2);
+    }

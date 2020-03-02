@@ -75,8 +75,23 @@ const functions = {
             return [Math.round((l1 * mr1) + ((l2-l1) * mr2) + ((l3-l2) * mr3) + ((l4-l3) * mr4) + ((income - l4) * mr5)), mr5*100, 0]
             // return [(54288.82 + ((income - 214368) * mr5)), mr5*100, 0]
         }
-    }
+    }, 
+    
+    addToArray: (inputArray, resultArray) => {
+        resultArray.push(inputArray);
+        return resultArray;
+     },
+     
+    totalInArray: (resultArray, total) => {
+        for (let i=0; i < resultArray.length; i++) {
+            total += Number(resultArray[i]);
+        }; 
+        return total;
+     },
 
+     clearArray: (resultArray) => {
+        return resultArray = [];
+     },
     
 };
 
