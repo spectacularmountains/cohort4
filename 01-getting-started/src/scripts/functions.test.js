@@ -51,4 +51,5 @@ test('Clear array', () => {
 test('Lookup province', () => {
     expect(functions.lookupProvince("ab")).toEqual("Alberta");
     expect(functions.lookupProvince("bc")).toBe("British Columbia");
+    expect(functions.lookupProvince("sdfd")).toBe("Sorry this province does not exist");
 });

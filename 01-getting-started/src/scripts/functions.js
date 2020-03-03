@@ -100,12 +100,12 @@ const functions = {
      },
 
      lookupProvince: (name) => {
-         let item; console.log(provinces.ab)
+         let item; 
          for (item in provinces) {
              if (provinces.hasOwnProperty(name)) {
                  return provinces[name];
              } else {
-                 return "Alberta";
+                 return "Sorry this province does not exist";
              }
          };
      }

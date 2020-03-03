@@ -62,7 +62,6 @@ addArr.addEventListener("click", (() => {
     if (isNaN(inputArray.value) || inputArray.value == "") {
         return message.innerHTML = "Input is not a valid number!"
     } else {
-    
     functions.addToArray(inputArray.value, resultArray);
     message.innerHTML = "Array has been added!"
 }
@@ -81,4 +80,11 @@ clearArr.addEventListener("click", (() => {
     resultArray = []; 
     message.innerHTML = "Array cleared!"; 
     document.getElementById("inputArray").value = "";
+}));
+
+
+// Event listener for WORKING WITH DICTIONARIES app 
+
+lookup.addEventListener("click", (() => {
+    provinceMessage.innerHTML = functions.lookupProvince(inputProvince.value);
 }));
