@@ -2,7 +2,17 @@
 const provinces = {
     ab: "Alberta", 
     bc: "British Columbia", 
+    mb: "Manitoba",
+    nb: "New Brunswick",
+    nl: "Newfoundland and Labrador",
+    ns: "Nova Scotia", 
+    nt: "Northwest Territories", 
+    nu: "Nunavut", 
+    on: "Ontario",
+    pe: "Prince Edward Island",
+    qc: "Quebec", 
     sk: "Saskatchewan",
+    yt: "Yukon",
 }
 
 const functions = {
@@ -93,10 +103,6 @@ const functions = {
             total += Number(resultArray[i]);
         }; 
         return total;
-     },
-
-     clearArray: (resultArray) => {
-        return resultArray = [];
      },
 
      lookupProvince: (name) => {
