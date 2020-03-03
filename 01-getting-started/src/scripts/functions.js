@@ -1,4 +1,10 @@
 
+const provinces = {
+    ab: "Alberta", 
+    bc: "British Columbia", 
+    sk: "Saskatchewan",
+}
+
 const functions = {
     
     size: (num) => {
@@ -92,7 +98,19 @@ const functions = {
      clearArray: (resultArray) => {
         return resultArray = [];
      },
+
+     lookupProvince: (name) => {
+         let item; console.log(provinces.ab)
+         for (item in provinces) {
+             if (provinces.hasOwnProperty(name)) {
+                 return provinces[name];
+             } else {
+                 return "Alberta";
+             }
+         };
+     }
     
 };
+
 
 export default functions;

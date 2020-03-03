@@ -59,8 +59,13 @@ let resultArray = [];
 let total = 0;
 
 addArr.addEventListener("click", (() => {
+    if (isNaN(inputArray.value) || inputArray.value == "") {
+        return message.innerHTML = "Input is not a valid number!"
+    } else {
+    
     functions.addToArray(inputArray.value, resultArray);
     message.innerHTML = "Array has been added!"
+}
 }));
 
 showArr.addEventListener("click", (() => {

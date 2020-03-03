@@ -47,3 +47,8 @@ test('Clear array', () => {
     expect(functions.clearArray([3, 2])).toEqual([]);
     expect(functions.clearArray([56, 23, 456, 45, 6])).toEqual([]);
 });
+
+test('Lookup province', () => {
+    expect(functions.lookupProvince("ab")).toEqual("Alberta");
+    expect(functions.lookupProvince("bc")).toBe("British Columbia");
+});
