@@ -37,3 +37,7 @@ li {
     padding: 5px;
     margin-left: 15px;
 }
+
+.block {
+    display: inline-block;
+}
