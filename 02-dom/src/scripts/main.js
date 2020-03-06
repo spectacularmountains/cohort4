@@ -1,6 +1,8 @@
 import functions from './functions.js';
 
-
+let c = document.querySelector("ol").children
+let text = "";
+let ol = document.querySelector("ol");
 
 // Event listener for SIZE app
 
@@ -9,6 +11,13 @@ import functions from './functions.js';
 // }));
 
 show.addEventListener('click', (() => {
-    // console.log(document.getElementsByTagName("li").textContent)
-    functions.showChildren()
+    functions.showChildren();
+}));
+
+add.addEventListener('click', (() => {
+    functions.addListItem();
+}));
+
+del.addEventListener('click', (() => {
+    functions.deleteListItem();
 }));
