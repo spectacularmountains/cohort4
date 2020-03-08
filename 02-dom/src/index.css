@@ -29,6 +29,7 @@ html {
 
 ol {
     background: #5976f7;
+    text-align: left;
     padding: 20px;
 }
 
@@ -43,6 +44,10 @@ li {
 }
 
 .smallText {
-    font-size: 0.8em;
-    color: darkslateblue;
+    font-size: 0.9em;
+    color: rgb(70, 70, 70);
+}
+
+.strike {
+    text-decoration: line-through wavy rgb(13, 0, 87);
 }

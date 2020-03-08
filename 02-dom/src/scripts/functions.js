@@ -31,16 +31,12 @@ const functions = {
             input.value = "";
         },
         
-        deleteListItem: () => {
-            const c = document.querySelector("ol").children
-            const ol = document.querySelector("ol");
-            console.log(c, c.length)
-            ol.removeChild(ol.childNodes[c.length]);
+        deleteListItem: (delItem) => {
+            ol.removeChild(delItem);
         }, 
 
         strikeOutListItem: (strikeItem) => {
-            console.log(strikeItem)
-            ol.removeChild(strikeItem);
+            strikeItem.classList.toggle("strike");
         }
 
 };

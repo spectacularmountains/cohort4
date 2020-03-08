@@ -15,7 +15,9 @@ add.addEventListener('click', functions.addClick);
 add.addEventListener('keypress', functions.addEnter);
 
 list.addEventListener('click', ((e) => {
-    const strikeItem = e.target; 
-    console.log(strikeItem)
-    functions.strikeOutListItem(strikeItem);
+    functions.strikeOutListItem(e.target);
+}));
+
+list.addEventListener('dblclick', ((e) => {
+    functions.deleteListItem(e.target);
 }));
