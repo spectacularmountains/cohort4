@@ -1,4 +1,5 @@
-
+const input = document.getElementById("input")
+const ol = document.getElementById("list");
 
 const functions = {
            
@@ -11,13 +12,24 @@ const functions = {
             textOutput.textContent = text
         }, 
 
-        addListItem: () => {
-            const li = document.createElement("li");
-            const liText = document.createTextNode("New list item");
-            const ol = document.querySelector("ol");
-            li.appendChild(liText); 
-            ol.appendChild(li);
+        addClick: () => {
+            if (input.value.length > 0) {
+                functions.createListItem();
+            }
         }, 
+        
+        addEnter: () => {
+            if (input.value.length > 0 && event.keyCode === 13) {
+                functions.createListItem();
+            }
+        }, 
+
+        createListItem: () => {
+            let li = document.createElement("li");
+            li.appendChild(document.createTextNode(input.value)); 
+            ol.appendChild(li);
+            input.value = "";
+        },
         
         deleteListItem: () => {
             const c = document.querySelector("ol").children
@@ -25,6 +37,11 @@ const functions = {
             console.log(c, c.length)
             ol.removeChild(ol.childNodes[c.length]);
         }, 
+
+        strikeOutListItem: (strikeItem) => {
+            console.log(strikeItem)
+            ol.removeChild(strikeItem);
+        }
 
 };
 

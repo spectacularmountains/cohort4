@@ -41,3 +41,8 @@ li {
 .block {
     display: inline-block;
 }
+
+.smallText {
+    font-size: 0.8em;
+    color: darkslateblue;
+}
