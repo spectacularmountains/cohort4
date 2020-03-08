@@ -7,12 +7,12 @@ import functions from './functions.js';
 //     console.log(e.target);
 // }));
 
-show.addEventListener('click', (() => {
-    functions.showChildren();
-}));
+// show.addEventListener('click', (() => {
+//     functions.showChildren();
+// }));
 
 add.addEventListener('click', functions.addClick);
-add.addEventListener('keypress', functions.addEnter);
+input.addEventListener('keypress', functions.addEnter);
 
 list.addEventListener('click', ((e) => {
     functions.strikeOutListItem(e.target);
