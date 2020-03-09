@@ -51,7 +51,8 @@ p {
 .card {
     text-align: center;
     width: 75%;
-    background-color: rgb(131, 77, 77)
-    padding: 30px;
+    background-color: rgb(241, 239, 109);
+    padding: 20px;
+    margin: 10px;
     border: solid 1px darkgrey;
 }

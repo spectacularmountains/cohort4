@@ -11,13 +11,27 @@ import functions from './functions-cards.js';
 //     functions.showChildren();
 // }));
 
-add.addEventListener('click', functions.addClick);
-input.addEventListener('keypress', functions.addEnter);
+document.querySelectorAll('.addBefore').forEach(item => {
+    item.addEventListener('click', e => {
+        console.log(e.target)
+    })
+  })
+  
+  document.querySelectorAll('h2').forEach(item => {
+    item.addEventListener('click', e => {
+        console.log(e.target)
+    })
+  })
 
-list.addEventListener('click', ((e) => {
-    functions.strikeOutListItem(e.target);
+// document.addEventListener('click', ((e) => {
+//     console.log(e.target)
+//     functions.addCardBefore(e.target);
+// }));
+
+addAfter.addEventListener('click', ((e) => {
+    functions.addCardAfter(e.target);
 }));
 
-list.addEventListener('dblclick', ((e) => {
-    functions.deleteListItem(e.target);
+del.addEventListener('dblclick', ((e) => {
+    functions.deleteCard(e.target);
 }));
