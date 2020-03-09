@@ -56,3 +56,9 @@ p {
     margin: 10px;
     border: solid 1px darkgrey;
 }
+
+.del {
+    align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
