@@ -102,7 +102,7 @@ const functions = {
         addCardAfter: (clickedItem) => {
             const card = clickedItem.parentNode;
             let newDiv = functions.addCard(clickedItem);
-            cardsList.insertBefore(newDiv, card);
+            card.parentNode.insertBefore(newDiv, card.nextSibling);
         },
 
 
