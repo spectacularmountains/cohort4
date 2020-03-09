@@ -1,4 +1,3 @@
-// const cardsList = document.getElementById("cardsList");
 
 const functions = {
            
@@ -43,12 +42,35 @@ const functions = {
         deleteCard: (delItem) => {
             const card = delItem.parentNode;
             const cardsList = delItem.parentNode.parentNode;
-
-            console.log(card)
             cardsList.removeChild(card);
         }, 
+        
+        addCardBefore: (clickedItem) => {
+            const card = clickedItem.parentNode;
+            const cardsList = clickedItem.parentNode.parentNode;
+            
+            const newAddBeforeButton = document.createElement("button")
+            const newAddBeforeButtonText = document.createTextNode("Add Before")
+            newAddBeforeButton.appendChild(newAddBeforeButtonText)
+            newAddBeforeButton.classList.add("addBefore")
+
+            const newH2 = document.createElement("h2");
+            const newH2Text = document.createTextNode("Card 4");
+            newH2.appendChild(newH2Text)
+
+            const newDiv = document.createElement("div")
+            newDiv.classList.add("card");
+            newDiv.appendChild(newH2)
+            newDiv.appendChild(newAddBeforeButton)
+
+            cardsList.insertBefore(newDiv, card);
+
+            console.log(newH2, newH2Text, newDiv); 
+        }, 
+
 
 };
 
 
 export default functions;
+const newH2 = document.createElement('h2')
