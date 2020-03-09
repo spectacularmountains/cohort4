@@ -1,4 +1,4 @@
-const ol = document.getElementById("list");
+// const cardsList = document.getElementById("cardsList");
 
 const functions = {
            
@@ -36,7 +36,17 @@ const functions = {
 
         strikeOutListItem: (strikeItem) => {
             strikeItem.classList.toggle("strike");
-        }
+        },
+
+        // ----------
+
+        deleteCard: (delItem) => {
+            const card = delItem.parentNode;
+            const cardsList = delItem.parentNode.parentNode;
+
+            console.log(card)
+            cardsList.removeChild(card);
+        }, 
 
 };
 

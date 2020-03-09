@@ -28,10 +28,15 @@ document.querySelectorAll('.addBefore').forEach(item => {
 //     functions.addCardBefore(e.target);
 // }));
 
-addAfter.addEventListener('click', ((e) => {
-    functions.addCardAfter(e.target);
-}));
+// addAfter.addEventListener('click', ((e) => {
+//     console.log(e.target)
 
-del.addEventListener('dblclick', ((e) => {
-    functions.deleteCard(e.target);
-}));
+//     functions.addCardAfter(e.target);
+// }));
+
+document.querySelectorAll('.del').forEach(item => {
+    item.addEventListener('click', e => {
+        console.log(e.target)
+        functions.deleteCard(e.target);
+    })
+  })
