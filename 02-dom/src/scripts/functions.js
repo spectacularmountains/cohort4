@@ -4,11 +4,12 @@ const functions = {
            
         showChildren: () => {
             const c = document.querySelector("ol").children
-            const text = "";
+						let text = "";
+						let textOutput = [];
             for (let i=0; i < c.length; i++) {
                 text += c[i].textContent + " ";
             }
-            textOutput.textContent = text
+            return textOutput.textContent = text
         }, 
 
         addClick: () => {
