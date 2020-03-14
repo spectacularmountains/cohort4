@@ -16,6 +16,11 @@ class Account {
 	deposit (depositedAmount) {
 		currentBalance += depositedAmount;
 		return currentBalance;
+	}; 
+
+	withdraw (withdrawnAmount) {
+		currentBalance -= withdrawnAmount;
+		return currentBalance;
 	}
 }
 
