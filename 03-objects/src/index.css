@@ -4,7 +4,7 @@ body {
 }
 
 .card {
-  width: 600px;                 /* Set width of cards */
+  width: 620px;                 /* Set width of cards */
   display: flex;                /* Children use Flexbox */
 	flex-direction: column; 
   border: 2px solid #EF9A9A;    /* Set up Border */
