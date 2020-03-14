@@ -1,118 +1,52 @@
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: "Lato", sans-serif;
+
+body {
+  font-family: 'Open Sans', sans-serif;
 }
 
-body,
-html {
-    height: 100%;
-    color: rgb(67, 36, 204);
-    line-height: 1.8;
+.card {
+  width: 450px;                 /* Set width of cards */
+  display: flex;                /* Children use Flexbox */
+  flex-direction: column;       /* Rotate Axis */
+  border: 1px solid #EF9A9A;    /* Set up Border */
+  border-radius: 4px;           /* Slightly Curve edges */
+  overflow: hidden;             /* Fixes the corners */
+  margin: 5px;                  /* Add space between cards */
 }
 
-
-/* Create a Parallax Effect */
-
-.bgimg-1,
-.bgimg-2 {
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.card-header {
+  color: #D32F2F;
+  text-align: center;
+  font-size: 1.8em;
+  font-weight: 600;
+  border-bottom: 1px solid #EF9A9A;
+  background-color: #FFEBEE;
+  padding: 5px 10px;
 }
 
-.info-box {
-    width: 80%
+.card-main {
+  display: flex;              /* Children use Flexbox */
+  flex-direction: row;     /* Rotate Axis to Vertical */
+  justify-content: center;    /* Group Children in Center */
+  align-items: center;        /* Group Children in Center (on cross axis) */
+  padding: 15px 0;            /* Add padding to the top/bottom */
 }
 
-
-/* First image (Logo. Full height) */
-
-.bgimg-1 {
-    /* background-image: url('https://www.w3schools.com/w3images/parallax1.jpg'); */
-    background-image: url('./images/background.jpg');
-    /* background-image: url('https://claudescafedavao.com/wp-content/uploads/2018/08/Right-Software-Development-Methodology.png'); */
-    min-height: 80%;
-    border-radius: 95%;
-    opacity: 0.9;
+.column {
+  display: flex;              /* Children use Flexbox */
+  flex-direction: column;     /* Rotate Axis to Vertical */
+  justify-content: center;    /* Group Children in Center */
+  align-items: center;        /* Group Children in Center (on cross axis) */
+  padding: 15px 0;            /* Add padding to the top/bottom */
 }
 
-
-/* Second image (Size) */
-
-.bgimg-2 {
-    /* background-image: url("https://www.w3schools.com/w3images/parallax2.jpg"); */
-    background-image: url("https://cdn.pixabay.com/photo/2016/11/19/15/32/code-1839877_960_720.jpg");
-    min-height: 200px;
-    opacity: 0.5;
+.material-icons {
+  font-size: 36px;
+  color: #D32F2F;
+  margin-bottom: 5px;
 }
 
-.w3-wide {
-    letter-spacing: 10px;
+.main-description {
+  color: #D32F2F;
+  font-size: 12px;
+  text-align: center;
 }
-
-.w3-hover-opacity {
-    cursor: pointer;
-}
-
-#idNumber {
-    border: 3;
-    width: 150px;
-}
-
-
-/* Turn off parallax scrolling for tablets and phones */
-
-@media only screen and (min-device-width: 1600px) {
-    .bgimg-1,
-    .bgimg-2,
-    .bgimg-3 {
-        background-attachment: scroll;
-        min-height: 400px;
-    }
-}
-
-/* FEDERAL TAX - Styling of text and input/output boxes  */
-
-.myself .property{
-    width:50%;
-    display:inline-block;
-    box-sizing:border-box;
-    text-align:right;
-
-    font-family: 'Audiowide';
-    font-size: 1.5em;
-    letter-spacing: 2.4px;
-    word-spacing: 2px;
-    color: rgb(53, 28, 94);
-    }
-  
-.myself .value{
-    text-align:right;
-    padding-left:10px;
-    width:15%;
-    display:inline-block;
-    box-sizing:border-box;
-
-    font-family: 'Audiowide';
-    font-size: 1.5em;
-    letter-spacing: 1.5px;
-    word-spacing: 1px;
-    color: rgb(207, 24, 24);
-    }
-
-/* WORKING WITH ARRAYS */
-
-.workingArrays {
-    text-align:center;
-    font-family: 'Audiowide';
-    font-size: 1.5em;
-    letter-spacing: 1.5px;
-    word-spacing: 1px;
-    color: rgb(68, 2, 2);
-    }

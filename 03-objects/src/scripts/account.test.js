@@ -19,9 +19,9 @@ test('Check if balance is up-to-date?', () => {
 });
 
 test('Does the withrdraw method work?', () => {
-	expect(cheqAcc.withdraw(10)).toBe(25);	
+	expect(cheqAcc.withdraw(30)).toBe(5);	
 });
 
 test('Check if balance is up-to-date?', () => {
-	expect(cheqAcc.balance()).toBe(25);	
+	expect(cheqAcc.balance()).toBe(5);	
 });
