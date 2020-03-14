@@ -15,31 +15,106 @@
 
 	<div class="card">
 		<div class="card-header">CHOCOLATE BANK LTD.</div>
-  	<div class="card-main">
+		<div class="card-main">
+		<!-- ROW 1 -->
+		<div class="row">
 			<div class="column">
-				<i class="material-icons">account_balance</i>
-				<i class="material-icons">attach_money</i>
-				<i class="material-icons">add_circle</i>
-				<i class="material-icons">remove_circle_outline</i>
+				<div class="column1">
+					<i class="material-icons">account_balance</i>
+				</div>
 			</div>
 			<div class="column">
-				<div class="main-description">Account:</div>
-				<div class="main-description">Current balance:</div>
-				<div class="main-description">Deposit amount:</div>
-				<div class="main-description">Withdraw amount:</div>
+				<div class="column2">
+					<div class="main-description">Account:</div>
+				</div>
 			</div>
 			<div class="column">
-				<div class="main-description">Hot Tub</div>
+				<div class="column3">
+					<div class="main-description" style="  background-color: rgb(233, 232, 232);
+					">xxx</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column4">
+					<!-- This cell is empty -->
+				</div>
 			</div>
 		</div>
-	
-		<div>
-			<p>Account: </p><div id="account"></div>
-			<p>Current balance: </p><div id="balance"></div>
-			<p>Deposit amount: </p><input id="deposit"><button id="buttonDeposit">DEPOSIT</button>
-			<p>Withdraw amount: </p><input id="withdraw"><button id="buttonWithdraw">WITHDRAW</button>
+
+		<!-- ROW 2 -->
+		<div class="row">
+			<div class="column">
+				<div class="column1">
+					<i class="material-icons">attach_money</i>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column2">
+					<div class="main-description">Current balance:</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column3">
+					<div class="main-description" style="  background-color: rgb(233, 232, 232);
+					">500</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column4">
+					<!-- This cell is empty -->
+				</div>
+			</div>
 		</div>
-		
+
+		<!-- ROW 3 -->
+		<div class="row">
+			<div class="column">
+				<div class="column1">
+					<i class="material-icons">add_circle</i>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column2">
+					<div class="main-description">Deposit amount:</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column3">
+					<input id="deposit" size="11">
+				</div>
+			</div>
+			<div class="column">
+				<div class="column4">
+					<button id="buttonDeposit">DEPOSIT</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- ROW 4 -->
+		<div class="row">
+			<div class="column">
+				<div class="column1">
+					<i class="material-icons">remove_circle_outline</i>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column2">
+					<div class="main-description">Withdraw amount:</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column3">
+					<input id="deposit" size="11">
+				</div>
+			</div>
+			<div class="column">
+				<div class="column4">
+					<button id="buttonWithdraw">WITHDRAW</button>
+				</div>
+			</div>
+		</div>
+		</div>
+
 	</div>
 
 	<script type="module" src="./scripts/index.js"></script>
