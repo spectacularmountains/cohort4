@@ -11,6 +11,11 @@ class Account {
 
 	balance () {
 		return currentBalance;
+	};
+
+	deposit (depositedAmount) {
+		currentBalance += depositedAmount;
+		return currentBalance;
 	}
 }
 
