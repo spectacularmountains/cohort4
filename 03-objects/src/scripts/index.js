@@ -3,6 +3,8 @@ import {Account, functions} from './account.js'
 const cheqAcc = new Account("Chequings Account", 25);
 
 idBalance.textContent = (cheqAcc.balance()).toFixed(2);
+idTotalBalance.textContent = (cheqAcc.balance()).toFixed(2);
+
 idAccount.textContent = cheqAcc.accName;
 
 

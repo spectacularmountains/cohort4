@@ -14,15 +14,15 @@ body {
 }
 
 .left {
-  width: 47%;
+  width: 48%;
   height: auto;
   float: left;
 }
 
 .right {
-  margin-left: 47%;
+	float: left;
+	width: 40%;
   height: 400px;
-  background: grey
 }
 
 /* LEFT PANEL: CARDS WITH ACCOUNTS */
@@ -105,6 +105,94 @@ body {
 }
 
 .message {
+	color: rgb(2, 76, 99);
+	font-family: Oxanium;
+	font-weight: bold;
+  font-size: 1.2em;
+	text-align: left;
+	margin-top: 20px;
+}
+
+
+/* RIGHT PANEL: ACCOUNT CONTROLLER */
+
+.cardR {
+  width: 620px;                 /* Set width of cards */
+  display: flex;                /* Children use Flexbox */
+	flex-direction: column; 
+  border: 2px solid rgb(154, 184, 239);    /* Set up Border */
+  border-radius: 4px;           /* Slightly Curve edges */
+  overflow: hidden;             /* Fixes the corners */
+  margin: 5px;                  /* Add space between cards */
+}
+
+.card-headerR {
+  color: rgb(0, 179, 211);
+  text-align: center;
+  font-size: 1.6em;
+  font-weight: 600;
+  border-bottom: 2px solid rgb(154, 191, 239);
+  background-color: rgb(235, 245, 255);
+  padding: 5px 10px;
+}
+
+.card-mainR {
+  margin: 15px;
+}
+
+
+.rowR {
+	display: flex;
+	flex-direction: row;
+	width: 100%; 
+}
+
+.columnR {
+	display: flex;
+  flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
+}
+
+.column1R {
+	background-color: white;
+	text-align: left;
+}
+
+.column2R {
+  background-color: white;
+}
+
+.column3R {
+	background-color: white;
+	text-align: right;
+}
+
+.column4R {
+	background-color: white;
+	text-align: left;
+	margin-left: 10px; 
+}
+
+.double-columnR {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 2
+}
+
+.material-iconsR {
+  color: #D32F2F;
+	margin-bottom: 5px;
+}
+
+.main-descriptionR {
+  color: #D32F2F;
+  font-size: 1em;
+  text-align: left;
+}
+
+.messageR {
 	color: rgb(2, 76, 99);
 	font-family: Oxanium;
 	font-weight: bold;
