@@ -1,6 +1,8 @@
 // CREATE CLASS "ACCOUNT"
 
 let currentBalance; 
+const enterPrompt = "Please enter an amount";
+// const depositedInfo = `You have deposited $${depositedAmount}.`
 
 class Account {
 	constructor (accName, initialBalance) {
@@ -14,14 +16,28 @@ class Account {
 	};
 
 	deposit (depositedAmount) {
-		currentBalance += depositedAmount;
-		return currentBalance;
+		if (isNaN(depositedAmount) || depositedAmount <= 0) {
+			idMessage.textContent = enterPrompt; 
+			idDeposit.value = []; 
+			return currentBalance;
+		} else {
+			currentBalance += depositedAmount;
+			idMessage.textContent = `You have deposited $${depositedAmount}.`;
+			return currentBalance;
+		}
 	}; 
 
 	withdraw (withdrawnAmount) {
-		currentBalance -= withdrawnAmount;
-		return currentBalance;
-	}
+		if (isNaN(withdrawnAmount) || withdrawnAmount <= 0) {
+			idMessage.textContent = enterPrompt; 
+			idDeposit.value = []; 
+			return currentBalance;
+		} else {
+			currentBalance -= withdrawnAmount;
+			idMessage.textContent = `You have withdrawn $${withdrawnAmount}.`;
+			return currentBalance;
+		}
+	};
 }
 
 

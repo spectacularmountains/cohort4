@@ -9,6 +9,14 @@ idAccount.textContent = cheqAcc.accName;
 // EVENT LISTENER FOR DEPOSIT BUTTON 
 
 buttonDeposit.addEventListener("click", (() => {
-	
-	idBalance.textContent = cheqAcc.deposit(idDeposit.value);
+	idBalance.textContent = (cheqAcc.deposit(Number(idDeposit.value))).toFixed(2);
+	idDeposit.value = [];
+}));
+
+
+// EVENT LISTENER FOR WITHDRAW BUTTON 
+
+buttonWithdraw.addEventListener("click", (() => {
+	idBalance.textContent = (cheqAcc.withdraw(Number(idWithdraw.value))).toFixed(2);
+	idWithdraw.value = [];
 }));
