@@ -38,6 +38,10 @@ class Account {
 			return currentBalance;
 		}
 	};
+
+	openController () {
+		
+	}
 }
 
 
@@ -46,4 +50,30 @@ class Account {
 const cheqAcc = new Account("Chequings Account", 25);
 
 
-export default Account;
+// TOGGLE FUNCTIONS TO SHOW/HIDE RIGHT PANEL (ACC MANAGER)
+
+const functions = {
+	show: (elem) => {
+		elem.style.display = 'block';
+	},
+	
+	hide: (elem) => {
+		elem.style.display = 'none';
+	},
+	
+	toggle: (elem) => {
+	
+		// If the element is visible, hide it
+		if (window.getComputedStyle(elem).display === 'block') {
+			functions.hide(elem);
+			return;
+		}
+	
+		// Otherwise, show it
+		functions.show(elem);
+	
+	},
+	
+}
+
+export {Account, functions}

@@ -3,6 +3,30 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+/* STYLING OF TWO PANELS */
+
+.container {
+  width: 100%;
+	height: auto;  
+	/* background: rgb(255, 147, 147); */
+  margin: auto;
+  padding: 3px;
+}
+
+.left {
+  width: 47%;
+  height: auto;
+  float: left;
+}
+
+.right {
+  margin-left: 47%;
+  height: 400px;
+  background: grey
+}
+
+/* LEFT PANEL: CARDS WITH ACCOUNTS */
+
 .card {
   width: 620px;                 /* Set width of cards */
   display: flex;                /* Children use Flexbox */

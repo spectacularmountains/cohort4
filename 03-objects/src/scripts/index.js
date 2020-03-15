@@ -1,4 +1,4 @@
-import Account from './account.js'
+import {Account, functions} from './account.js'
 
 const cheqAcc = new Account("Chequings Account", 25);
 
@@ -20,3 +20,32 @@ buttonWithdraw.addEventListener("click", (() => {
 	idBalance.textContent = (cheqAcc.withdraw(Number(idWithdraw.value))).toFixed(2);
 	idWithdraw.value = [];
 }));
+
+
+// EVENT LISTENER FOR ACCOUNTS BUTTON 
+
+buttonAccounts.addEventListener("click", (() => {
+	let content = document.querySelector(".right");
+	if (!content) return;
+
+	// Toggle the content
+	functions.toggle(content);
+}));
+
+
+document.addEventListener('click', function (event) {
+
+	// Make sure clicked element is our toggle
+	if (!event.target.classList.contains('toggle')) return;
+
+	// Prevent default link behavior
+	event.preventDefault();
+
+	// Get the content
+	var content = document.querySelector(event.target.hash);
+	if (!content) return;
+
+	// Toggle the content
+	toggle(content);
+
+}, false);
