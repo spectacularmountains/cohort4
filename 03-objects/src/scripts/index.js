@@ -47,6 +47,4 @@ buttonCreateAccount.addEventListener("click", (() => {
 	const rows = document.querySelector(".card-mainR");
 	const newRow = accController.createNewAccount();
 	rows.insertBefore(newRow, rows.childNodes[a+6]);
-	idBalance.textContent = (cheqAcc.withdraw(Number(idWithdraw.value))).toFixed(2);
-	idWithdraw.value = [];
 }));
