@@ -2,7 +2,6 @@
 
 let currentBalance; 
 const enterPrompt = "Please enter an amount";
-// const depositedInfo = `You have deposited $${depositedAmount}.`
 
 class Account {
 	constructor (accName, initialBalance) {
@@ -39,15 +38,94 @@ class Account {
 		}
 	};
 
-	openController () {
-		
-	}
 }
 
 
 // INSTATIATE CHEQUING ACCOUNT (a new object of class "Account")
 
 const cheqAcc = new Account("Chequings Account", 25);
+
+
+
+// CREATE CLASS "ACCOUNT CONTROLLER"
+
+let a;
+
+class AccountController {
+	constructor (accounts, numberOfAccounts, totalBalance, highestBalance, lowestBalance) {
+		this.accounts = accounts; 
+		this.numberOfAccounts = numberOfAccounts; 
+		this.totalBalance = totalBalance; 
+		this.highestBalance = highestBalance; 
+		this.lowestBalance = lowestBalance; 
+	};
+
+	createNewAccount () {
+		a++; 
+		let accounts = this.accounts; 
+		accounts = accounts.push("New Account");
+
+		const newRenameButton = document.createElement("button");
+		const newRenameButtonText = document.createTextNode("RENAME");
+		newRenameButton.appendChild(newRenameButtonText);
+		newRenameButton.classList.add("buttonRename");
+
+		const newDeleteButton = document.createElement("button");
+		const newDeleteButtonText = document.createTextNode("DELETE");
+		newDeleteButton.appendChild(newDeleteButtonText);
+		newRenameButton.classList.add("buttonDelete");
+
+
+		const newDiv1a = document.createElement("div");
+		const newAccountText = document.createTextNode("New Account");
+		newDiv1a.appendChild(newAccountText);
+		newDiv1a.classList.add("column1R");
+		newDiv1a.classList.add("accountType");
+		const newDiv1b = document.createElement("div");
+		newDiv1b.classList.add("columnR");
+		newDiv1b.appendChild(newDiv1a);
+
+		const newDiv2a = document.createElement("div");
+		const newAccountBalance = document.createTextNode("0");
+		newDiv2a.appendChild(newAccountBalance);
+		newDiv2a.classList.add("column2R");
+		newDiv2a.classList.add("total");
+		const newDiv2b = document.createElement("div");
+		newDiv2b.classList.add("columnR");
+		newDiv2b.appendChild(newDiv2a);
+
+		const newDiv3a = document.createElement("div");
+		newDiv3a.appendChild(newRenameButton);
+		newDiv3a.classList.add("column3R");
+		const newDiv3b = document.createElement("div");
+		newDiv3b.classList.add("columnR");
+		newDiv3b.appendChild(newDiv3a);
+
+		const newDiv4a = document.createElement("div");
+		newDiv4a.appendChild(newDeleteButton);
+		newDiv4a.classList.add("column4R");
+		const newDiv4b = document.createElement("div");
+		newDiv4b.classList.add("columnR");
+		newDiv4b.appendChild(newDiv4a);
+
+
+		const newDivRow = document.createElement("div")
+		newDivRow.classList.add("rowR");
+		newDivRow.appendChild(newDiv1b)
+		newDivRow.appendChild(newDiv2b)
+		newDivRow.appendChild(newDiv3b)
+		newDivRow.appendChild(newDiv4b)
+
+		return newDivRow
+	};
+
+
+}
+
+
+// INSTATIATE Main Account Controller (a new object of class "Account Controller")
+
+const accController = new AccountController(["Chequings Account"], 1, 25, 25, 25);
 
 
 // TOGGLE FUNCTIONS TO SHOW/HIDE RIGHT PANEL (ACC MANAGER)
@@ -76,4 +154,4 @@ const functions = {
 	
 }
 
-export {Account, functions}
+export {Account, AccountController, functions}

@@ -1,11 +1,17 @@
-import {Account, functions} from './account.js'
+import {Account, AccountController, functions} from './account.js'
 
+// Instantiate new Chequings Account
 const cheqAcc = new Account("Chequings Account", 25);
 
 idBalance.textContent = (cheqAcc.balance()).toFixed(2);
 idTotalBalance.textContent = (cheqAcc.balance()).toFixed(2);
 
 idAccount.textContent = cheqAcc.accName;
+
+// Instantiate new Account Controller
+let a; // Number of accounts 
+const accController = new AccountController(["Chequings Account"], 1, 25, 25, 25);
+
 
 
 // EVENT LISTENER FOR DEPOSIT BUTTON 
@@ -35,19 +41,12 @@ buttonAccounts.addEventListener("click", (() => {
 }));
 
 
-document.addEventListener('click', function (event) {
+// EVENT LISTENER FOR CREATE ACCOUNT BUTTON 
 
-	// Make sure clicked element is our toggle
-	if (!event.target.classList.contains('toggle')) return;
-
-	// Prevent default link behavior
-	event.preventDefault();
-
-	// Get the content
-	var content = document.querySelector(event.target.hash);
-	if (!content) return;
-
-	// Toggle the content
-	toggle(content);
-
-}, false);
+buttonCreateAccount.addEventListener("click", (() => {
+	const rows = document.querySelector(".card-mainR");
+	const newRow = accController.createNewAccount();
+	rows.insertBefore(newRow, rows.childNodes[a+6]);
+	idBalance.textContent = (cheqAcc.withdraw(Number(idWithdraw.value))).toFixed(2);
+	idWithdraw.value = [];
+}));
