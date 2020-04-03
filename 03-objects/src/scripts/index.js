@@ -43,8 +43,37 @@ buttonAccounts.addEventListener("click", (() => {
 
 // EVENT LISTENER FOR CREATE ACCOUNT BUTTON 
 
-buttonCreateAccount.addEventListener("click", (() => {
-	const rows = document.querySelector(".card-mainR");
-	const newRow = accController.createNewAccount();
-	rows.insertBefore(newRow, rows.childNodes[a+6]);
+buttonCreate.addEventListener("click", (() => {
+	
+	const newAccount = document.getElementById("idCreate").value;
+
+	const newAcc = new Account(newAccount, 0);
+	
+	accController.createNew(newAccount);
+	createNewAccountCard(newAccount); 
+
 }));
+
+
+// PRESENTATION FUNCTIONS 
+
+function createNewAccountCard(newAccount) {
+	const left = document.querySelector(".left");
+
+	const newCard = document.createElement("div");
+	const item1 = document.createElement("div");
+	const item1Text = document.createTextNode(newAccount);
+	item1.appendChild(item1Text);
+
+	const item2 = document.createElement("div");
+	const item2Text = document.createTextNode("Balance: " + newAcc.balance);
+	item2.appendChild(item2Text);
+
+	newCard.appendChild(item1);
+	newCard.appendChild(item2);
+
+	left.insertBefore(newCard, left.childNodes[a+1]);
+	
+	return;
+
+}
