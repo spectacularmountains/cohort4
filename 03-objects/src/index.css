@@ -54,6 +54,18 @@ body {
 
 /* STYLING OF ACCOUNT CARDS */
 
+.accounts{
+  width: 620px;                 /* Set width of cards */
+  display: flex;                /* Children use Flexbox */
+  flex-direction: column; 
+  background-color: #D32F2F;
+  color: white;
+  border: 2px solid rgb(53, 30, 30);    /* Set up Border */
+  border-radius: 4px;           /* Slightly Curve edges */
+  overflow: hidden;             /* Fixes the corners */
+  margin: 5px;                  /* Add space between cards */
+  }
+
 .row {
 	display: flex;
 	flex-direction: row;

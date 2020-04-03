@@ -52,16 +52,18 @@ const cheqAcc = new Account("Chequings Account", 25);
 let a;
 
 class AccountController {
-	constructor (accounts, numberOfAccounts, totalBalance, highestBalance, lowestBalance) {
+	constructor (accounts, genericAccNames, numberOfAccounts, totalBalance, highestBalance, lowestBalance) {
 		this.accounts = accounts; 
+		this.genericAccNames = genericAccNames; 
 		this.numberOfAccounts = numberOfAccounts; 
 		this.totalBalance = totalBalance; 
 		this.highestBalance = highestBalance; 
 		this.lowestBalance = lowestBalance; 
 	};
 
-	createNew (newAccount) {
+	createNew (newAccount, newGenericAccName) {
 		this.accounts.push(newAccount);
+		this.genericAccNames.push(newGenericAccName);
 		this.numberOfAccounts++; 
 		return;
 	}
