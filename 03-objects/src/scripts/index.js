@@ -18,10 +18,17 @@ let newGenericAccName;
 let currentBalance; 
 const accController = new AccountController(["Chequing"], ["account1"], 1, 25, 25, 25);
 
+const enterPrompt = "Please enter an amount";
+
 
 // EVENT LISTENER FOR DEPOSIT BUTTON 
 
 buttonDeposit.addEventListener("click", (() => {
+	if (isNaN(idDeposit.value) || idDeposit.value <= 0) {
+		idMessage.textContent = enterPrompt; 
+		idDeposit.value = []; 
+		return;
+	};
 	for (let i=0; i<accController.accounts.length; i++) {
 		if (accController.accounts[i] === currentAccount) {
 			if (i === 0) {
@@ -32,16 +39,33 @@ buttonDeposit.addEventListener("click", (() => {
 				idBalance.textContent = (account3.deposit(Number(idDeposit.value))).toFixed(2);
 			}
 		}
+		idMessage.textContent = `You have deposited $${idDeposit.value}.`;
+		idDeposit.value = []; 
 	}
-
 }));
 
 
 // EVENT LISTENER FOR WITHDRAW BUTTON 
 
 buttonWithdraw.addEventListener("click", (() => {
-	idBalance.textContent = (account1.withdraw(Number(idWithdraw.value))).toFixed(2);
-	idWithdraw.value = [];
+	if (isNaN(idWithdraw.value) || idWithdraw.value <= 0) {
+		idMessage.textContent = enterPrompt; 
+		idWithdraw.value = []; 
+		return;
+	};
+	for (let i=0; i<accController.accounts.length; i++) {
+		if (accController.accounts[i] === currentAccount) {
+			if (i === 0) {
+				idBalance.textContent = (account1.withdraw(Number(idWithdraw.value))).toFixed(2);
+			} else if (i === 1) {
+				idBalance.textContent = (account2.withdraw(Number(idWithdraw.value))).toFixed(2);
+			} else {
+				idBalance.textContent = (account3.withdraw(Number(idWithdraw.value))).toFixed(2);
+			}
+		}
+		idMessage.textContent = `You have withdrawn $${idWithdraw.value}.`;
+		idWithdraw.value = []; 
+	}
 }));
 
 
