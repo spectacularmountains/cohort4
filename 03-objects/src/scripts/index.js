@@ -15,7 +15,6 @@ idAccount.textContent = account1.accName;
 let a = 1; // STATE: Number of accounts 
 let currentAccount; // STATE: Currently active account 
 let newGenericAccName; 
-let currentGenericAccount; 
 let currentBalance; 
 const accController = new AccountController(["Chequing"], ["account1"], 1, 25, 25, 25);
 
@@ -79,7 +78,6 @@ buttonCreate.addEventListener("click", (() => {
 		} 
 	} else {idMessage.textContent = "You can have up to 3 accounts!"}
 	
-
 }));  
 
 
@@ -95,14 +93,14 @@ document.addEventListener("click", ((e) => {
 		for (let i=0; i<accController.accounts.length; i++) {
 			if (accController.accounts[i] === currentAccount) {
 				if (i === 0) {
-					currentBalance = account1.currentBalance;
+					currentBalance = (account1.currentBalance).toFixed(2);
 				} else if (i === 1) {
-					currentBalance = account2.currentBalance;
+					currentBalance = (account2.currentBalance).toFixed(2);
 				} else {
-					currentBalance = account3.currentBalance;
+					currentBalance = (account3.currentBalance).toFixed(2);
 			}
 		}
-		idBalance.textContent = (currentBalance.toFixed(2));
+		idBalance.textContent = currentBalance;
 	}
 
 	return;
