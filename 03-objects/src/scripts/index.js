@@ -1,25 +1,29 @@
 import {Account, AccountController, functions} from './account.js'
 
-// Instantiate new Chequings Account
-const cheqAcc = new Account("Chequings Account", 25);
+// Instantiate new accounts 
+const account1 = new Account("Chequing", 25);
+const account2 = new Account("Account2", 0); 
+const account3 = new Account("Account3", 0);
 
-idBalance.textContent = (cheqAcc.balance()).toFixed(2);
-idTotalBalance.textContent = (cheqAcc.balance()).toFixed(2);
+idBalance.textContent = (account1.currentBalance.toFixed(2));
+idTotalBalance.textContent = (account1.currentBalance.toFixed(2));
 
-idAccount.textContent = cheqAcc.accName;
+idAccount.textContent = account1.accName;
+
 
 // Instantiate new Account Controller
 let a = 1; // STATE: Number of accounts 
 let currentAccount; // STATE: Currently active account 
 let newGenericAccName; 
-const accController = new AccountController(["Chequing"], ["Account1"], 1, 25, 25, 25);
-
+let currentGenericAccount; 
+let currentBalance; 
+const accController = new AccountController(["Chequing"], ["account1"], 1, 25, 25, 25);
 
 
 // EVENT LISTENER FOR DEPOSIT BUTTON 
 
 buttonDeposit.addEventListener("click", (() => {
-	idBalance.textContent = (cheqAcc.deposit(Number(idDeposit.value))).toFixed(2);
+	idBalance.textContent = (account1.deposit(Number(idDeposit.value))).toFixed(2);
 	idDeposit.value = [];
 }));
 
@@ -27,7 +31,7 @@ buttonDeposit.addEventListener("click", (() => {
 // EVENT LISTENER FOR WITHDRAW BUTTON 
 
 buttonWithdraw.addEventListener("click", (() => {
-	idBalance.textContent = (cheqAcc.withdraw(Number(idWithdraw.value))).toFixed(2);
+	idBalance.textContent = (account1.withdraw(Number(idWithdraw.value))).toFixed(2);
 	idWithdraw.value = [];
 }));
 
@@ -46,22 +50,22 @@ buttonAccounts.addEventListener("click", (() => {
 // EVENT LISTENER FOR CREATE ACCOUNT BUTTON 
 
 buttonCreate.addEventListener("click", (() => {
-	
-	const newAccount = document.getElementById("idCreate").value;
+
+	let newAccount = document.getElementById("idCreate").value;
 	
 	if (accController.accounts.length < 3) { // Check if max. number of allowed accounts has been reached
 		if (isNaN(newAccount) && newAccount !== "") { // Check if input is a number or empty (not allowed)
 			if (accController.accounts.includes(newAccount) === false) { // Check if account name already exists
 
 				if (accController.genericAccNames.length === 1) {
-					newGenericAccName = "Account2";
-					const account2 = new Account(newAccount, 0);
-				} else if (accController.genericAccNames.length === 2 && (accController.genericAccNames[1] === "Account2")) {
-					newGenericAccName = "Account3";
-					const account3 = new Account(newAccount, 0);
-				} else if (accController.genericAccNames.length === 2 && (accController.genericAccNames[2] === "Account3")) {
-					newGenericAccName = "Account2";
-					const account2 = new Account(newAccount, 0);
+					newGenericAccName = "account2";
+					account2.accName = newAccount; 
+				} else if (accController.genericAccNames.length === 2 && (accController.genericAccNames[1] === "account2")) {
+					newGenericAccName = "account3";
+					account3.accName = newAccount; 
+				} else if (accController.genericAccNames.length === 2 && (accController.genericAccNames[2] === "account3")) {
+					newGenericAccName = "account2";
+					account2.accName = newAccount; 
 				};
 			
 				accController.createNew(newAccount, newGenericAccName);
@@ -69,6 +73,8 @@ buttonCreate.addEventListener("click", (() => {
 				currentAccount = newAccount; // Change state 
 				
 				createNewAccountCard(newAccount); 
+
+				newAccount = ""; newGenericAccName = "";
 			} else {idMessage.textContent = "Account name already exists!"}
 		} 
 	} else {idMessage.textContent = "You can have up to 3 accounts!"}
@@ -85,13 +91,24 @@ document.addEventListener("click", ((e) => {
 
 		currentAccount = e.target.textContent // Update STATE: Current account
 		idAccount.textContent = currentAccount;
-		idBalance.textContent = currentAccount.currentBalance;
+		
+		for (let i=0; i<accController.accounts.length; i++) {
+			if (accController.accounts[i] === currentAccount) {
+				if (i === 0) {
+					currentBalance = account1.currentBalance;
+				} else if (i === 1) {
+					currentBalance = account2.currentBalance;
+				} else {
+					currentBalance = account3.currentBalance;
+			}
+		}
+		idBalance.textContent = (currentBalance.toFixed(2));
 	}
 
 	return;
 
-	})
-);
+	}
+}));
 
 
 
@@ -106,7 +123,7 @@ function createNewAccountCard(newAccount) {
 	newCard.appendChild(accountName);
 	newCard.className = "accounts";
 
-	accountsDiv.insertBefore(newCard, accountsDiv.childNodes[a+1]);
+	accountsDiv.insertBefore(newCard, accountsDiv.childNodes[accController.numberOfAccounts]);
 	
 	return;
 

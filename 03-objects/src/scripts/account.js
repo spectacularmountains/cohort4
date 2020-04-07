@@ -4,14 +4,9 @@ let currentBalance;
 const enterPrompt = "Please enter an amount";
 
 class Account {
-	constructor (accName, initialBalance) {
+	constructor (accName, currentBalance) {
 		this.accName = accName;
-		this.initialBalance = initialBalance; 
-		currentBalance = initialBalance;
-	};
-
-	balance () {
-		return currentBalance;
+		this.currentBalance = currentBalance; 
 	};
 
 	deposit (depositedAmount) {
@@ -39,12 +34,6 @@ class Account {
 	};
 
 }
-
-
-// INSTATIATE CHEQUING ACCOUNT (a new object of class "Account")
-
-const cheqAcc = new Account("Chequings Account", 25);
-
 
 
 // CREATE CLASS "ACCOUNT CONTROLLER"
@@ -131,9 +120,6 @@ class AccountController {
 }
 
 
-// INSTATIATE Main Account Controller (a new object of class "Account Controller")
-
-const accController = new AccountController(["Chequings Account"], 1, 25, 25, 25);
 
 
 // TOGGLE FUNCTIONS TO SHOW/HIDE RIGHT PANEL (ACC MANAGER)
