@@ -13,11 +13,11 @@ class Account {
 		if (isNaN(depositedAmount) || depositedAmount <= 0) {
 			idMessage.textContent = enterPrompt; 
 			idDeposit.value = []; 
-			return currentBalance;
+			return;
 		} else {
-			currentBalance += depositedAmount;
+			this.currentBalance += depositedAmount;
 			idMessage.textContent = `You have deposited $${depositedAmount}.`;
-			return currentBalance;
+			return this.currentBalance;
 		}
 	}; 
 

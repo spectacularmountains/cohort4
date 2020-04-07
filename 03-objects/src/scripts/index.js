@@ -13,7 +13,7 @@ idAccount.textContent = account1.accName;
 
 // Instantiate new Account Controller
 let a = 1; // STATE: Number of accounts 
-let currentAccount; // STATE: Currently active account 
+let currentAccount = "Chequing"; // STATE: Currently active account 
 let newGenericAccName; 
 let currentBalance; 
 const accController = new AccountController(["Chequing"], ["account1"], 1, 25, 25, 25);
@@ -22,8 +22,18 @@ const accController = new AccountController(["Chequing"], ["account1"], 1, 25, 2
 // EVENT LISTENER FOR DEPOSIT BUTTON 
 
 buttonDeposit.addEventListener("click", (() => {
-	idBalance.textContent = (account1.deposit(Number(idDeposit.value))).toFixed(2);
-	idDeposit.value = [];
+	for (let i=0; i<accController.accounts.length; i++) {
+		if (accController.accounts[i] === currentAccount) {
+			if (i === 0) {
+				idBalance.textContent = (account1.deposit(Number(idDeposit.value))).toFixed(2);
+			} else if (i === 1) {
+				idBalance.textContent = (account2.deposit(Number(idDeposit.value))).toFixed(2);
+			} else {
+				idBalance.textContent = (account3.deposit(Number(idDeposit.value))).toFixed(2);
+			}
+		}
+	}
+
 }));
 
 
@@ -69,8 +79,6 @@ buttonCreate.addEventListener("click", (() => {
 			
 				accController.createNew(newAccount, newGenericAccName);
 			
-				currentAccount = newAccount; // Change state 
-				
 				createNewAccountCard(newAccount); 
 
 				newAccount = ""; newGenericAccName = "";
