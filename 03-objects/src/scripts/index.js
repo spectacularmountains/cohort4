@@ -69,6 +69,13 @@ buttonWithdraw.addEventListener("click", (() => {
 }));
 
 
+// EVENT LISTENER FOR DELETE ACCOUNT BUTTON 
+
+buttonDelete.addEventListener("click", (() => {
+	
+	deleteAccountCard(currentAccount);
+}));
+
 // EVENT LISTENER FOR ACCOUNTS BUTTON 
 
 buttonAccounts.addEventListener("click", (() => {
@@ -95,7 +102,7 @@ buttonCreate.addEventListener("click", (() => {
 					account2.accName = newAccount; 
 				} else if (accController.genericAccNames.length === 2 && (accController.genericAccNames[1] === "account2")) {
 					newGenericAccName = "account3";
-					account3.accName = newAccount; 
+					account3.accName = newAccount; 					
 				} else if (accController.genericAccNames.length === 2 && (accController.genericAccNames[2] === "account3")) {
 					newGenericAccName = "account2";
 					account2.accName = newAccount; 
@@ -106,6 +113,7 @@ buttonCreate.addEventListener("click", (() => {
 				createNewAccountCard(newAccount); 
 
 				newAccount = ""; newGenericAccName = "";
+				
 			} else {idMessage.textContent = "Account name already exists!"}
 		} 
 	} else {idMessage.textContent = "You can have up to 3 accounts!"}
@@ -113,7 +121,7 @@ buttonCreate.addEventListener("click", (() => {
 }));  
 
 
-// EVENT LISTENER FOR ACCOUNTS 
+// EVENT LISTENER FOR ACCOUNTS (To select which account is currently active)
 
 document.addEventListener("click", ((e) => {
 
@@ -157,4 +165,21 @@ function createNewAccountCard(newAccount) {
 	
 	return;
 
+}
+
+
+function deleteAccountCard(currentAccount) {
+	const accountsDiv = document.querySelector(".accountsPanel");
+
+	let listOfAccounts = document.querySelectorAll(".accounts"); 
+	
+	for (let i=0; i<listOfAccounts.length; i++) {
+		if (listOfAccounts[i].textContent === currentAccount) {
+			console.log(listOfAccounts[i].textContent)
+			accountsDiv.removeChild(listOfAccounts[i]);
+			
+		}
+	}
+
+	return;
 }
