@@ -41,6 +41,13 @@ class AccountController {
 		this.numberOfAccounts++; 
 		return;
 	}
+	
+	delete (deleteAccount, newGenericAccName) {
+		this.accounts.push(newAccount);
+		this.genericAccNames.push(newGenericAccName);
+		this.numberOfAccounts--; 
+		return;
+	}
 
 	// createNewAccount () {
 	// 	a++; 

@@ -15,7 +15,7 @@ idAccount.textContent = account1.accName;
 let a = 1; // STATE: Number of accounts 
 let currentAccount = "Chequing"; // STATE: Currently active account 
 let newGenericAccName; 
-let currentBalance; 
+let currentBalance = 25; 
 const accController = new AccountController(["Chequing"], ["account1"], 1, 25, 25, 25);
 
 const enterPrompt = "Please enter an amount";
@@ -29,19 +29,20 @@ buttonDeposit.addEventListener("click", (() => {
 		idDeposit.value = []; 
 		return;
 	};
-	for (let i=0; i<accController.accounts.length; i++) {
-		if (accController.accounts[i] === currentAccount) {
-			if (i === 0) {
+
+	for (let j=0; j<accController.accounts.length; j++) {
+		if (accController.accounts[j] === currentAccount) {
+			if (j === 0) {
 				idBalance.textContent = (account1.deposit(Number(idDeposit.value))).toFixed(2);
-			} else if (i === 1) {
+			} else if (j === 1) {
 				idBalance.textContent = (account2.deposit(Number(idDeposit.value))).toFixed(2);
 			} else {
 				idBalance.textContent = (account3.deposit(Number(idDeposit.value))).toFixed(2);
 			}
 		}
-		idMessage.textContent = `You have deposited $${idDeposit.value}.`;
-		idDeposit.value = []; 
 	}
+	idMessage.textContent = `You have deposited $${idDeposit.value}.`;
+	idDeposit.value = []; 
 }));
 
 
@@ -72,7 +73,24 @@ buttonWithdraw.addEventListener("click", (() => {
 // EVENT LISTENER FOR DELETE ACCOUNT BUTTON 
 
 buttonDelete.addEventListener("click", (() => {
+
+	if (currentAccount === "Chequing") {
+		idMessage.textContent = `Chequing account cannot be deleted!`;
+		return; 
+	};
 	
+	if (currentBalance !== 0) {
+		idMessage.textContent = `Cannot delete account due to remaining balance ($${currentBalance}).`;
+		return; 
+	};
+
+	const index = accController.accounts.indexOf(currentAccount);
+		if (index > -1) {
+		accController.accounts.splice(index, 1);
+		accController.genericAccNames.splice(index, 1);
+		accController.numberOfAccounts--;
+		}
+
 	deleteAccountCard(currentAccount);
 }));
 
@@ -133,14 +151,14 @@ document.addEventListener("click", ((e) => {
 		for (let i=0; i<accController.accounts.length; i++) {
 			if (accController.accounts[i] === currentAccount) {
 				if (i === 0) {
-					currentBalance = (account1.currentBalance).toFixed(2);
+					currentBalance = account1.currentBalance;
 				} else if (i === 1) {
-					currentBalance = (account2.currentBalance).toFixed(2);
+					currentBalance = account2.currentBalance;
 				} else {
-					currentBalance = (account3.currentBalance).toFixed(2);
+					currentBalance = account3.currentBalance;
 			}
 		}
-		idBalance.textContent = currentBalance;
+		idBalance.textContent = currentBalance.toFixed(2);
 	}
 
 	return;
@@ -175,9 +193,7 @@ function deleteAccountCard(currentAccount) {
 	
 	for (let i=0; i<listOfAccounts.length; i++) {
 		if (listOfAccounts[i].textContent === currentAccount) {
-			console.log(listOfAccounts[i].textContent)
 			accountsDiv.removeChild(listOfAccounts[i]);
-			
 		}
 	}
 
