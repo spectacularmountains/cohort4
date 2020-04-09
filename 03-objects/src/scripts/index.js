@@ -41,21 +41,17 @@ buttonDeposit.addEventListener("click", (() => {
 	for (let i=0; i<accController.accounts.length; i++) {
 		if (accController.accounts[i] === currentAccount) {
 			if (i === 0) {
-				console.log(account1.accName)
-				let wobble = "account" + (i+1);
-				console.log(wobble)
-				console.log([wobble].value);
-				currentBalance = this[wobble].deposit(Number(idDeposit.value));
+				currentBalance = account1.deposit(Number(idDeposit.value));
 			} else if (i === 1) {
 				currentBalance = account2.deposit(Number(idDeposit.value));
 			} else {
 				currentBalance = account3.deposit(Number(idDeposit.value));
 			}
 		idBalance.textContent = currentBalance.toFixed(2);
+		idMessage.textContent = `You have deposited $${idDeposit.value} into your ${currentAccount} account.`;
+		idDeposit.value = []; 
 		}
-	}
-	idMessage.textContent = `You have deposited $${idDeposit.value} into your ${currentAccount} account.`;
-	idDeposit.value = []; 
+	}	
 }));
 
 
@@ -67,18 +63,20 @@ buttonWithdraw.addEventListener("click", (() => {
 		idWithdraw.value = []; 
 		return;
 	};
+
 	for (let i=0; i<accController.accounts.length; i++) {
 		if (accController.accounts[i] === currentAccount) {
 			if (i === 0) {
-				idBalance.textContent = (account1.withdraw(Number(idWithdraw.value))).toFixed(2);
+				currentBalance = account1.withdraw(Number(idWithdraw.value));
 			} else if (i === 1) {
-				idBalance.textContent = (account2.withdraw(Number(idWithdraw.value))).toFixed(2);
+				currentBalance = account2.withdraw(Number(idWithdraw.value));
 			} else {
-				idBalance.textContent = (account3.withdraw(Number(idWithdraw.value))).toFixed(2);
+				currentBalance = account3.withdraw(Number(idWithdraw.value));
 			}
-		}
-		idMessage.textContent = `You have withdrawn $${idWithdraw.value}.`;
+		idBalance.textContent = currentBalance.toFixed(2);
+		idMessage.textContent = `You have withdrawn $${idWithdraw.value} from your ${currentAccount} account.`;
 		idWithdraw.value = []; 
+		}
 	}
 }));
 
