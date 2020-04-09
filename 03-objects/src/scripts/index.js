@@ -18,6 +18,9 @@ let account3 = new Account("Account3", 0);
 idBalance.textContent = account1.currentBalance.toFixed(2);
 idTotalBalance.textContent = account1.currentBalance.toFixed(2);
 
+showExtremes(); // Display highest and lowest account balances 
+
+
 idAccount.textContent = account1.accName;
 
 
@@ -52,6 +55,8 @@ buttonDeposit.addEventListener("click", (() => {
 		idBalance.textContent = currentBalance.toFixed(2);
 		idMessage.textContent = `You have deposited $${idDeposit.value} into your ${currentAccount} account.`;
 		idDeposit.value = []; 
+
+		showExtremes();
 		}
 	}	
 }));
@@ -78,6 +83,8 @@ buttonWithdraw.addEventListener("click", (() => {
 		idBalance.textContent = currentBalance.toFixed(2);
 		idMessage.textContent = `You have withdrawn $${idWithdraw.value} from your ${currentAccount} account.`;
 		idWithdraw.value = []; 
+
+		showExtremes();
 		}
 	}
 }));
@@ -263,6 +270,12 @@ function changeAccountCardName(newName) {
 		}
 	}
 	currentAccount = newName; 
+	return; 
+}
+
+function showExtremes() {
+	idHighestAccountValue.textContent = Math.max(account1.currentBalance, account2.currentBalance, account3.currentBalance);
+	idLowestAccountValue.textContent = Math.min(account1.currentBalance, account2.currentBalance, account3.currentBalance);
 	return; 
 }
 
