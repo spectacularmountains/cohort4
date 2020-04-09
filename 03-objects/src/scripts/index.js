@@ -1,12 +1,20 @@
 import {Account, AccountController, functions} from './account.js'
 
 // Instantiate new accounts 
-const account1 = new Account("Chequing", 25);
-const account2 = new Account("Account2", 0); 
-const account3 = new Account("Account3", 0);
+let account1 = new Account("Chequing", 25); 
+let account2 = new Account("Account2", 0); 
+let account3 = new Account("Account3", 0);
 
-idBalance.textContent = (account1.currentBalance.toFixed(2));
-idTotalBalance.textContent = (account1.currentBalance.toFixed(2));
+
+// Experiment to create a new account name as a variable (dynamically)
+				// var baseObj = {};
+				// let wobble = "account1";
+				// baseObj[wobble] = new Account("Chequing", 25);
+				// console.log(baseObj[wobble].accName);
+				// console.log(account1.accName)
+
+idBalance.textContent = account1.currentBalance.toFixed(2);
+idTotalBalance.textContent = account1.currentBalance.toFixed(2);
 
 idAccount.textContent = account1.accName;
 
@@ -30,18 +38,23 @@ buttonDeposit.addEventListener("click", (() => {
 		return;
 	};
 
-	for (let j=0; j<accController.accounts.length; j++) {
-		if (accController.accounts[j] === currentAccount) {
-			if (j === 0) {
-				idBalance.textContent = (account1.deposit(Number(idDeposit.value))).toFixed(2);
-			} else if (j === 1) {
-				idBalance.textContent = (account2.deposit(Number(idDeposit.value))).toFixed(2);
+	for (let i=0; i<accController.accounts.length; i++) {
+		if (accController.accounts[i] === currentAccount) {
+			if (i === 0) {
+				console.log(account1.accName)
+				let wobble = "account" + (i+1);
+				console.log(wobble)
+				console.log([wobble].value);
+				currentBalance = this[wobble].deposit(Number(idDeposit.value));
+			} else if (i === 1) {
+				currentBalance = account2.deposit(Number(idDeposit.value));
 			} else {
-				idBalance.textContent = (account3.deposit(Number(idDeposit.value))).toFixed(2);
+				currentBalance = account3.deposit(Number(idDeposit.value));
 			}
+		idBalance.textContent = currentBalance.toFixed(2);
 		}
 	}
-	idMessage.textContent = `You have deposited $${idDeposit.value}.`;
+	idMessage.textContent = `You have deposited $${idDeposit.value} into your ${currentAccount} account.`;
 	idDeposit.value = []; 
 }));
 
@@ -73,6 +86,8 @@ buttonWithdraw.addEventListener("click", (() => {
 // EVENT LISTENER FOR DELETE ACCOUNT BUTTON 
 
 buttonDelete.addEventListener("click", (() => {
+	
+	clear();
 
 	if (currentAccount === "Chequing") {
 		idMessage.textContent = `Chequing account cannot be deleted!`;
@@ -92,6 +107,11 @@ buttonDelete.addEventListener("click", (() => {
 		}
 
 	deleteAccountCard(currentAccount);
+
+	currentAccount = "Chequing"; // Change state: active account reverts back to Chequing Account 
+	idAccount.textContent = currentAccount;
+	currentBalance = account1.currentBalance; // Change state: show current balance of Chequing Account
+	idBalance.textContent = currentBalance.toFixed(2);
 }));
 
 // EVENT LISTENER FOR ACCOUNTS BUTTON 
@@ -108,9 +128,8 @@ buttonAccounts.addEventListener("click", (() => {
 // EVENT LISTENER FOR CREATE ACCOUNT BUTTON 
 
 buttonCreate.addEventListener("click", (() => {
-
 	let newAccount = document.getElementById("idCreate").value;
-	
+
 	if (accController.accounts.length < 3) { // Check if max. number of allowed accounts has been reached
 		if (isNaN(newAccount) && newAccount !== "") { // Check if input is a number or empty (not allowed)
 			if (accController.accounts.includes(newAccount) === false) { // Check if account name already exists
@@ -131,6 +150,8 @@ buttonCreate.addEventListener("click", (() => {
 				createNewAccountCard(newAccount); 
 
 				newAccount = ""; newGenericAccName = "";
+				clear();
+
 				
 			} else {idMessage.textContent = "Account name already exists!"}
 		} 
@@ -198,4 +219,15 @@ function deleteAccountCard(currentAccount) {
 	}
 
 	return;
+}
+
+
+function clear() { // Clear all input fields and message area 
+	idMessage.textContent = "Welcome!";
+	idWithdraw.value = []; 
+	idDeposit.value = []; 
+	idCreate.value = [];
+	idRename.textContent = "";
+
+	return; 
 }
