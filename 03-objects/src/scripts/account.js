@@ -18,6 +18,11 @@ class Account {
 		return this.currentBalance;
 	};
 
+	rename (newName) {
+		this.accName = newName; 
+		return;
+	};
+
 }
 
 
@@ -42,6 +47,12 @@ class AccountController {
 		return;
 	}
 	
+	rename (oldName, newName) {
+		this.accounts.push(newAccount);
+		this.genericAccNames.push(newGenericAccName);
+		this.numberOfAccounts--; 
+		return;
+	}
 	delete (deleteAccount, newGenericAccName) {
 		this.accounts.push(newAccount);
 		this.genericAccNames.push(newGenericAccName);

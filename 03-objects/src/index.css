@@ -63,10 +63,13 @@ body {
   border: 2px solid rgb(53, 30, 30);    /* Set up Border */
   border-radius: 4px;           /* Slightly Curve edges */
   overflow: hidden;             /* Fixes the corners */
-  margin: 10px;                 /* Add space between cards */
-  padding: 10px;
+  margin-left: 5px;                 /* Add space between cards */
+  margin-top: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   text-align: center;
   font-weight: bold;
+  font-size: 1.4em;
   }
 
 .row {

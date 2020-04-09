@@ -1,5 +1,7 @@
 import {Account, AccountController, functions} from './account.js'
 
+document.querySelector(".right").style.display = 'none' // Hide right panel at the beginning
+
 // Instantiate new accounts 
 let account1 = new Account("Chequing", 25); 
 let account2 = new Account("Account2", 0); 
@@ -131,7 +133,7 @@ buttonCreate.addEventListener("click", (() => {
 	if (accController.accounts.length < 3) { // Check if max. number of allowed accounts has been reached
 		if (isNaN(newAccount) && newAccount !== "") { // Check if input is a number or empty (not allowed)
 			if (accController.accounts.includes(newAccount) === false) { // Check if account name already exists
-
+				
 				if (accController.genericAccNames.length === 1) {
 					newGenericAccName = "account2";
 					account2.accName = newAccount; 
@@ -157,6 +159,38 @@ buttonCreate.addEventListener("click", (() => {
 	
 }));  
 
+
+// EVENT LISTENER FOR RENAME ACCOUNT BUTTON 
+
+buttonRename.addEventListener("click", (() => {
+	let newName = document.getElementById("idRename").value;
+
+		if (isNaN(newName) && newName !== "") { // Check if input is a number or empty (not allowed)
+			if (accController.accounts.includes(newName) === false) { // Check if account name already exists
+
+				
+				for (let i=0; i<accController.accounts.length; i++) {
+					if (accController.accounts[i] === currentAccount) {
+						if (i === 0) {
+							idMessage.textContent = `Chequing account cannot be renamed!`;
+							return; 
+						} else if (i === 1) {
+							account2.rename(newName);
+						} else {
+							account3.rename(newName);
+						}
+					accController.accounts[i]  = newName; 
+
+					idAccount.textContent = newName;
+					idMessage.textContent = `Account name changed!`;
+					clear();
+					changeAccountCardName(newName);
+
+					}
+				}
+			} else {idMessage.textContent = "Account name already exists!"}
+		} 
+}));  
 
 // EVENT LISTENER FOR ACCOUNTS (To select which account is currently active)
 
@@ -219,13 +253,25 @@ function deleteAccountCard(currentAccount) {
 	return;
 }
 
+function changeAccountCardName(newName) {
+	
+	let listOfAccounts = document.querySelectorAll(".accounts"); 
+	
+	for (let i=0; i<listOfAccounts.length; i++) {
+		if (listOfAccounts[i].textContent === currentAccount) {
+			listOfAccounts[i].textContent = newName;
+		}
+	}
+	currentAccount = newName; 
+	return; 
+}
 
 function clear() { // Clear all input fields and message area 
 	idMessage.textContent = "Welcome!";
 	idWithdraw.value = []; 
 	idDeposit.value = []; 
 	idCreate.value = [];
-	idRename.textContent = "";
+	idRename.value = [];
 
 	return; 
 }
