@@ -55,8 +55,8 @@ buttonDeposit.addEventListener("click", (() => {
 		defineExtremes(currentBalance); 
 		idBalance.textContent = currentBalance.toFixed(2);
 		idMessage.textContent = `You have deposited $${idDeposit.value} into your ${currentAccount} account.`;
-		idDeposit.value = []; 
-
+		
+		clear();
 		showExtremes();
 		}
 	}	
@@ -84,8 +84,8 @@ buttonWithdraw.addEventListener("click", (() => {
 		defineExtremes(currentBalance); 
 		idBalance.textContent = currentBalance.toFixed(2);
 		idMessage.textContent = `You have withdrawn $${idWithdraw.value} from your ${currentAccount} account.`;
-		idWithdraw.value = []; 
-
+		
+		clear();
 		showExtremes();
 		}
 	}
@@ -279,8 +279,9 @@ function changeAccountCardName(newName) {
 }
 
 function showExtremes() {
-	idHighestAccountValue.textContent = accController.highestBalance;
-	idLowestAccountValue.textContent = accController.lowestBalance;
+	idHighestAccountValue.textContent = "$" + accController.highestBalance.toFixed(2);
+	idLowestAccountValue.textContent = "$" + accController.lowestBalance.toFixed(2);
+	idTotalBalance.textContent = "$" + (account1.currentBalance + account2.currentBalance + account3.currentBalance).toFixed(2)
 	return; 
 }
 

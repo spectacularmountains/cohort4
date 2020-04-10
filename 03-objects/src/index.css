@@ -14,7 +14,7 @@ body {
 }
 
 .left {
-  width: 48%;
+  width: 42%;
   height: auto;
   float: left;
 }
@@ -139,10 +139,10 @@ body {
 }
 
 
-/* RIGHT PANEL: ACCOUNT CONTROLLER */
+/* RIGHT PANEL: ACCOUNT STATS */
 
 .cardR {
-  width: 620px;                 /* Set width of cards */
+  width: 320px;                 /* Set width of cards */
   display: flex;                /* Children use Flexbox */
 	flex-direction: column; 
   border: 2px solid rgb(154, 184, 239);    /* Set up Border */
@@ -184,44 +184,8 @@ body {
 	text-align: left;
 }
 
-.column2R {
-  background-color: white;
-}
-
-.column3R {
-	background-color: white;
-	text-align: right;
-}
-
-.column4R {
-	background-color: white;
-	text-align: left;
-	margin-left: 10px; 
-}
-
-.double-columnR {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex: 2
-}
-
-.material-iconsR {
-  color: #D32F2F;
-	margin-bottom: 5px;
-}
-
 .main-descriptionR {
   color: #D32F2F;
   font-size: 1em;
   text-align: left;
-}
-
-.messageR {
-	color: rgb(2, 76, 99);
-	font-family: Oxanium;
-	font-weight: bold;
-  font-size: 1.2em;
-	text-align: left;
-	margin-top: 20px;
 }

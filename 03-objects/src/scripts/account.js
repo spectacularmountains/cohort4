@@ -45,20 +45,9 @@ class AccountController {
 		this.genericAccNames.push(newGenericAccName);
 		this.numberOfAccounts++; 
 		return;
-	}
+	};
 	
-	rename (oldName, newName) {
-		this.accounts.push(newAccount);
-		this.genericAccNames.push(newGenericAccName);
-		this.numberOfAccounts--; 
-		return;
-	}
-	delete (deleteAccount, newGenericAccName) {
-		this.accounts.push(newAccount);
-		this.genericAccNames.push(newGenericAccName);
-		this.numberOfAccounts--; 
-		return;
-	}
+	
 
 	// createNewAccount () {
 	// 	a++; 
