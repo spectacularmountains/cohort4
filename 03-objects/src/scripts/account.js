@@ -21,7 +21,7 @@ class Account {
 	rename (newName) {
 		this.accName = newName; 
 		return;
-	};
+	}; 
 
 }
 

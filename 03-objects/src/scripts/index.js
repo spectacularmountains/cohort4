@@ -18,9 +18,6 @@ let account3 = new Account("Account3", 0);
 idBalance.textContent = account1.currentBalance.toFixed(2);
 idTotalBalance.textContent = account1.currentBalance.toFixed(2);
 
-showExtremes(); // Display highest and lowest account balances 
-
-
 idAccount.textContent = account1.accName;
 
 
@@ -30,6 +27,9 @@ let currentAccount = "Chequing"; // STATE: Currently active account
 let newGenericAccName; 
 let currentBalance = 25; 
 const accController = new AccountController(["Chequing"], ["account1"], 1, 25, 25, 25);
+
+showExtremes(); // Display highest and lowest account balances 
+
 
 const enterPrompt = "Please enter an amount";
 
@@ -52,6 +52,7 @@ buttonDeposit.addEventListener("click", (() => {
 			} else {
 				currentBalance = account3.deposit(Number(idDeposit.value));
 			}
+		defineExtremes(currentBalance); 
 		idBalance.textContent = currentBalance.toFixed(2);
 		idMessage.textContent = `You have deposited $${idDeposit.value} into your ${currentAccount} account.`;
 		idDeposit.value = []; 
@@ -80,6 +81,7 @@ buttonWithdraw.addEventListener("click", (() => {
 			} else {
 				currentBalance = account3.withdraw(Number(idWithdraw.value));
 			}
+		defineExtremes(currentBalance); 
 		idBalance.textContent = currentBalance.toFixed(2);
 		idMessage.textContent = `You have withdrawn $${idWithdraw.value} from your ${currentAccount} account.`;
 		idWithdraw.value = []; 
@@ -153,6 +155,9 @@ buttonCreate.addEventListener("click", (() => {
 				};
 			
 				accController.createNew(newAccount, newGenericAccName);
+				defineExtremes(0); 
+				showExtremes(); 
+
 			
 				createNewAccountCard(newAccount); 
 
@@ -274,8 +279,22 @@ function changeAccountCardName(newName) {
 }
 
 function showExtremes() {
-	idHighestAccountValue.textContent = Math.max(account1.currentBalance, account2.currentBalance, account3.currentBalance);
-	idLowestAccountValue.textContent = Math.min(account1.currentBalance, account2.currentBalance, account3.currentBalance);
+	idHighestAccountValue.textContent = accController.highestBalance;
+	idLowestAccountValue.textContent = accController.lowestBalance;
+	return; 
+}
+
+function defineExtremes (newBalance) {
+	if (accController.accounts.length === 1) {
+		accController.highestBalance = newBalance; 
+		accController.lowestBalance = newBalance;
+	} else if (accController.accounts.length === 2) {
+		accController.highestBalance = Math.max(account1.currentBalance, account2.currentBalance);
+		accController.lowestBalance = Math.min(account1.currentBalance, account2.currentBalance);
+	} else {
+		accController.highestBalance = Math.max(account1.currentBalance, account2.currentBalance, account3.currentBalance);
+		accController.lowestBalance = Math.min(account1.currentBalance, account2.currentBalance, account3.currentBalance);
+	}  
 	return; 
 }
 
