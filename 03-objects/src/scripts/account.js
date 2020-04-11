@@ -1,7 +1,5 @@
 // CREATE CLASS "ACCOUNT"
 
-let currentBalance; 
-
 class Account {
 	constructor (accName, currentBalance) {
 		this.accName = accName;
@@ -31,13 +29,15 @@ class Account {
 let a;
 
 class AccountController {
-	constructor (accounts, genericAccNames, numberOfAccounts, totalBalance, highestBalance, lowestBalance) {
+	constructor (accounts, genericAccNames, numberOfAccounts, totalBalance, highestBalance, lowestBalance, highestAccount, lowestAccount) {
 		this.accounts = accounts; 
 		this.genericAccNames = genericAccNames; 
 		this.numberOfAccounts = numberOfAccounts; 
 		this.totalBalance = totalBalance; 
 		this.highestBalance = highestBalance; 
 		this.lowestBalance = lowestBalance; 
+		this.highestAccount = highestAccount; 
+		this.lowestAccount = lowestAccount; 
 	};
 
 	createNew (newAccount, newGenericAccName) {
