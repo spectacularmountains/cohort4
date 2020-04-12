@@ -3,7 +3,7 @@ import {Account, AccountController, functions} from './account.js'
 document.querySelector(".right").style.display = 'none' // Hide right panel at the beginning
 
 
-let accounts = [new Account("Chequing", 25)]; // Array of instantiated accounts 
+let accounts = [new Account("Chequing", 25)]; // Array of instantiated accounts - IMPORTANT TO CREATE DYNAMIC INSTANCE NAMES!!!!!
 
 idBalance.textContent = accounts[0].currentBalance.toFixed(2);
 idTotalBalance.textContent = accounts[0].currentBalance.toFixed(2);
@@ -12,14 +12,9 @@ idAccount.textContent = accounts[0].accName;
 
 // Instantiate new Account Controller
 let currentAccount = "Chequing"; // STATE: Currently active account 
-let newGenericAccName; 
 let currentBalance = 25; 
-const accController = new AccountController(["Chequing"], ["account1"], 1, 25, 25, 25, "Chequing", "Chequing");
+const accController = new AccountController(["Chequing"], 25, 25, 25, "Chequing", "Chequing");
 
-let highestAcc = accounts[0].accName; 
-let lowestAcc = accounts[0].accName; 
-let highest = accounts[0].currentBalance; 
-let lowest = accounts[0].currentBalance; 
 showExtremes(); // Display highest and lowest account balances 
 
 
@@ -107,14 +102,10 @@ buttonDelete.addEventListener("click", (() => {
 		idMessage.textContent = `Cannot delete account due to remaining balance ($${currentBalance}).`;
 		return; 
 	};
-		console.log(accounts)	
-		console.log(accController.accounts.length)
 
 	const index = accController.accounts.indexOf(currentAccount);
 		if (index > -1) {
 		accController.accounts.splice(index, 1);
-		accController.genericAccNames.splice(index, 1);
-		accController.numberOfAccounts--;
 		accounts.splice(index, 1);
 	}
 	
@@ -165,13 +156,13 @@ function create() {
 
 				accounts.push(new Account (newAccount, 0))				
 							
-				accController.createNew(newAccount, newGenericAccName);
+				accController.createNew(newAccount);
 				defineExtremes(); 
 				showExtremes(); 
 			
 				createNewAccountCard(newAccount); 
 
-				newAccount = ""; newGenericAccName = "";
+				newAccount = ""; 
 				clear();
 				idMessage.textContent = "Welcome!";
 				
@@ -251,7 +242,7 @@ function createNewAccountCard(newAccount) {
 	newCard.appendChild(accountName);
 	newCard.className = "accounts";
 
-	accountsDiv.insertBefore(newCard, accountsDiv.childNodes[accController.numberOfAccounts]);
+	accountsDiv.insertBefore(newCard, accountsDiv.childNodes[accController.accounts.length]);
 	
 	return;
 
@@ -293,22 +284,26 @@ function showExtremes() {
 }
 
 function defineExtremes () {
+	// Initialize extremes to first account (for comparison purposes)
 	let totalBalance = 0;
+	accController.lowestBalance = accounts[0].currentBalance;
+	accController.lowestAccount = accounts[0].accName; 
+	accController.highestBalance = accounts[0].currentBalance;
+	accController.highestAccount = accounts[0].accName; 
 		
 	for (let i=0; i<accController.accounts.length; i++) {
 		totalBalance += accounts[i].currentBalance;
-		if (Math.max(accounts[i].currentBalance) > accController.highestBalance) {
-			accController.highestBalance = Math.max(accounts[i].currentBalance);
+		if (accounts[i].currentBalance > accController.highestBalance) {
+			accController.highestBalance = accounts[i].currentBalance;
 			accController.highestAccount = accounts[i].accName; 
 		}
-	}
-	for (let i=0; i<accController.accounts.length; i++) {
-		if (Math.min(accounts[i].currentBalance) < accController.lowestBalance) {
-			accController.lowestBalance = Math.min(accounts[i].currentBalance);
+	
+		if (accounts[i].currentBalance < accController.lowestBalance) {
+			accController.lowestBalance = accounts[i].currentBalance;
 			accController.lowestAccount = accounts[i].accName; 
 		}
 	}
-	accController.totalBalance = totalBalance; console.log(accController.totalBalance)
+	accController.totalBalance = totalBalance; 
 	return; 
 }
 
