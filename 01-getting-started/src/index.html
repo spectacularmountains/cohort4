@@ -1,6 +1,6 @@
 <!-- 
 
-    Inspiration drawn from: https://www.w3schools.com/w3css/tryw3css_templates_parallax.htm#about
+    Insporation drawn from: https://www.w3schools.com/w3css/tryw3css_templates_parallax.htm#about
 
  -->
 
@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Audiowide|Oxanium'>
 
     <title>FSD</title>
 </head>
@@ -31,8 +30,6 @@
             <a href="#home" class="w3-bar-item w3-button">HOME</a>
             <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ABOUT</a>
             <a href="#idSize" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> SIZE</a>
-            <a href="#idCalc" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-calculator"></i> CALC</a>
-            <a href="#idTaxes" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-usd"></i> TAXES</a>
             <a href="https://www.evolveu.ca" class="w3-bar-item w3-button w3-hide-small" target="_blank"><i class="fa fa-envelope"></i> CONTACT</a>
             <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
                 <i class="fa fa-search"></i>
@@ -50,11 +47,10 @@
 
     <!-- -------------- First Parallax Image with Logo Text ----------- -->
 
-    <br>
     <div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
         <div class="w3-display-middle" style="white-space:nowrap;">
-            <div class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity" style="font-family: Oxanium;">
-                WELCOME TO <br> Full Stack Chocolate
+            <div class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">
+                WELCOME TO <br> Full Stack Development
             </div>
         </div>
     </div>
@@ -90,7 +86,7 @@
 
     <div class="bgimg-2 w3-display-container w3-opacity-min">
         <div class="w3-display-middle">
-            <span class="w3-xxlarge w3-text-white w3-wide" style="font-family: Oxanium;">SIZE</span>
+            <span class="w3-xxlarge w3-text-white w3-wide">SIZE</span>
         </div>
     </div>
 
@@ -99,122 +95,6 @@
         <input id="idNumber" type="number"> is a <span id="idNumberSize">unknown</span> number?
         <p id="idNumberSizexx"></p>
     </div>
-
-
-    
-    <!-- ---------- My calculator ------------------ -->
-    
-    <div class="bgimg-2 w3-display-container w3-opacity-min">
-        <div class="w3-display-middle">
-            <span class="w3-xxlarge w3-text-white w3-wide" style="font-family: Oxanium;">CALCULATOR</span>
-        </div>
-    </div>
-
-
-    <!-- SIMPLE CALCULATOR -->
-
-    <div class="w3-content w3-container w3-padding-64 w3-center" id="idCalc">
-        <br>
-        <br>
-        <input id="number1" type="number">
-        <button id="plus">+</button>
-        <button id="minus">-</button>
-        <button id="multiply">*</button>
-        <button id="divide">/</button>
-        <input id="number2" type="number">
-        <br>
-        Decimals: <input id="dec" type="text" maxlength="1" size="1" value="0">
-        <br>
-        <p id="result" style="color:blue;text-align:center;font-weight: bold;">RESULT</p>
-
-       
-        
-    <!-- FANCY CALCULATOR -->
-        <br>
-        <br>
-        Click here to access SIMCAL, the simple calculator! 
-
-        <br>
-        <br>
-
-        <button onclick="window.open('./calculator.html', '', 
-                'resizable=no, scrollable=no, top=100, left=800, width=400,height=525')">
-                SIMCAL
-        </button>
-        
-    </div>
-
-
-     
-   
-    <!-- FEDERAL TAX CALCULATOR -->
-    
-    <div class="bgimg-2 w3-display-container w3-opacity-min">
-        <div class="w3-display-middle">
-            <span class="w3-xxlarge w3-text-white w3-wide" style="font-family: Oxanium;">FEDERAL TAXES</span>
-        </div>
-    </div>
-
-    <div class="myself" id="idTaxes">
-        <br>
-        <br>
-        <div class="property">Total income ($):</div><div class="value"><input id="income" placeholder="Please enter" style="text-align: right" maxlength="7" size="9"></div> 
-        <br>
-        <div class="property">Federal tax ($):</div><div class="value" id="tax">0</div> 
-        <br>
-        <div class="property">Marginal tax rate (%):</div><div class="value" id="margin">0</div> 
-        <br>
-        <div class="property">How close to the next tax bracket? ($):</div><div class="value" id="howFar">0</div> 
-        <br>
-        <br>
-    </div>
-
-
-     
-   
-    <!-- WORKING WITH ARRAYS -->
-    
-    <div class="bgimg-2 w3-display-container w3-opacity-min">
-        <div class="w3-display-middle">
-            <span class="w3-xxlarge w3-text-white w3-wide" style="font-family: Oxanium;">WORKING WITH ARRAYS</span>
-        </div>
-    </div>
-
-    <div class="workingArrays" id="idArrays">
-        <br>
-        <br>
-        <input id="inputArray" placeholder="Enter an array" maxlength="12" size="12">
-        <br>
-        <br>
-        <div class="arrButtons"><button id="addArr">Add</button><button id="showArr">Show</button><button id="totalArr">Total</button><button id="clearArr">Clear</button></div> 
-        <br>
-        <div id="message">MESSAGE AREA</div> 
-        <br>
-        <br>
-    </div>
- 
-   
-    <!-- WORKING WITH DICTIONARIES -->
-    
-    <div class="bgimg-2 w3-display-container w3-opacity-min">
-        <div class="w3-display-middle">
-            <span class="w3-xxlarge w3-text-white w3-wide" style="font-family: Oxanium;">WORKING WITH DICTIONARIES</span>
-        </div>
-    </div>
-
-    <div class="workingArrays" id="idArrays">
-        <br>
-        <br>
-        <input id="inputProvince" placeholder="Enter province name" maxlength="16" size="16">
-        <br>
-        <br>
-        <div class="arrButtons"><button id="lookup">Lookup</button></div> 
-        <br>
-        <div id="provinceMessage">MESSAGE AREA</div> 
-        <br>
-        <br>
-    </div>
-
 
     <!-- Footer -->
     <footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
@@ -232,8 +112,8 @@
 
 
     <script type="module" src="./scripts/main.js"></script>
-    <script>
 
+    <script>
         // Change style of navbar on scroll
         window.onscroll = function() {
             myFunction()
@@ -260,7 +140,5 @@
     </script>
 
 </body>
-
-
 
 </html>

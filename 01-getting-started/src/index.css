@@ -11,7 +11,7 @@ h6 {
 body,
 html {
     height: 100%;
-    color: rgb(67, 36, 204);
+    color: #777;
     line-height: 1.8;
 }
 
@@ -37,9 +37,9 @@ html {
     /* background-image: url('https://www.w3schools.com/w3images/parallax1.jpg'); */
     background-image: url('./images/background.jpg');
     /* background-image: url('https://claudescafedavao.com/wp-content/uploads/2018/08/Right-Software-Development-Methodology.png'); */
-    min-height: 80%;
-    border-radius: 95%;
-    opacity: 0.9;
+    min-height: 100%;
+    border-radius: 50%;
+    opacity: 0.3;
 }
 
 
@@ -48,7 +48,7 @@ html {
 .bgimg-2 {
     /* background-image: url("https://www.w3schools.com/w3images/parallax2.jpg"); */
     background-image: url("https://cdn.pixabay.com/photo/2016/11/19/15/32/code-1839877_960_720.jpg");
-    min-height: 200px;
+    min-height: 400px;
     opacity: 0.5;
 }
 
@@ -61,8 +61,8 @@ html {
 }
 
 #idNumber {
-    border: 3;
-    width: 150px;
+    border: 0;
+    width: 50px;
 }
 
 
@@ -76,43 +76,3 @@ html {
         min-height: 400px;
     }
 }
-
-/* FEDERAL TAX - Styling of text and input/output boxes  */
-
-.myself .property{
-    width:50%;
-    display:inline-block;
-    box-sizing:border-box;
-    text-align:right;
-
-    font-family: 'Audiowide';
-    font-size: 1.5em;
-    letter-spacing: 2.4px;
-    word-spacing: 2px;
-    color: rgb(53, 28, 94);
-    }
-  
-.myself .value{
-    text-align:right;
-    padding-left:10px;
-    width:15%;
-    display:inline-block;
-    box-sizing:border-box;
-
-    font-family: 'Audiowide';
-    font-size: 1.5em;
-    letter-spacing: 1.5px;
-    word-spacing: 1px;
-    color: rgb(207, 24, 24);
-    }
-
-/* WORKING WITH ARRAYS */
-
-.workingArrays {
-    text-align:center;
-    font-family: 'Audiowide';
-    font-size: 1.5em;
-    letter-spacing: 1.5px;
-    word-spacing: 1px;
-    color: rgb(68, 2, 2);
-    }
