@@ -5,6 +5,7 @@ const url = 'http://localhost:5000/';
 let data; 
 
 
+
 const cities = [
     {key:1, city:"Tokyo", latitude: 35.6850, longitude: 139.7514, population: 9273000},
     {key:2, city:"New York", latitude: 40.6943, longitude: -73.9249, population: 8399000},
@@ -31,19 +32,38 @@ const populate = async () => {
 const show = async () => {
     let output = ""; 
     for (let i=0; i<cities.length; i++) {
-    data = await postData(url + 'read', cities[i]);
-    if (data === false) {textOutput.innerHTML = `<h3>No data loaded on server!</h3>`; return} 
-    
-    output +=   `<h3>${cities[i].key}: ${cities[i].city}</h3>
-                <ul>
-                    <li>Latitude: ${cities[i].latitude}</li>
-                    <li>Longitude: ${cities[i].longitude}</li>
-                    <li>Population: ${cities[i].population}</li>
-                </ul>`
-    
+        data = await postData(url + 'read', cities[i]);
+        if (data === false) {textOutput.innerHTML = `<h3>No data loaded on server!</h3>`; return} 
+        
+        output +=   `<h3>${cities[i].key}: ${cities[i].city}</h3>
+                    <ul>
+                        <li>Latitude: ${cities[i].latitude}</li>
+                        <li>Longitude: ${cities[i].longitude}</li>
+                        <li>Population: ${cities[i].population}</li>
+                    </ul>`
     }; 
     textOutput.innerHTML = output;
 };
+
+const search = async (e) => {
+    let text = e.target.value.toLowerCase(); 
+    for (let i=0; i<cities.length; i++) {
+        data = await postData(url + 'read', cities[i]);
+        if (data === false) {textOutput.innerHTML = `<h3>No data loaded on server!</h3>`; return} 
+        else if (cities[i].city.toLowerCase().indexOf(text) != -1) {
+            textOutput.innerHTML = `<h3>${cities[i].key}: ${cities[i].city}</h3>
+                                    <ul>
+                                        <li>Latitude: ${cities[i].latitude}</li>
+                                        <li>Longitude: ${cities[i].longitude}</li>
+                                        <li>Population: ${cities[i].population}</li>
+                                    </ul>`;
+            return; 
+        } else {
+            textOutput.innerHTML = "This city is not in the database.";
+        }
+    }
+};
+
 
 /*
     data = await postData(url + 'all');
@@ -119,14 +139,10 @@ async function postData(url = '', data = {}) {
 
 // EVENTLISTENERS 
 
-idButtonPopulate.addEventListener("click", (() => {
-	populate(); 
-}));
+idButtonPopulate.addEventListener("click", populate);
 
-idButtonClear.addEventListener("click", (() => {
-	clear(); 
-}));
+idButtonClear.addEventListener("click", clear);
 
-idButtonShow.addEventListener("click", (() => {
-	show(); 
-}));
+idButtonShow.addEventListener("click", show);
+
+idInputCity.addEventListener("keyup", search); 
