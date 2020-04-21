@@ -64,6 +64,23 @@ const search = async (e) => {
     }
 };
 
+const checkIfCityExists = async (e) => {
+    textOutput.textContent = ""; 
+    let text = idInputAdd.value.toLowerCase(); 
+    for (let i=0; i<cities.length; i++) {
+        data = await postData(url + 'read', cities[i]);
+        if (data === false) {textOutput.innerHTML = `<h3>No data loaded on server!</h3>`; return} 
+        else if (cities[i].city.toLowerCase() === text) {
+            textOutput.innerHTML = `<h3>${cities[i].city} already exists in database.</h3>`
+            return; 
+        }; 
+    }
+    add();
+};
+
+const add = () => {
+    console.log("Add new city")
+};
 
 /*
     data = await postData(url + 'all');
@@ -146,3 +163,11 @@ idButtonClear.addEventListener("click", clear);
 idButtonShow.addEventListener("click", show);
 
 idInputCity.addEventListener("keyup", search); 
+
+idButtonAdd.addEventListener("click", checkIfCityExists);
+
+idInputAdd.addEventListener("keyup", (e) => {
+    if(e.keyCode === 13) {
+        checkIfCityExists();
+    }
+});
