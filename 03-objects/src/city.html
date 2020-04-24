@@ -3,33 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ab2220c02a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Cities of the world</title>
 </head>
 <body>
-    <h1>CITIES OF THE WORLD</h1>
-    <br>
 
-    <div>
-        <button id="idButtonPopulate" style="width: 160px">Populate database (load cities onto server)</button>
+    <div class="container mt-4">
+        <h1 class="display-4 text-center"><i class="fas fa-city text-primary"></i><span class="text-primary"> Cities</span> of the World</h1>
+        <hr>
+        <div class="text-center">
+            <button id="idButtonPopulate" class="btn btn-secondary mr-4" style="width: 160px">Populate database</button>
+            <button id="idButtonClear" class="btn btn-secondary mr-4">Clear database</button>
+            <button id="idButtonShow" class="btn btn-secondary mr-4">Show all cities</button>
+        </div>
+        <hr>
+        <form id="cityForm">
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="population">Population</label>
+                <input type="number" id="population" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="latitude">Latitude</label>
+                <input type="number" id="latitude" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="longitude">Longitude</label>
+                <input type="number" id="longitude" class="form-control">
+            </div>
+            <input type="submit" value="Create" class="btn btn-primary btn-block">
+        </form>
+        <table class="table table-striped mt-5">
+            <thead>
+                <tr>
+                    <th>City</th>
+                    <th>Population</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="cityList"></tbody>
+        </table>
     </div>
-    <br>
-
-    <div>
-        <button id="idButtonClear">Clear database</button>
-    </div>
-    <br>
-
-    <div>
-        <button id="idButtonShow">Show all cities</button>
-    </div>
-    <br>
-
-    <div>City search: <input id="idInputCity" size="12" type="text">
-    </div>
-    <br>
 
     <div>
         <button id="idButtonAdd">ADD CITY</button><input id="idInputAdd" size="12" type="text">
+    </div>
+    <br>
+    <hr> 
+
+    <div>
+        <button id="idButtonHowBig">How big?</button><input id="idInputHowBig" size="12" type="text">
+    </div>
+    <br>
+    
+    <div>
+        <button id="idButtonTotalPopulation">Get total population</button>
     </div>
     <br>
     <hr> 
