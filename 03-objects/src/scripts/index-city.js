@@ -2,8 +2,8 @@ import {City, Controller, postData} from './city.js'
 
 
 const url = 'http://localhost:5000/';
-let data; 
 let numberOfCities; 
+let data; 
 
 
 const cities = [
@@ -28,25 +28,6 @@ const populate = async () => {
     textOutput.innerHTML = `<h3>${cities[i].key}: ${cities[i].city}</h3>`;
     };
     textOutput.innerHTML = `<h3>Added ${cities.length} entries to the database.</h3>`;
-};
-
-const search = async (e) => {
-    let text = e.target.value.toLowerCase(); 
-    for (let i=0; i<cities.length; i++) {
-        data = await postData(url + 'read', cities[i]);
-        if (data === false) {textOutput.innerHTML = `<h3>No data loaded on server!</h3>`; return} 
-        else if (cities[i].city.toLowerCase().indexOf(text) != -1) {
-            textOutput.innerHTML = `<h3>${cities[i].key}: ${cities[i].city}</h3>
-                                    <ul>
-                                        <li>Latitude: ${cities[i].latitude}</li>
-                                        <li>Longitude: ${cities[i].longitude}</li>
-                                        <li>Population: ${cities[i].population}</li>
-                                    </ul>`;
-            return; 
-        } else {
-            textOutput.innerHTML = "This city is not in the database.";
-        }
-    }
 };
 
 const checkIfCityExists = async (e) => {
@@ -105,7 +86,10 @@ idButtonClear.addEventListener("click", clear);
 
 idButtonShow.addEventListener("click", City.showAll);
 
-city.addEventListener("keyup", search); 
+city.addEventListener("keyup", (e) => {
+    let text = e.target.value.toLowerCase(); 
+    City.search(text);
+}); 
 
 idButtonAdd.addEventListener("click", checkIfCityExists);
 

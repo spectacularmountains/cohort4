@@ -1,7 +1,14 @@
 const url = 'http://localhost:5000/';
-let data; 
 let highlightedRow = false;
 let numberOfCities;
+let data; 
+
+// Load all data 
+async function loadAll() {
+data = await postData(url + 'all');
+return data;
+}
+data = loadAll()
 
 
 // CREATE CLASS "CITY"
@@ -44,6 +51,37 @@ class City {
             };
         };
     };
+        
+    static async search(text) {
+        cityList.innerHTML = "";
+        numberOfCities = data.length; 
+        if (numberOfCities === 0) {
+            textOutput.innerHTML = `<h3>No data loaded on server!</h3>`; 
+            return;
+        } else {
+        for (let i=0; i<numberOfCities; i++) {
+            if (data[i].city.toLowerCase().indexOf(text) !== -1) {
+                City.show(data[i]);
+            }
+        };
+        };
+    };
+
+    //     for (let i=0; i<numberOfCities; i++) {
+    //         data = await postData(url + 'read', cities[i]);
+    //         if (cities[i].city.toLowerCase().indexOf(text) != -1) {
+    //             textOutput.innerHTML = `<h3>${cities[i].key}: ${cities[i].city}</h3>
+    //                                     <ul>
+    //                                         <li>Latitude: ${cities[i].latitude}</li>
+    //                                         <li>Longitude: ${cities[i].longitude}</li>
+    //                                         <li>Population: ${cities[i].population}</li>
+    //                                     </ul>`;
+    //             return; 
+    //         } else {
+    //             textOutput.innerHTML = "This city is not in the database.";
+    //         }
+    //     }
+    // };
 
 
 	movedIn (number) {
