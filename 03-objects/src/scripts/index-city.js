@@ -3,8 +3,7 @@ import {City, Controller, postData} from './city.js'
 
 const url = 'http://localhost:5000/';
 let data; 
-let totalPopulation = 0;
-
+let numberOfCities; 
 
 
 const cities = [
@@ -29,32 +28,6 @@ const populate = async () => {
     textOutput.innerHTML = `<h3>${cities[i].key}: ${cities[i].city}</h3>`;
     };
     textOutput.innerHTML = `<h3>Added ${cities.length} entries to the database.</h3>`;
-};
-
-const showAll = async () => {
-    cityList.innerHTML = "";
-    const numberOfCities = (await postData(url + 'all')).length; 
-
-    for (let i=0; i<numberOfCities; i++) {
-        data = await postData(url + 'read', {key: i+1});
-        if (data === false) {
-            textOutput.innerHTML = `<h3>No data loaded on server!</h3>`; 
-            return;
-        } 
-        else {
-            console.log(data[0])
-        City.show(data[0]);
-        };
-    };
-
-    //     output +=   `<h3>${cities[i].key}: ${cities[i].city}</h3>
-    //                 <ul>
-    //                     <li>Latitude: ${cities[i].latitude}</li>
-    //                     <li>Longitude: ${cities[i].longitude}</li>
-    //                     <li>Population: ${cities[i].population}</li>
-    //                 </ul>`
-    // }; 
-    // textOutput.innerHTML = output;
 };
 
 const search = async (e) => {
@@ -88,10 +61,6 @@ const checkIfCityExists = async (e) => {
         }; 
     }
     add();
-};
-
-const add = () => {
-    console.log("Add new city")
 };
 
 const howBig = () => {
@@ -134,7 +103,7 @@ idButtonPopulate.addEventListener("click", populate);
 
 idButtonClear.addEventListener("click", clear);
 
-idButtonShow.addEventListener("click", showAll);
+idButtonShow.addEventListener("click", City.showAll);
 
 city.addEventListener("keyup", search); 
 
@@ -157,4 +126,12 @@ Controller.getPopulation();
 cityForm.addEventListener("submit", (e) => {
     e.preventDefault(); 
     Controller.createCity();
-})
+});
+
+cityList.addEventListener("click", (e) => {
+    if(e.target.classList.contains("delete")) {
+        Controller.deleteCity(e.target);
+    } else { 
+    Controller.selectCity(e.target);
+    };
+});

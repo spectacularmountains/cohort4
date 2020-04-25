@@ -1,5 +1,7 @@
 const url = 'http://localhost:5000/';
 let data; 
+let highlightedRow = false;
+let numberOfCities;
 
 
 // CREATE CLASS "CITY"
@@ -13,7 +15,7 @@ class City {
 		this.longitude = longitude; 
 	};
 
-	static async show (city) {
+	static show (city) {
         const cityList = document.querySelector("#cityList");
         const row = document.createElement("tr"); 
         row.innerHTML = `
@@ -24,10 +26,25 @@ class City {
             <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
             `
         cityList.appendChild(row); 
-        console.log(1000)
 
         return;
-	}; 
+    }; 
+    
+    
+    static async showAll() {
+        cityList.innerHTML = "";
+        data = await postData(url + 'all');
+        numberOfCities = data.length; 
+        if (numberOfCities === 0) {
+            textOutput.innerHTML = `<h3>No data loaded on server!</h3>`; 
+            return;
+        } else {
+        for (let i=0; i<numberOfCities; i++) {
+            City.show(data[i]);
+            };
+        };
+    };
+
 
 	movedIn (number) {
 		this.population += number;
@@ -87,12 +104,46 @@ class Controller {
         
         const newCity = new City(key, city, population, latitude, longitude); // Instantiate new City 
         data = await postData(url + 'add', newCity);
+        Controller.clearFields();
         City.show(newCity);
     }; 
 
-    deleteCity (cityName) {
-        return "This city has been deleted: " + cityName; 
-    }
+    static deleteCity (el) {
+        const cityToBeDeleted = el.parentElement.parentElement.firstElementChild.textContent;
+        el.parentElement.parentElement.remove(); 
+        Controller.deleteCityFromServer(cityToBeDeleted); 
+    }; 
+
+    static selectCity (el) {
+        if (highlightedRow) {
+            highlightedRow.classList.toggle("bg-info");
+        } 
+        highlightedRow = el.parentElement; 
+        highlightedRow.classList.toggle("bg-info");
+        const cityToBeSelected = highlightedRow.firstElementChild.textContent;
+        console.log(cityToBeSelected)
+        return (cityToBeSelected);
+    }; 
+
+    static async deleteCityFromServer (cityToBeDeleted) {
+        data = await postData(url + 'all')
+        numberOfCities = data.length; 
+
+        for (let i=0; i<numberOfCities; i++) {
+            if (data[i].city === cityToBeDeleted) {
+                let x = data[i].key; 
+                await postData(url + 'delete', {key: x});
+                return; 
+            };
+        };
+    };
+
+    static clearFields() {
+        city.value = ""; 
+        population.value = ""; 
+        latitude.value = ""; 
+        longitude.value = ""; 
+    };
 }
 
 
