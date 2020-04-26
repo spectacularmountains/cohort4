@@ -25,6 +25,7 @@ class City {
 	static show (city) {
         const cityList = document.querySelector("#cityList");
         const row = document.createElement("tr"); 
+        row.style.height = "15px";
         row.innerHTML = `
             <td>${city.city}</td>
             <td>${city.population}</td>
@@ -49,6 +50,7 @@ class City {
         for (let i=0; i<numberOfCities; i++) {
             City.show(data[i]);
             };
+        return;
         };
     };
         
@@ -153,14 +155,23 @@ class Controller {
     }; 
 
     static selectCity (el) {
-        if (highlightedRow) {
+        if (highlightedRow === false) {
+            highlightedRow = el.parentElement; 
             highlightedRow.classList.toggle("bg-info");
-        } 
-        highlightedRow = el.parentElement; 
-        highlightedRow.classList.toggle("bg-info");
+        }
+        else if (highlightedRow === el.parentElement) {
+            highlightedRow.classList.toggle("bg-info");
+            highlightedRow = false;
+            console.log("No city selected");
+            return;
+        } else {
+            highlightedRow.classList.toggle("bg-info");
+            highlightedRow = el.parentElement; 
+            highlightedRow.classList.toggle("bg-info");
+        };
         const cityToBeSelected = highlightedRow.firstElementChild.textContent;
-        console.log(cityToBeSelected)
-        return (cityToBeSelected);
+        console.log(cityToBeSelected);
+        return cityToBeSelected;
     }; 
 
     static async deleteCityFromServer (cityToBeDeleted) {
