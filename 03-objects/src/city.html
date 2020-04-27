@@ -11,16 +11,29 @@
 <body>
 
     
-    <div class="container mt-4" style="width: 580px">
+    <div class="container mt-4" style="width: 850px">
         <h1 class="display-4 text-center"><i class="fas fa-city text-primary"></i><span class="text-primary"> Cities</span> of the World</h1>
         <hr>
         <div class="text-center">
-            <button id="idButtonPopulate" class="btn btn-secondary mr-4">Populate database</button>
-            <button id="idButtonClear" class="btn btn-secondary mr-4">Clear database</button>
-            <button id="idButtonShow" class="btn btn-secondary mr-4">Show all cities</button>
+            <button id="idButtonPopulate" class="btn-sm btn-secondary mr-4">Populate database</button>
+            <button id="idButtonClear" class="btn-sm btn-secondary mr-4">Clear database</button>
+            <button id="idButtonShow" class="btn-sm btn-secondary mr-4">Show all cities</button>
+        </div>
+        <div class="text-center mt-2">
+            <button id="totalPopulation" class="btn btn-primary mr-4">Total population</button>
+            <button id="whichSphere" class="btn btn-primary mr-4">Sphere</button>
+            <button id="northernMost" class="btn btn-primary mr-4">Northernmost</button>
+            <button id="southernMost" class="btn btn-primary mr-4">Southernmost</button>
         </div>
         <hr>
     </div>
+
+    <!-- Text output area -->
+    <div  class="container border border-grey rounded p-2 bg-light text-primary" style="width: 500px text-center; height: 40px">
+        <p id="textOutput" style="font-weight: bold"></p>
+    </div>
+    <hr>
+
 
     <div class="container-fluid">
         <div class="row">
@@ -90,16 +103,8 @@
         <button id="idButtonHowBig">How big?</button><input id="idInputHowBig" size="12" type="text">
     </div>
     <br>
-    
-    <div>
-        <button id="idButtonTotalPopulation">Get total population</button>
-    </div>
-    <br>
     <hr> 
 
-    <div id="textOutput">
-        <!-- This is where the cards / messages go  -->
-    </div>
 
 
     <script type="module" src="./scripts/index-city.js"></script>

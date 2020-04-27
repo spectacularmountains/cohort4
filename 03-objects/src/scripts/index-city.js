@@ -6,30 +6,6 @@ let numberOfCities;
 let data; 
 
 
-const cities = [
-    {key:1, city:"Tokyo", population: 9273000, latitude: 35.6850, longitude: 139.7514},
-    {key:2, city:"New York", population: 8399000, latitude: 40.6943, longitude: -73.9249},
-    {key:3, city:"Mexico City", population: 8855000, latitude: 19.4424, longitude: -99.1310},
-    {key:4, city:"Mumbai", population: 18410000, latitude: 19.0170, longitude: 72.8570},
-    {key:5, city:"Sao Paulo", population: 12180000, latitude: -23.5587, longitude: -46.6250},
-]
-
-    // Check that the server is running and clear any data
-const clear = async () => {
-    data = await postData(url + 'clear');
-    if (data.status > 200) { console.log("ERROR!")}
-    cityList.innerHTML = "";
-    textOutput.innerHTML = `<h3>Database cleared.<h3>`;
-};
-
-const populate = async () => {
-    for (let i=0; i<cities.length; i++) {
-    data = await postData(url + 'add', cities[i]);
-    textOutput.innerHTML = `<h3>${cities[i].key}: ${cities[i].city}</h3>`;
-    };
-    textOutput.innerHTML = `<h3>Added ${cities.length} entries to the database.</h3>`;
-};
-
 const checkIfCityExists = async (e) => {
     textOutput.textContent = ""; 
     let text = idInputAdd.value.toLowerCase(); 
@@ -80,9 +56,9 @@ const howBig = () => {
 
 // document.addEventListener("DOMContentLoaded", showAll);
 
-idButtonPopulate.addEventListener("click", populate);
+idButtonPopulate.addEventListener("click", City.populate);
 
-idButtonClear.addEventListener("click", clear);
+idButtonClear.addEventListener("click", City.clear);
 
 idButtonShow.addEventListener("click", City.showAll);
 
@@ -103,7 +79,7 @@ idInputHowBig.addEventListener("keyup", (e) => {
     if(e.keyCode === 13) {howBig()}
 });
 
-idButtonTotalPopulation.addEventListener("click", (() => {
+totalPopulation.addEventListener("click", (() => {
 Controller.getPopulation(); 
 }));
 
@@ -119,3 +95,15 @@ cityList.addEventListener("click", (e) => {
     Controller.selectCity(e.target);
     };
 });
+
+whichSphere.addEventListener("click", (() => {
+    Controller.whichSphere(); 
+}));
+    
+northernMost.addEventListener("click", (() => {
+    Controller.getMostNorthern ();
+}));
+    
+southernMost.addEventListener("click", (() => {
+    Controller.getMostSouthern ();
+}));
