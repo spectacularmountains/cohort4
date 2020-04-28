@@ -1,6 +1,5 @@
-import {City, Controller, postData} from './city.js'
+import {City, Controller} from './city.js'
 
-const url = 'http://localhost:5000/';
 
 // EVENTLISTENERS 
 
@@ -39,3 +38,5 @@ whichSphere.addEventListener("click", (() => {
 northernMost.addEventListener("click", Controller.getMostNorthern);
     
 southernMost.addEventListener("click", Controller.getMostSouthern);
+
+changePopulation.addEventListener("click", City.moved);

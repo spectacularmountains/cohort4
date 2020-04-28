@@ -1,6 +1,5 @@
 const url = 'http://localhost:5000/';
 let highlightedRow = false;
-let numberOfCities;
 let data; 
 let selectedCity = ""; 
 let placeType; 
@@ -18,7 +17,7 @@ async function loadAll() {
     data = await postData(url + 'all');
     textOutput.textContent = `Currently ${data.length} entries on server.`;
 return;
-}
+};
 loadAll();
 
 
@@ -34,7 +33,6 @@ class City {
 	};
 
 	static show (city) {
-        // textOutput.textContent = " "; 
         const cityList = document.querySelector("#cityList");
         const row = document.createElement("tr"); 
         row.style.height = "15px";
@@ -46,7 +44,6 @@ class City {
             <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
             `
         cityList.appendChild(row); 
-
         return;
     }; 
         
@@ -55,7 +52,7 @@ class City {
         if (data === false || data.length === 0) {textOutput.textContent = `No data loaded on server!`; return} 
         for (let i=0; i<data.length; i++) {
             City.show(data[i]);
-            };
+        };
         selectedCity = ""; 
         return;
     };
@@ -66,8 +63,8 @@ class City {
             return;
         } 
         for (let i=0; i<cities.length; i++) {
-        data = await postData(url + 'add', cities[i]);
-        textOutput.textContent = `${cities[i].key}: ${cities[i].city}`;
+            await postData(url + 'add', cities[i]);
+            textOutput.textContent = `${cities[i].key}: ${cities[i].city}`;
         };
         textOutput.textContent = `Added ${cities.length} entries to the database.`;
         selectedCity = ""; 
@@ -86,12 +83,11 @@ class City {
         
     static async search(text) {
         cityList.textContent = "";
-        numberOfCities = data.length; 
-        if (numberOfCities === 0) {
+        if (data.length === 0) {
             textOutput.textContent = `No data loaded on server!`; 
             return;
         } else {
-        for (let i=0; i<numberOfCities; i++) {
+        for (let i=0; i<data.length; i++) {
             if (data[i].city.toLowerCase().indexOf(text) !== -1) {
                 City.show(data[i]);
             }
@@ -99,14 +95,28 @@ class City {
         };
     };
 
-	movedIn (number) {
-		this.population += number;
-		return this.population;
-	};
+	static async moved() {
+        if (!selectedCity) {
+            textOutput.textContent = "Please select a place"; 
+            return;
+        };
 
-	movedOut (number) {
-		this.population -= number;
-		return this.population;
+        if (delta.value === "") {
+            textOutput.textContent = `Please enter a number`;
+            return;
+        };
+
+        for (let i=0; i<data.length; i++) {
+            if (data[i].city === selectedCity) { 
+                data[i].population += Number(delta.value); 
+                await postData(url + 'update', {key: data[i].key, city: data[i].city, population: data[i].population, latitude: data[i].latitude, longitude: data[i].longitude});
+                textOutput.textContent = `The population of ${data[i].city} has changed by ${delta.value}.`; 
+                delta.value = ""; 
+                selectedCity = ""; 
+                City.showAll();
+                return;
+            };
+        }; 
 	};
 
 	static howBig () {
@@ -116,9 +126,7 @@ class City {
             textOutput.textContent = "Please select a place"; 
             return;
         }
-        numberOfCities = data.length; 
-        for (let i=0; i<numberOfCities; i++) {
-
+        for (let i=0; i<data.length; i++) {
             if (data[i].city === selectedCity) { 
                 
                 if (data[i].population > 100000) { placeType = "city"}
@@ -144,9 +152,7 @@ class Controller {
             textOutput.textContent = "Please select a city"
         }
 
-        numberOfCities = data.length; 
-
-        for (let i=0; i<numberOfCities; i++) {
+        for (let i=0; i<data.length; i++) {
 
             if (data[i].city === selectedCity) { 
                 if (data[i].latitude > 0) {
@@ -181,12 +187,11 @@ class Controller {
 
     static getPopulation () {
         if (!data.length) {textOutput.textContent = `No data loaded on server!`; return} 
-        numberOfCities = data.length; 
         let totalPopulation = 0;
-        for (let i=0; i<numberOfCities; i++) {
+        for (let i=0; i<data.length; i++) {
             totalPopulation += data[i].population; 
         }
-    textOutput.textContent = `The total population of all cities is ${totalPopulation}`;
+        textOutput.textContent = `The total population of all cities is ${totalPopulation}`;
     };
     
     static checkIfCityExists () {
@@ -223,8 +228,8 @@ class Controller {
 
     static async deleteCity (el) {
         const cityToBeDeleted = el.parentElement.parentElement.firstElementChild.textContent;
+        if (cityToBeDeleted === selectedCity) {selectedCity = ""};
         el.parentElement.parentElement.remove(); 
-        selectedCity = ""; 
 
         for (let i=0; i<data.length; i++) {
             if (data[i].city === cityToBeDeleted) {
