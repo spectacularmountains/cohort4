@@ -49,7 +49,7 @@ class City {
         
     static showAll() {
         cityList.innerHTML = "";
-        if (data === false || data.length === 0) {textOutput.textContent = `No data loaded on server!`; return} 
+        if (!Controller.checkDataOnServer()) return; 
         for (let i=0; i<data.length; i++) {
             City.show(data[i]);
         };
@@ -63,7 +63,7 @@ class City {
             return;
         } 
         for (let i=0; i<cities.length; i++) {
-            await postData(url + 'add', cities[i]);
+            data = await postData(url + 'add', cities[i]);
             textOutput.textContent = `${cities[i].key}: ${cities[i].city}`;
         };
         textOutput.textContent = `Added ${cities.length} entries to the database.`;
@@ -74,7 +74,7 @@ class City {
     static async clear() {
         if (data === false || data.length === 0) {textOutput.textContent = `Database already cleared.`; return} 
         data = await postData(url + 'clear');
-        if (data.status > 200) { console.log("ERROR!")}
+        if (data.status > 200) { textOutput.textContent = `Server ERROR. Please try again.`; return}
         cityList.textContent = "";
         textOutput.textContent = `Database cleared.`;
         selectedCity = ""; 
@@ -83,15 +83,11 @@ class City {
         
     static async search(text) {
         cityList.textContent = "";
-        if (data.length === 0) {
-            textOutput.textContent = `No data loaded on server!`; 
-            return;
-        } else {
+        if (!Controller.checkDataOnServer()) return; 
         for (let i=0; i<data.length; i++) {
             if (data[i].city.toLowerCase().indexOf(text) !== -1) {
                 City.show(data[i]);
             }
-        };
         };
     };
 
@@ -101,7 +97,7 @@ class City {
             return;
         };
 
-        if (delta.value === "") {
+        if (!delta.value) {
             textOutput.textContent = `Please enter a number`;
             return;
         };
@@ -110,17 +106,17 @@ class City {
             if (data[i].city === selectedCity) { 
                 data[i].population += Number(delta.value); 
                 await postData(url + 'update', {key: data[i].key, city: data[i].city, population: data[i].population, latitude: data[i].latitude, longitude: data[i].longitude});
-                textOutput.textContent = `The population of ${data[i].city} has changed by ${delta.value}.`; 
-                delta.value = ""; 
                 selectedCity = ""; 
                 City.showAll();
+                textOutput.textContent = `The population of ${data[i].city} has changed by ${delta.value}.`; 
+                delta.value = ""; 
                 return;
             };
         }; 
 	};
 
 	static howBig () {
-        if (!data.length) {textOutput.textContent = `No data loaded on server!`; return} 
+        if (!Controller.checkDataOnServer()) return; 
 
         if (!selectedCity) {
             textOutput.textContent = "Please select a place"; 
@@ -145,8 +141,18 @@ class City {
 
 class Controller {
 
+    // Check if there is data on server 
+    static checkDataOnServer() {
+        if (data.length) {
+            textOutput.textContent = ""; 
+            return true; 
+        };
+        textOutput.textContent = `No data loaded on server!`;
+        return false;  
+    };
+
 	static whichSphere () {
-        if (!data.length) {textOutput.textContent = `No data loaded on server!`; return} 
+        if (!Controller.checkDataOnServer()) return; 
 
         if (!selectedCity) {
             textOutput.textContent = "Please select a city"
@@ -164,29 +170,28 @@ class Controller {
             }; 
         }; 
     };
+
     
     static getMostNorthern () {
-        if (!data.length) {textOutput.textContent = `No data loaded on server!`; return} 
-        textOutput.textContent = ""; 
+        if (!Controller.checkDataOnServer()) return; 
         // Reduce array of objects to find object with highest latitude
         const max = data.reduce(function(prev, current) {
             return (prev.latitude > current.latitude) ? prev : current
         });
-        textOutput.textContent = `The northernmost place is ${max.city}`;
+        textOutput.textContent = `The northernmost place is ${max.city}.`;
     };
 
     static getMostSouthern () {
-        if (!data.length) {textOutput.textContent = `No data loaded on server!`; return} 
-        textOutput.textContent = ""; 
+        if (!Controller.checkDataOnServer()) return; 
         // Reduce array of objects to find object with lowest latitude
         const min = data.reduce(function(prev, current) {
             return (prev.latitude < current.latitude) ? prev : current
         });
-        textOutput.textContent = `The northernmost place is ${min.city}`;
+        textOutput.textContent = `The southernmost place is ${min.city}.`;
     };
 
     static getPopulation () {
-        if (!data.length) {textOutput.textContent = `No data loaded on server!`; return} 
+        if (!Controller.checkDataOnServer()) return; 
         let totalPopulation = 0;
         for (let i=0; i<data.length; i++) {
             totalPopulation += data[i].population; 
