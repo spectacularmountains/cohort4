@@ -3,7 +3,7 @@ let highlightedRow = false;
 let numberOfCities;
 let data; 
 let selectedCity = ""; 
-let loadedData = []; 
+let placeType; 
 
 const cities = [
     {key:1, city:"Tokyo", population: 9273000, latitude: 35.6850, longitude: 139.7514},
@@ -13,19 +13,13 @@ const cities = [
     {key:5, city:"Sao Paulo", population: 12180000, latitude: -23.5587, longitude: -46.6250},
 ]
 
-// Load all data currently on server into CACHE 
+// Load all data currently on server into CACHE "data"
 async function loadAll() {
     data = await postData(url + 'all');
-    numberOfCities = data.length;
-    for (let i=0; i<data.length; i++) {
-        loadedData.push(new City(data[i].key, data[i].city, data[i].population, data[i].latitude, data[i].longitude));
-        console.log(loadedData)
-        };
-        textOutput.textContent = `Currently ${data.length} entries on server.`;
+    textOutput.textContent = `Currently ${data.length} entries on server.`;
 return;
 }
 loadAll();
-console.log(loadedData)
 
 
 // CREATE CLASS "CITY"
@@ -40,7 +34,7 @@ class City {
 	};
 
 	static show (city) {
-        textOutput.textContent = " "; 
+        // textOutput.textContent = " "; 
         const cityList = document.querySelector("#cityList");
         const row = document.createElement("tr"); 
         row.style.height = "15px";
@@ -58,52 +52,40 @@ class City {
         
     static showAll() {
         cityList.innerHTML = "";
-        numberOfCities = loadedData.length; 
-        if (numberOfCities === 0) {
-            textOutput.innerHTML = `No data loaded on server!`; 
-            return;
-        } else {
-        for (let i=0; i<numberOfCities; i++) {
-            City.show(loadedData[i]);
+        if (data === false || data.length === 0) {textOutput.textContent = `No data loaded on server!`; return} 
+        for (let i=0; i<data.length; i++) {
+            City.show(data[i]);
             };
+        selectedCity = ""; 
         return;
-        // data = await postData(url + 'all');
-        // numberOfCities = data.length; 
-        // if (numberOfCities === 0) {
-        //     textOutput.innerHTML = `No data loaded on server!`; 
-        //     return;
-        // } else {
-        // for (let i=0; i<numberOfCities; i++) {
-        //     City.show(data[i]);
-        //     };
-        // return;
-        };
     };
 
     static async populate() { 
-        if (loadedData.length) {
-            textOutput.textContent = `Database has been loaded already. Currently ${loadedData.length} entries in database.`;
+        if (data.length) {
+            textOutput.textContent = `Database has been loaded already. Currently ${data.length} entries in database.`;
             return;
         } 
         for (let i=0; i<cities.length; i++) {
         data = await postData(url + 'add', cities[i]);
-        loadedData.push(new City(cities[i].key, cities[i].city, cities[i].population, cities[i].latitude, cities[i].longitude));
-        console.log(loadedData)
         textOutput.textContent = `${cities[i].key}: ${cities[i].city}`;
         };
         textOutput.textContent = `Added ${cities.length} entries to the database.`;
+        selectedCity = ""; 
+        data = await postData(url + 'all'); // Put all data from server into CACHE "data"
     };
 
     static async clear() {
+        if (data === false || data.length === 0) {textOutput.textContent = `Database already cleared.`; return} 
         data = await postData(url + 'clear');
         if (data.status > 200) { console.log("ERROR!")}
-        loadedData = [];
         cityList.textContent = "";
         textOutput.textContent = `Database cleared.`;
+        selectedCity = ""; 
+        data = false;
     };
         
     static async search(text) {
-        cityList.innerHTML = "";
+        cityList.textContent = "";
         numberOfCities = data.length; 
         if (numberOfCities === 0) {
             textOutput.textContent = `No data loaded on server!`; 
@@ -117,23 +99,6 @@ class City {
         };
     };
 
-    //     for (let i=0; i<numberOfCities; i++) {
-    //         data = await postData(url + 'read', cities[i]);
-    //         if (cities[i].city.toLowerCase().indexOf(text) != -1) {
-    //             textOutput.innerHTML = `<h3>${cities[i].key}: ${cities[i].city}</h3>
-    //                                     <ul>
-    //                                         <li>Latitude: ${cities[i].latitude}</li>
-    //                                         <li>Longitude: ${cities[i].longitude}</li>
-    //                                         <li>Population: ${cities[i].population}</li>
-    //                                     </ul>`;
-    //             return; 
-    //         } else {
-    //             textOutput.innerHTML = "This city is not in the database.";
-    //         }
-    //     }
-    // };
-
-
 	movedIn (number) {
 		this.population += number;
 		return this.population;
@@ -145,24 +110,25 @@ class City {
 	};
 
 	static howBig () {
+        if (!data.length) {textOutput.textContent = `No data loaded on server!`; return} 
+
         if (!selectedCity) {
-            textOutput.textContent = "Please select a city"
+            textOutput.textContent = "Please select a place"; 
+            return;
         }
-
-        // data = await postData(url + 'all');
-        numberOfCities = loadedData.length; 
-
+        numberOfCities = data.length; 
         for (let i=0; i<numberOfCities; i++) {
 
-            if (loadedData[i].city === selectedCity) { 
-                if (loadedData[i].population > 100000) { placetype = "City"; };
-                if (loadedData[i].population > 20000) { placetype = "Large town"; };
-                if (loadedData[i].population > 1000) { placetype = "Town"; };
-                if (loadedData[i].population > 100) { placetype = "Village"; };
-                placetype = "Hamlet";
+            if (data[i].city === selectedCity) { 
+                
+                if (data[i].population > 100000) { placeType = "city"}
+                else if (data[i].population > 20000) { placeType = "large town"}
+                else if (data[i].population > 1000) { placeType = "town"}
+                else if (data[i].population > 100) { placeType = "village"}
+                else {placeType = "hamlet"}
             };
-            textOutput.textContent = placeType; 
         }; 
+        textOutput.textContent = `This place is a ${placeType}.`; 
     }; 
 };
 
@@ -171,12 +137,13 @@ class City {
 
 class Controller {
 
-	static async whichSphere () {
+	static whichSphere () {
+        if (!data.length) {textOutput.textContent = `No data loaded on server!`; return} 
+
         if (!selectedCity) {
             textOutput.textContent = "Please select a city"
         }
 
-        data = await postData(url + 'all');
         numberOfCities = data.length; 
 
         for (let i=0; i<numberOfCities; i++) {
@@ -192,25 +159,50 @@ class Controller {
         }; 
     };
     
-    getMostNorthern () {
-        return "Alert"; // Placeholder for now! 
+    static getMostNorthern () {
+        if (!data.length) {textOutput.textContent = `No data loaded on server!`; return} 
+        textOutput.textContent = ""; 
+        // Reduce array of objects to find object with highest latitude
+        const max = data.reduce(function(prev, current) {
+            return (prev.latitude > current.latitude) ? prev : current
+        });
+        textOutput.textContent = `The northernmost place is ${max.city}`;
     };
 
-    getMostSouthern () {
-        return "Ushuaia"; // Placeholder for now! 
+    static getMostSouthern () {
+        if (!data.length) {textOutput.textContent = `No data loaded on server!`; return} 
+        textOutput.textContent = ""; 
+        // Reduce array of objects to find object with lowest latitude
+        const min = data.reduce(function(prev, current) {
+            return (prev.latitude < current.latitude) ? prev : current
+        });
+        textOutput.textContent = `The northernmost place is ${min.city}`;
     };
 
-    static async getPopulation () {
-        let totalPopulation = 0;
-        data = await postData(url + 'all')
+    static getPopulation () {
+        if (!data.length) {textOutput.textContent = `No data loaded on server!`; return} 
         numberOfCities = data.length; 
-
-        for (let i=1; i<numberOfCities; i++) {
+        let totalPopulation = 0;
+        for (let i=0; i<numberOfCities; i++) {
             totalPopulation += data[i].population; 
-        // data = await postData(url + 'read', {key: i});
-        // totalPopulation += data[0].population;
         }
-    textOutput.innerHTML = `The total population of all cities is ${totalPopulation}`;
+    textOutput.textContent = `The total population of all cities is ${totalPopulation}`;
+    };
+    
+    static checkIfCityExists () {
+        if (city.value === "" || population.value === "" || latitude.value === "" || longitude.value === "") {
+            textOutput.textContent = `Please enter all fields`;
+            return;
+        };
+        textOutput.textContent = ""; 
+        let text = city.value.toLowerCase(); 
+        for (let i=0; i<data.length; i++) {
+            if (data[i].city.toLowerCase() === text) {
+                textOutput.textContent = `${data[i].city} already exists in database.`;
+                return; 
+            }; 
+        }
+        Controller.createCity();
     };
 
     static async createCity () {
@@ -219,20 +211,29 @@ class Controller {
         const population = Number(document.getElementById("population").value); 
         const latitude = Number(document.getElementById("latitude").value); 
         const longitude = Number(document.getElementById("longitude").value); 
-        const key = (await postData(url + 'all')).length + 1; 
+        const key = data.length + 1; 
         
         const newCity = new City(key, city, population, latitude, longitude); // Instantiate new City 
-        loadedData.push(newCity);
-        console.log(loadedData)
-        data = await postData(url + 'add', newCity);
+        await postData(url + 'add', newCity);
+        data.push(newCity) // Add newly created city to CACHE
+        selectedCity = city; 
         Controller.clearFields();
         City.show(newCity);
     }; 
 
-    static deleteCity (el) {
+    static async deleteCity (el) {
         const cityToBeDeleted = el.parentElement.parentElement.firstElementChild.textContent;
         el.parentElement.parentElement.remove(); 
-        Controller.deleteCityFromServer(cityToBeDeleted); 
+        selectedCity = ""; 
+
+        for (let i=0; i<data.length; i++) {
+            if (data[i].city === cityToBeDeleted) {
+                textOutput.textContent = `${data[i].city} has been deleted.`;
+                await postData(url + 'delete', {key: data[i].key});
+                data.splice(i, 1);
+                return; 
+            }; 
+        }
     }; 
 
     static selectCity (el) {
@@ -253,22 +254,8 @@ class Controller {
             highlightedRow.classList.toggle("bg-info");
         };
         selectedCity = highlightedRow.firstElementChild.textContent;
-        console.log(selectedCity)
         return selectedCity;
     }; 
-
-    static async deleteCityFromServer (cityToBeDeleted) {
-        data = await postData(url + 'all')
-        numberOfCities = data.length; 
-
-        for (let i=0; i<numberOfCities; i++) {
-            if (data[i].city === cityToBeDeleted) {
-                let x = data[i].key; 
-                await postData(url + 'delete', {key: x});
-                return; 
-            };
-        };
-    };
 
     static clearFields() {
         city.value = ""; 
