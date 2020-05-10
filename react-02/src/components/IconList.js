@@ -3,15 +3,64 @@ import Icon from './Icon'
 
 class IconList extends Component {
 
+    state = {
+        mountains: [
+            {
+                id: 1, 
+                name: "Mount Oliver",
+                highlighted: false
+            },
+            {
+                id: 2, 
+                name: "Mount Rundle",
+                highlighted: false
+            },
+            {
+                id: 3, 
+                name: "Mount Chester",
+                highlighted: false
+            }
+        ]
+    }
+    
+    getStyle = (mtn) => {
+        return {
+            fill: mtn.highlighted ? '#000' : '#eee'
+        }
+    }
+
+    handleClick = (mtn) => {
+        this.props.changeTextOutput(mtn.name);
+        this.setState({mountains: this.state.mountains.map((mountain) => {
+            if (mountain.id === mtn.id) {
+                mountain.highlighted = !mountain.highlighted; 
+                return mountain;
+            }
+            mountain.highlighted = false;
+            return mountain;
+        })})
+    }
+
+    // this.props.changeTextOutput(mtn.name)
 
     render() {
-        let data = [0,1,2];
-        let list = data.map((obj, index) => {
-        return <div key={index} id={"id-" + index} onClick={() => this.props.handleClick(index)}><Icon /></div>         
+
+        // Loop to display 3 mountain icons 
+        let list = this.state.mountains.map((mtn) => {
+        return <div key={mtn.id} onClick={() => this.handleClick(mtn)} style={this.getStyle(mtn)}><Icon /></div>         
         });
         return (
                 <div style={iconListStyle}>{list}</div>
         )
+
+        // Loop to display 3 mountain icons 
+        // let data = [1,2,3];
+        // let list = data.map((obj) => {
+        // return <div key={obj} onClick={() => this.props.handleClick(obj)}><Icon /></div>         
+        // });
+        // return (
+        //         <div style={iconListStyle}>{list}</div>
+        // )
     }
 }
 

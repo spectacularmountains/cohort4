@@ -6,17 +6,16 @@ import IconList from './components/IconList.js';
 class App extends Component {
   state = {textOutput: "Welcome to the Three Mountains!"};
 
-  handleClick = (index) => {
-    console.log("from IconList", index);
-    this.setState({textOutput: `You clicked on Mountain ${index}`})
+  changeTextOutput = (name) => {
+    this.setState({textOutput: name})
+  }
 
-}
   render () {
     return (
         <div className="App">
           <p style={{color:"#f50"}}>{this.state.textOutput}</p>
 
-          <IconList handleClick={this.handleClick}/>
+          <IconList changeTextOutput={this.changeTextOutput}/>
           <header className="App-header">
             <MountainIcon className="App-logo" fill="#ddd" width="300" stroke="#def"/>
             <p>

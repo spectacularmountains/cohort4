@@ -7,7 +7,7 @@ class Icon extends Component {
     render() {
         return (
             <div>
-                <MountainIcon style={{padding: "20px"}} className="App-logo" fill="#ddd" width="150" stroke="#def"/>
+                <MountainIcon style={{padding: "20px"}} className="App-logo" width="150" stroke="#def"/>
             </div>
         )
     }
