@@ -41,26 +41,13 @@ class IconList extends Component {
         })})
     }
 
-    // this.props.changeTextOutput(mtn.name)
-
     render() {
 
         // Loop to display 3 mountain icons 
         let list = this.state.mountains.map((mtn) => {
         return <div key={mtn.id} onClick={() => this.handleClick(mtn)} style={this.getStyle(mtn)}><Icon /></div>         
         });
-        return (
-                <div style={iconListStyle}>{list}</div>
-        )
-
-        // Loop to display 3 mountain icons 
-        // let data = [1,2,3];
-        // let list = data.map((obj) => {
-        // return <div key={obj} onClick={() => this.props.handleClick(obj)}><Icon /></div>         
-        // });
-        // return (
-        //         <div style={iconListStyle}>{list}</div>
-        // )
+        return <div style={iconListStyle}>{list}</div>
     }
 }
 
