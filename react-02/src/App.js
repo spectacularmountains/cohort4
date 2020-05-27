@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
-import MountainIcon from './components/MountainIcon';
 import './App.css';
 import IconList from './components/IconList';
-import Greeting from './components/Greeting';
 import CurrentApp from './components/CurrentApp'
 
 class App extends Component {
   state = {
     textOutput: "Welcome to the Three Mountains!", 
-    currentApp: 1
+    currentApp: 1,
   };
 
   changeTextOutput = (name) => {
@@ -19,19 +17,35 @@ class App extends Component {
     this.setState({currentApp: id})
   }
 
+  getCurrentAppStyle = () => {
+    if (this.state.currentApp === 1) {
+      return "Home"
+    } 
+    return "Tic-tac-toe"
+  }
+
   render () {
     return (
         <div className="App">
-          <p style={{color:"#000", fontSize:"20px", fontWeight: "bold"}}>{this.state.textOutput}</p>
-
-          <IconList changeTextOutput={this.changeTextOutput} changeCurrentApp={this.changeCurrentApp} />
           <header className="App-header">
-            <CurrentApp currentApp={this.state.currentApp} />
+            <p>{this.state.textOutput}</p>
           </header>
+          <div>
+            <IconList changeTextOutput={this.changeTextOutput} changeCurrentApp={this.changeCurrentApp} />
+          </div>
+          <div className="App-body" style={this.state.currentApp === 3 ? {height:"580px"} : {height:"400px"}}>
+            <div className={this.getCurrentAppStyle()}>
+              <CurrentApp currentApp={this.state.currentApp}/>
+            </div>
+          </div>
+          <div className="App-footer">
+            <p>Created by Cornelius Rott, EvolveU Full Stack Developer Program</p>
+          </div>
         </div>
-      );    
+    );
   }
-  
 }
 
 export default App;
+
+/* <p style={{color:"#000", fontSize:"20px", fontWeight: "bold"}}>{this.state.textOutput}</p> */

@@ -17,7 +17,7 @@ class IconList extends Component {
             },
             {
                 id: 3, 
-                name: "Second App",
+                name: "React Main Concepts",
                 highlighted: false
             }
         ]
@@ -44,11 +44,6 @@ class IconList extends Component {
 
     handleClick = (mtn) => {
         this.props.changeCurrentApp(mtn.id);
-        if (mtn.id === 2) {
-            
-            console.log("Tic Tac Toe"); 
-            return 
-        }
     }
 
     render() {
