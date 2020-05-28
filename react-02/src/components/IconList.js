@@ -52,6 +52,7 @@ class IconList extends Component {
             if (mountain.id === this.props.currentApp) {
                 // Change "true" below to "!mountain.highlighted" in order to un-highlight icon
                 mountain.highlighted = true; 
+                this.props.changeTextOutput(mountain.name);
                 return mountain;
             }
             mountain.highlighted = false; 
