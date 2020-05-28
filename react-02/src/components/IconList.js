@@ -19,6 +19,11 @@ class IconList extends Component {
                 id: 3, 
                 name: "React Main Concepts",
                 highlighted: false
+            },
+            {
+                id: 4, 
+                name: "RoboFriends",
+                highlighted: false
             }
         ]
     }
@@ -42,6 +47,18 @@ class IconList extends Component {
         })})
     }
 
+    handleMouseOut = () => {
+        this.setState({mountains: this.state.mountains.map((mountain) => {
+            if (mountain.id === this.props.currentApp) {
+                // Change "true" below to "!mountain.highlighted" in order to un-highlight icon
+                mountain.highlighted = true; 
+                return mountain;
+            }
+            mountain.highlighted = false; 
+            return mountain;
+        })})
+    }
+
     handleClick = (mtn) => {
         this.props.changeCurrentApp(mtn.id);
     }
@@ -50,7 +67,7 @@ class IconList extends Component {
 
         // Loop to display 3 mountain icons 
         let list = this.state.mountains.map((mtn) => {
-        return <div key={mtn.id} onMouseOver={() => this.handleMouseOver(mtn)} onClick={() => this.handleClick(mtn)} style={this.getStyle(mtn)}><Icon /></div>         
+        return <div key={mtn.id} onMouseOver={() => this.handleMouseOver(mtn)} onMouseOut={() => this.handleMouseOut()} onClick={() => this.handleClick(mtn)} style={this.getStyle(mtn)}><Icon /></div>         
         });
         return <div style={iconListStyle}>{list}</div>
     }
@@ -59,6 +76,8 @@ class IconList extends Component {
 const iconListStyle = {
     display: "flex",
     justifyContent: "center",
+    marginTop: "-40px",
+    marginBottom: "-40px",
 }
 
 export default IconList

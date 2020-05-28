@@ -18,10 +18,16 @@ class App extends Component {
   }
 
   getCurrentAppStyle = () => {
-    if (this.state.currentApp === 1) {
+    let currentApp = this.state.currentApp;
+    if (currentApp === 1) {
       return "Home"
+    } else if (currentApp === 2) {
+      return "Tic-tac-toe"
+    } else if (currentApp === 3) {
+      return "Main-concepts"
+    } else if (currentApp === 4) {
+      return "Robo-friends"
     } 
-    return "Tic-tac-toe"
   }
 
   render () {
@@ -31,12 +37,10 @@ class App extends Component {
             <p>{this.state.textOutput}</p>
           </header>
           <div>
-            <IconList changeTextOutput={this.changeTextOutput} changeCurrentApp={this.changeCurrentApp} />
+            <IconList changeTextOutput={this.changeTextOutput} changeCurrentApp={this.changeCurrentApp} currentApp={this.state.currentApp}/>
           </div>
-          <div className="App-body" style={this.state.currentApp === 3 ? {height:"580px"} : {height:"400px"}}>
-            <div className={this.getCurrentAppStyle()}>
+          <div className={`App-body Style-${this.state.currentApp}`}>
               <CurrentApp currentApp={this.state.currentApp}/>
-            </div>
           </div>
           <div className="App-footer">
             <p>Created by Cornelius Rott, EvolveU Full Stack Developer Program</p>

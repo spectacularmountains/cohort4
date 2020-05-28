@@ -21,6 +21,7 @@ class ImageSlider extends Component {
         return (
             <div>
                 <SimpleImageSlider
+                    style={{marginTop: "10px"}}
                     width={733}
                     height={550}
                     images={images}

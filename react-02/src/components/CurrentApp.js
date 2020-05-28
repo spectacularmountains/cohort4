@@ -3,6 +3,7 @@ import MountainIcon from './MountainIcon'
 import Greeting from './Greeting'
 import TicTacToe from '../tictactoe/TicTacToe'
 import ImageSlider from './ImageSlider'
+import RoboFriends from '../robofriends/containers/Robo'
 
 function CurrentApp(props) {
     if (props.currentApp === 1) {
@@ -12,8 +13,10 @@ function CurrentApp(props) {
                 </React.Fragment>
     } else if (props.currentApp === 2) {
         return <TicTacToe />
+    } else if (props.currentApp === 3) {
+        return <ImageSlider />
     } 
-    return <ImageSlider />
+    return <RoboFriends />
 }
 
 export default CurrentApp;
