@@ -24,7 +24,12 @@ class IconList extends Component {
                 id: 4, 
                 name: "RoboFriends",
                 highlighted: false
-            }
+            },
+            {
+                id: 5, 
+                name: "Bank Account",
+                highlighted: false
+            },
         ]
     }
     

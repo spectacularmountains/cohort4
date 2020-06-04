@@ -4,6 +4,7 @@ import Greeting from './Greeting'
 import TicTacToe from '../tictactoe/TicTacToe'
 import ImageSlider from './ImageSlider'
 import RoboFriends from '../robofriends/containers/Robo'
+import Bank from '../bank/Controller'
 
 function CurrentApp(props) {
     if (props.currentApp === 1) {
@@ -15,8 +16,11 @@ function CurrentApp(props) {
         return <TicTacToe />
     } else if (props.currentApp === 3) {
         return <ImageSlider />
+    } else if (props.currentApp === 4) {
+        return <RoboFriends />
+    } else if (props.currentApp === 5) {
+        return <Bank />
     } 
-    return <RoboFriends />
 }
 
 export default CurrentApp;

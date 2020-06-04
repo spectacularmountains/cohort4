@@ -17,19 +17,6 @@ class App extends Component {
     this.setState({currentApp: id})
   }
 
-  getCurrentAppStyle = () => {
-    let currentApp = this.state.currentApp;
-    if (currentApp === 1) {
-      return "Home"
-    } else if (currentApp === 2) {
-      return "Tic-tac-toe"
-    } else if (currentApp === 3) {
-      return "Main-concepts"
-    } else if (currentApp === 4) {
-      return "Robo-friends"
-    } 
-  }
-
   render () {
     return (
         <div className="App">
