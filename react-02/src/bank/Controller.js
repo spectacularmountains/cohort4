@@ -13,6 +13,8 @@ class Controller extends Component {
         this.changeCurrentAccount = this.changeCurrentAccount.bind(this); 
         this.getMessage = this.getMessage.bind(this); 
         this.createNewAccount = this.createNewAccount.bind(this); 
+        this.updateAccountName = this.updateAccountName.bind(this); 
+        this.deleteAccount = this.deleteAccount.bind(this); 
     }
 
     getDeposit(deposit) {
@@ -37,13 +39,36 @@ class Controller extends Component {
     }
 
     createNewAccount(newAccountName) {
-        let accountBalances = [...this.state.accountBalances]
-        accountBalances.push(0);
-        this.setState({accountBalances: accountBalances})
+        this.setState({accountNames: [...this.state.accountNames, newAccountName]})
+        this.setState({accountBalances: [...this.state.accountBalances, 0]})
+    }
 
-        let accounts = [...this.state.accountNames]
-        accounts.push(newAccountName);
-        this.setState({accountNames: accounts})
+    updateAccountName(newAccountName) {
+        let newList = this.state.accountNames.map((account) => {
+            if (account === this.state.currentAccount) {
+                return newAccountName;
+            }
+            return account;
+        });
+        this.setState({accountNames: newList});
+        this.changeCurrentAccount(newAccountName);
+        return;
+    }
+    
+    deleteAccount() {
+        let newAccountBalances = [...this.state.accountBalances]
+        let newAccountNames = [...this.state.accountNames]
+
+        newAccountNames.map((account, i) => {
+            if (account === this.state.currentAccount) {
+                newAccountBalances.splice(i,1)
+                newAccountNames.splice(i,1)
+            }
+        });
+        this.setState({accountBalances: newAccountBalances})
+        this.setState({accountNames: newAccountNames});
+        this.changeCurrentAccount(newAccountNames[0]);
+        return;
     }
 
     render() {
@@ -160,16 +185,7 @@ class Controller extends Component {
                                     <div className="main-description">Rename account:</div>
                                 </div>
                             </div>
-                            <div className="column">
-                                <div className="column3">
-                                    <input id="idRename" size="11" />
-                                </div>
-                            </div>
-                            <div className="column">
-                                <div className="column4">
-                                    <button id="buttonRename">RENAME</button>
-                                </div>
-                            </div>
+                            <RenameAccount updateAccountName={this.updateAccountName} accountNames={this.state.accountNames} onGetMessage={this.getMessage}/>
                         </div>
 
                         {/* //-- ROW 7 -- */}
@@ -189,11 +205,8 @@ class Controller extends Component {
                                     {/* //-- This cell is empty --> */}
                                 </div>
                             </div>
-                            <div className="column">
-                                <div className="column4">
-                                    <button id="buttonDelete">DELETE</button>
-                                </div>
-                            </div>
+                            <DeleteAccount delAccountName={this.deleteAccount} onGetMessage={this.getMessage} currentAccount={this.state.currentAccount} accountNames={this.state.accountNames} accountBalances={this.state.accountBalances}/>
+
                         </div>
 
                         {/* //-- ROW 8 -- */}
@@ -217,19 +230,16 @@ class Controller extends Component {
 
                     </div>
 
-
-            {/* //-- ACCOUNT CARDS -- */}
-                    <div className="accountsPanel">
-                        <Accounts accountNames={this.state.accountNames} handleClick={this.changeCurrentAccount}/>
-                    </div>
+                    {/* //-- ACCOUNT STATS -- */}
+                    <Stats accountBalances={this.state.accountBalances} accountNames={this.state.accountNames}/>
                 
                 </div>
 
 
-            {/* //-- RIGHT PANEL: ACCOUNT STATS -- */}
+                {/* //-- RIGHT PANEL: ACCOUNT CARDS -- */}
 
                 <div className="right">
-                    <Stats accountBalances={this.state.accountBalances} accountNames={this.state.accountNames}/>
+                    <Accounts currentAccount={this.state.currentAccount} accountNames={this.state.accountNames} handleClick={this.changeCurrentAccount}/>
                 </div>
             </div>
         )
@@ -326,21 +336,33 @@ class Accounts extends Component {
     constructor() {
         super();
         this.handleClick = this.handleClick.bind(this);
+        this.getStyle = this.getStyle.bind(this);
     }
 
     handleClick(account) {
         this.props.handleClick(account);
-        console.log(account);
         return;
+    }
+
+    getStyle(account) {
+        return (account === this.props.currentAccount)? {color: "white", backgroundColor: "red"} : {color: "black", backgroundColor: "white"}
     }
     
     render() {
         let accountNames = this.props.accountNames;
         let listOfAccounts = accountNames.map(account => {
-                return <div className="accounts" onClick={() => this.handleClick(account)} key={account}>{account}</div>
+                return (
+                    <div className="accounts" style={this.getStyle(account)} onClick={() => this.handleClick(account)} key={account}>{account}</div>
+                )
             }
         );
-        return <div>{listOfAccounts}</div>
+        return (
+            <React.Fragment>
+                <div className="accountsPanel">
+                    <div>{listOfAccounts}</div>
+                </div>
+            </React.Fragment>
+        )
     }
 }
 
@@ -372,22 +394,24 @@ class Stats extends Component {
     }
 
     getHighestAccount() {
-        let highestAccount = this.props.accountBalances.map((item, i) => {
-            if (item === (this.getHighestBalance())) {
-                return this.props.accountNames[i]
+        let highestAccount = ""; 
+        for (let i=0;i<this.props.accountBalances.length;i++) {
+            if (this.props.accountBalances[i] === (this.getHighestBalance())) {
+                highestAccount = this.props.accountNames[i];
+                break;
             }
-            return null;
-        })
+        }
         return highestAccount; 
     }
     
     getLowestAccount() {
-        let lowestAccount = this.props.accountBalances.map((item, i) => {
-            if (item === (this.getLowestBalance())) {
-                return this.props.accountNames[i]
+        let lowestAccount = ""; 
+        for (let i=0;i<this.props.accountBalances.length;i++) {
+            if (this.props.accountBalances[i] === (this.getLowestBalance())) {
+                lowestAccount = this.props.accountNames[i];
+                break;
             }
-            return null;
-        })
+        }
         return lowestAccount;
     }
 
@@ -484,9 +508,16 @@ class CreateAccount extends Component {
     handleKeyPress(event) {
         if(event.keyCode === 13 || event.keyCode === undefined) {
             let accountName = this.state.value;
-            let newAccountName = accountName.charAt(0).toUpperCase() + accountName.slice(1); // Capitalize first letter of newly created account name 
-            this.props.getNewAccountName(newAccountName);
-            let message = `You created a new account named ${newAccountName}.`;
+            if (accountName === "") return null; //Make sure that field is not empty 
+            if(isNaN(accountName[0]) && accountName[0] !== " ") { //Make sure first character is not a number or space
+                let newAccountName = accountName.charAt(0).toUpperCase() + accountName.slice(1); // Capitalize first letter of newly created account name 
+                this.props.getNewAccountName(newAccountName);
+                let message = `You created a new account named ${newAccountName}.`;
+                this.props.onGetMessage(message);
+                this.setState({value: ""});
+                return;
+            }
+            let message = `First character must be a letter!`;
             this.props.onGetMessage(message);
             this.setState({value: ""});
         }
@@ -502,7 +533,100 @@ class CreateAccount extends Component {
                 </div>
                 <div className="column">
                     <div className="column4">
-                        <button id="buttonCreate">CREATE NEW</button>
+                        <button onClick={this.handleKeyPress}>CREATE NEW</button>
+                    </div>
+                </div>
+            </React.Fragment>
+        )
+    }
+}
+
+class RenameAccount extends Component {
+    constructor() {
+        super();
+        this.state = {
+            value: "",
+            }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({value: event.target.value})
+    }
+
+    handleKeyPress(event) {
+        if(event.keyCode === 13 || event.keyCode === undefined) {
+            let updatedAccountName = this.state.value;
+            if (updatedAccountName === "") return null; // Make sure that field is not empty 
+            for (let i=0;i<this.props.accountNames.length;i++) { // Check if account name exists already 
+                if (this.props.accountNames[i] === updatedAccountName) {
+                    let message = `Account name already exists!`;
+                    this.props.onGetMessage(message);
+                    this.setState({value: ""});
+                    break;
+                }
+            }
+            if(isNaN(updatedAccountName[0]) && updatedAccountName[0] !== " ") { // Make sure first character is not a number or space
+                let newAccountName = updatedAccountName.charAt(0).toUpperCase() + updatedAccountName.slice(1); // Capitalize first letter of newly created account name 
+                this.props.updateAccountName(newAccountName);
+                let message = `You renamed the account to ${newAccountName}.`;
+                this.props.onGetMessage(message);
+                this.setState({value: ""});
+                return;
+            }
+            let message = `First character must be a letter!`;
+            this.props.onGetMessage(message);
+            this.setState({value: ""});
+        }
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <div className="column">
+                    <div className="column3">
+                    <input type="text" value={this.state.value} style={{width: "120px"}} onChange={this.handleChange} onKeyDown={this.handleKeyPress}/>
+                    </div>
+                </div>
+                <div className="column">
+                    <div className="column4">
+                        <button onClick={this.handleKeyPress}>RENAME</button>
+                    </div>
+                </div>
+            </React.Fragment>
+        )
+    }
+}
+
+class DeleteAccount extends Component {
+    constructor() {
+        super();
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+    }
+
+    handleKeyPress() {
+        let {accountNames, accountBalances, currentAccount} = this.props;
+            for (let i=0;i<accountNames.length;i++) {
+                if (accountNames[i] === currentAccount) {
+                    if (accountBalances[i] !== 0) {
+                        let message = `Account cannot be deleted due to remaining balance!`;
+                        this.props.onGetMessage(message);
+                        break;
+                    }
+                    let message = `${currentAccount} account has been deleted.`;
+                    this.props.onGetMessage(message);
+                    this.props.delAccountName();
+                }
+            }
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <div className="column">
+                    <div className="column4">
+                        <button onClick={this.handleKeyPress}>DELETE</button>
                     </div>
                 </div>
             </React.Fragment>
