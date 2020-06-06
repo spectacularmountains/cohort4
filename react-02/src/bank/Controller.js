@@ -8,6 +8,7 @@ class Controller extends Component {
             accountNames: ["Chequing", "Savings", "Investment"],
             accountBalances: [25, 150, 3000],
             message: "Welcome!",
+            statsDisplayed: true, 
         }
         this.getDeposit = this.getDeposit.bind(this); 
         this.changeCurrentAccount = this.changeCurrentAccount.bind(this); 
@@ -15,6 +16,7 @@ class Controller extends Component {
         this.createNewAccount = this.createNewAccount.bind(this); 
         this.updateAccountName = this.updateAccountName.bind(this); 
         this.deleteAccount = this.deleteAccount.bind(this); 
+        this.showHideStats = this.showHideStats.bind(this); 
     }
 
     getDeposit(deposit) {
@@ -32,6 +34,10 @@ class Controller extends Component {
 
     getMessage(message) {
         this.setState({message: message})
+    }
+
+    showHideStats() {
+        this.state.statsDisplayed? this.setState({statsDisplayed: false}) : this.setState({statsDisplayed: true});
     }
 
     changeCurrentAccount(account) {
@@ -63,7 +69,9 @@ class Controller extends Component {
             if (account === this.state.currentAccount) {
                 newAccountBalances.splice(i,1)
                 newAccountNames.splice(i,1)
+                return null;
             }
+            return null;
         });
         this.setState({accountBalances: newAccountBalances})
         this.setState({accountNames: newAccountNames});
@@ -98,9 +106,7 @@ class Controller extends Component {
                                 </div>
                             </div>
                             <div className="column">
-                                <div className="column4">
-                                    <button id="buttonAccounts">STATS</button>
-                                </div>
+                                <StatsButton handleShowHide={this.showHideStats}/>
                             </div>
                         </div>
 
@@ -231,7 +237,7 @@ class Controller extends Component {
                     </div>
 
                     {/* //-- ACCOUNT STATS -- */}
-                    <Stats accountBalances={this.state.accountBalances} accountNames={this.state.accountNames}/>
+                    <Stats statsDisplayed={this.state.statsDisplayed} accountBalances={this.state.accountBalances} accountNames={this.state.accountNames}/>
                 
                 </div>
 
@@ -375,6 +381,7 @@ class Stats extends Component {
         this.getLowestBalance = this.getLowestBalance.bind(this);
         this.getHighestAccount = this.getHighestAccount.bind(this);
         this.getLowestAccount = this.getLowestAccount.bind(this);
+        this.getStyle = this.getStyle.bind(this);
     }
 
     getTotalBalance() {
@@ -415,66 +422,72 @@ class Stats extends Component {
         return lowestAccount;
     }
 
+    getStyle() {
+        return this.props.statsDisplayed? {display: "block"} : {display: "none"};
+    }
+
     render() {
         return (
-            <div className="cardR">
-                <div className="card-headerR">ACCOUNT STATS</div>
-                <div className="card-mainR">
+            <React.Fragment>
+                <div style={this.getStyle()} className="cardR">
+                    <div className="card-headerR">ACCOUNT STATS</div>
+                    <div className="card-mainR">
 
-                        {/* //-- ROW 1 --> */}
-                        <div className="rowR">
-                            {/* <div className="columnR"> */}
-                                <div className="column1R">
-                                    Account holder:
-                                </div>
-                            {/* </div> */}
-                            {/* <div className="columnR"> */}
-                                <div className="column2R">
-                                    <div className="main-descriptionR">John Smith</div>
-                                </div>
-                            {/* </div> */}
-                            
-                        </div>
+                            {/* //-- ROW 1 --> */}
+                            <div className="rowR">
+                                {/* <div className="columnR"> */}
+                                    <div className="column1R">
+                                        Account holder:
+                                    </div>
+                                {/* </div> */}
+                                {/* <div className="columnR"> */}
+                                    <div className="column2R">
+                                        <div className="main-descriptionR">John Smith</div>
+                                    </div>
+                                {/* </div> */}
+                                
+                            </div>
 
-                        {/* //-- ROW 2 --> */}
-                        <div className="rowR">
-                            {/* <div className="columnR"> */}
-                                <div className="column1R">
-                                    Total funds:
-                                </div>
-                            {/* </div> */}
-                            {/* <div className="columnR"> */}
-                                <div className="column2R" id="idTotalBalance">
-                                    ${this.getTotalBalance()}
-                                </div>
-                            {/* </div> */}
-                            
-                        </div>
+                            {/* //-- ROW 2 --> */}
+                            <div className="rowR">
+                                {/* <div className="columnR"> */}
+                                    <div className="column1R">
+                                        Total funds:
+                                    </div>
+                                {/* </div> */}
+                                {/* <div className="columnR"> */}
+                                    <div className="column2R" id="idTotalBalance">
+                                        ${this.getTotalBalance()}
+                                    </div>
+                                {/* </div> */}
+                                
+                            </div>
 
-                        {/* //-- ROW 3 --> */}
-                        <div className="rowR">
-                                <div className="column1R">
-                                    Highest account:
-                                </div>
-                                <div className="column2R" id="idHighestAccountValue">
-                                    {this.getHighestAccount()} (${this.getHighestBalance()})
-                                </div>
-                            
-                        </div>
+                            {/* //-- ROW 3 --> */}
+                            <div className="rowR">
+                                    <div className="column1R">
+                                        Highest account:
+                                    </div>
+                                    <div className="column2R" id="idHighestAccountValue">
+                                        {this.getHighestAccount()} (${this.getHighestBalance()})
+                                    </div>
+                                
+                            </div>
 
-                        {/* //-- ROW 4 --> */}
-                        <div className="rowR">
-                                <div className="column1R">
-                                    Lowest account: 
-                                </div>
-                                <div className="column2R" id="idLowestAccountValue">
-                                    {this.getLowestAccount()} (${this.getLowestBalance()})
-                                </div>
-                        </div>
+                            {/* //-- ROW 4 --> */}
+                            <div className="rowR">
+                                    <div className="column1R">
+                                        Lowest account: 
+                                    </div>
+                                    <div className="column2R" id="idLowestAccountValue">
+                                        {this.getLowestAccount()} (${this.getLowestBalance()})
+                                    </div>
+                            </div>
 
-                        <div className="lastRow"></div>
+                            <div className="lastRow"></div>
+                    </div>
                 </div>
-            </div>
+            </React.Fragment>
         )
     }
 }
@@ -602,23 +615,24 @@ class RenameAccount extends Component {
 class DeleteAccount extends Component {
     constructor() {
         super();
-        this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
-    handleKeyPress() {
+    handleClick() {
         let {accountNames, accountBalances, currentAccount} = this.props;
-            for (let i=0;i<accountNames.length;i++) {
-                if (accountNames[i] === currentAccount) {
-                    if (accountBalances[i] !== 0) {
-                        let message = `Account cannot be deleted due to remaining balance!`;
-                        this.props.onGetMessage(message);
-                        break;
-                    }
-                    let message = `${currentAccount} account has been deleted.`;
+        if (accountNames.length === 1) return; // If only one account exists, account cannot be deleted 
+        for (let i=0;i<accountNames.length;i++) {
+            if (accountNames[i] === currentAccount) {
+                if (accountBalances[i] !== 0) {
+                    let message = `Account cannot be deleted due to remaining balance!`;
                     this.props.onGetMessage(message);
-                    this.props.delAccountName();
+                    break;
                 }
+                let message = `${currentAccount} account has been deleted.`;
+                this.props.onGetMessage(message);
+                this.props.delAccountName();
             }
+        }
     }
 
     render() {
@@ -626,8 +640,29 @@ class DeleteAccount extends Component {
             <React.Fragment>
                 <div className="column">
                     <div className="column4">
-                        <button onClick={this.handleKeyPress}>DELETE</button>
+                        <button onClick={this.handleClick}>DELETE</button>
                     </div>
+                </div>
+            </React.Fragment>
+        )
+    }
+}
+
+class StatsButton extends Component {
+    constructor() {
+        super();
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        this.props.handleShowHide();
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <div className="column4">
+                    <button onClick={this.handleClick}>STATS</button>
                 </div>
             </React.Fragment>
         )
