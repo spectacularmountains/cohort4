@@ -94,13 +94,23 @@
 .Style-4 {
   height: 800px;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Arial";
   background: linear-gradient(to left, rgba(23,2,34,67) 0%, rgba(34,5,88,120) 100%); 
 }
+
+@font-face {
+  font-family: "Aeroshodic";
+  font-style: normal; 
+  font-weight: normal; 
+  src: local('Aeroshodic'), url(./robofriends/containers/Aeroshodic.ttf);
+}
+
+.robo {
+  font-family: Aeroshodic; 
+  font-weight: 10;
+  color: rgba(150,1,23,90); 
+}
+
 
 /* BANK ACCOUNT */
 .Style-5 {
@@ -282,4 +292,18 @@
   color: #D32F2F;
   font-size: 1em;
   font-weight: bold;
+}
+
+
+
+/* CITIES AND COMMUNITIES */
+.Style-6 {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: rgba(150,1,23,90); 
+  height: auto;
+  background: linear-gradient(to right, white 0%, rgb(223, 214, 214) 100%); 
 }

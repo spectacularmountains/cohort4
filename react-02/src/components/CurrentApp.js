@@ -5,6 +5,7 @@ import TicTacToe from '../tictactoe/TicTacToe'
 import ImageSlider from './ImageSlider'
 import RoboFriends from '../robofriends/containers/Robo'
 import Bank from '../bank/Controller'
+import Cities from '../cities/Cities'
 
 function CurrentApp(props) {
     if (props.currentApp === 1) {
@@ -20,6 +21,8 @@ function CurrentApp(props) {
         return <RoboFriends />
     } else if (props.currentApp === 5) {
         return <Bank />
+    } else if (props.currentApp === 6) {
+        return <Cities />
     } 
 }
 

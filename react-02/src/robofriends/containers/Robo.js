@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import CardList from '../components/CardList'; 
 import SearchBox from '../components/SearchBox'; 
 import Scroll from '../components/Scroll'; 
-import './Robo.css';
 import 'tachyons'; 
 
 class Robo extends Component {
@@ -29,11 +28,11 @@ class Robo extends Component {
             return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase())
         })
         if (!this.state.robots.length) {
-            return <h1>loading...</h1>
+            return <h1 className="robo">loading...</h1>
         } else {
         return (
             <div className="tc">
-                <h1 className="f-headline lh-solid">RoboFriends</h1>
+                <h1 className="f-headline lh-solid robo">RoboFriends</h1>
                 <SearchBox searchChange={this.onSearchChange}/>
                 <Scroll>
                     <CardList robots={filteredRobots}/>

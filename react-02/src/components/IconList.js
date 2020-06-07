@@ -30,6 +30,11 @@ class IconList extends Component {
                 name: "Bank Account",
                 highlighted: false
             },
+            {
+                id: 6, 
+                name: "Cities and Communities",
+                highlighted: false
+            },
         ]
     }
     
