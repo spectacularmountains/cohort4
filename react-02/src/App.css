@@ -136,7 +136,7 @@
 }
 
 .right {
-	float: left;
+	float: right;
 	width: 40%;
   height: 400px;
 }
@@ -172,20 +172,20 @@
 /* STYLING OF ACCOUNT CARDS */
 
 .accounts{
-  width: 620px;                 /* Set width of cards */
+  width: 420px;                 /* Set width of cards */
   display: flex;                /* Children use Flexbox */
   flex-direction: column; 
-  background-color: #D32F2F;
+  background-color: rgb(73, 91, 170);
   border: 2px solid rgb(53, 30, 30);    /* Set up Border */
   border-radius: 4px;           /* Slightly Curve edges */
   overflow: hidden;             /* Fixes the corners */
   margin-left: 5px;                 /* Add space between cards */
   margin-top: 10px;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   text-align: center;
   font-weight: bold;
-  font-size: 1.4em;
+  font-size: 1.2em;
   text-transform: capitalize;
   }
 

@@ -351,7 +351,7 @@ class Accounts extends Component {
     }
 
     getStyle(account) {
-        return (account === this.props.currentAccount)? {color: "white", backgroundColor: "red"} : {color: "black", backgroundColor: "white"}
+        return (account === this.props.currentAccount)? {color: "white", backgroundColor: "rgb(73, 91, 170)"} : {color: "black", backgroundColor: "white"}
     }
     
     render() {
