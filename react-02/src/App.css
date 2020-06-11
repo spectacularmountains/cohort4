@@ -7,9 +7,11 @@
   font-family: 'Syncopate';
   font-size: calc(8px + 2vmin);
   font-weight: bold;
-  min-height: 8vh;
+  height: 8vmin;
+  text-align: center;
   display: flex;
   justify-content: center;
+  align-items: center;
   color: white;
 }
 
@@ -51,8 +53,6 @@
 }
 
 .App-footer {
-  margin-top: -4px;
-  margin-bottom: -4px;
   text-align: center;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 0.8rem;
@@ -61,7 +61,7 @@
 
 .App-body {
   background-color: #d5e5e9;
-  height: 480px;
+  height: 500px;
   border-top: 1px dotted grey;
   border-bottom: 1px dotted grey;
   display: flex;

@@ -21,7 +21,7 @@ class App extends Component {
     return (
         <div className="App">
           <header className="App-header">
-            <p>{this.state.textOutput}</p>
+            <span>{this.state.textOutput}</span>
           </header>
           <div>
             <IconList changeTextOutput={this.changeTextOutput} changeCurrentApp={this.changeCurrentApp} currentApp={this.state.currentApp}/>
@@ -30,7 +30,7 @@ class App extends Component {
               <CurrentApp currentApp={this.state.currentApp}/>
           </div>
           <div className="App-footer">
-            <p>Created by Cornelius Rott, EvolveU Full Stack Developer Program</p>
+            <span>Created by Cornelius Rott, EvolveU Full Stack Developer Program</span>
           </div>
         </div>
     );
