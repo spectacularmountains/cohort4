@@ -16,7 +16,7 @@ class Cities extends Component {
     constructor() {
         super(); 
         this.state = {
-            data: [], 
+            cityData: [], 
             nightVision: false,
             message: "Welcome!",
             searchCity: "",
@@ -44,54 +44,74 @@ class Cities extends Component {
         this.getMostSouthern = this.getMostSouthern.bind(this);
         this.changePopulation = this.changePopulation.bind(this); 
         this.deleteCity = this.deleteCity.bind(this); 
+        this.getRandomCity = this.getRandomCity.bind(this); 
     }
 
-    // componentDidMount() {
-    //     let data = this.state.data; 
-    //     this.setState({data: cities});
-    //     this.setState({message: `Database loaded. Currently ${data.length} entries in database.`});
-    //     for (let i=0; i<cities.length; i++) {
-    //         data = await postData(url + 'add', cities[i]);
-    //         this.setState({message: `${cities[i].key}: ${cities[i].city}`});
-    //     };
-
-    //     this.props.onGetData(this.state.value);
-    //     let message = `You have deposited $${this.state.value} into your ${this.props.currentAccount} account.`;
-    //     this.props.onGetMessage(message);
-    // }
+    async componentDidMount() {
+        try {
+            for (let i=0; i<cities.length; i++) {
+                await postData(url + 'add', cities[i]);
+                this.setState({message: `${cities[i].key}: ${cities[i].city}`});
+            };
+            this.setState({cityData: cities});
+            this.setState({message: `Database loaded. Currently ${cities.length} entries in database.`});
+            console.log("data loaded")
+            return;
+        } 
+        catch(err) {
+            this.setState({message: `Server ERROR (${err}). Please try again.`}); 
+            return;
+        }
+    }
 
     handleMessage(message) {
         this.setState({message: message});
     }
 
-    loadData() {
-        this.setState({data: cities})
-        this.setState({message: "Data loaded."});
+    async loadData() {
+        try {
+            for (let i=0; i<cities.length; i++) {
+                await postData(url + 'add', cities[i]);
+                this.setState({message: `${cities[i].key}: ${cities[i].city}`});
+            };
+            this.setState({cityData: cities});
+            this.setState({message: `Database loaded. Currently ${cities.length} entries in database.`});
+            console.log("data loaded")
+            return;
+        } 
+        catch(err) {
+            this.setState({message: `Server ERROR (${err}). Please try again.`}); 
+            return;
+        }
     }
 
-    clearData() {
-        this.setState({data: []})
+    async clearData() {
+        let data = await postData(url + 'clear');
+        if (data.status > 200) { this.setState({message: `Server ERROR. Please try again.`}); return}
+        this.setState({cityData: []})
+        this.setState({currentCity: ""}); 
+        data = false;
         this.setState({message: "Data cleared."});
     }
     
     showAll() {
-        if (!this.state.data.length) {
+        if (!this.state.cityData.length) {
             this.setState({message: "No data in database!"});
             return;
         }
-        this.setState({searchCity: ""})
+        this.setState({searchCity: "", inputPopulation: "", inputLatitude: "", inputLongitude: ""})
         this.setState({message: "Showing all cities in database."});
     }
 
     getTotalPopulation() {
-        let data = this.state.data; 
-        if (!data.length) {
+        let cityData = this.state.cityData; 
+        if (!cityData.length) {
             this.setState({message: "No data in database!"});
             return;
         }
         let totalPopulation = 0;
-        for (let i=0;i<data.length;i++) {
-            totalPopulation += data[i].population; 
+        for (let i=0;i<cityData.length;i++) {
+            totalPopulation += cityData[i].population; 
         }
         this.setState({message: `The total population of all cities is ${totalPopulation}.`});
     }
@@ -101,15 +121,15 @@ class Cities extends Component {
             this.setState({message: "Please select a place!"}); 
             return;
         }
-        let data = this.state.data; 
+        let cityData = this.state.cityData; 
         let placeType = ""; 
-        for (let i=0; i<data.length; i++) {
-            if (data[i].city === this.state.currentCity) { 
+        for (let i=0; i<cityData.length; i++) {
+            if (cityData[i].city === this.state.currentCity) { 
                 
-                if (data[i].population > 100000) { placeType = "city"}
-                else if (data[i].population > 20000) { placeType = "large town"}
-                else if (data[i].population > 1000) { placeType = "town"}
-                else if (data[i].population > 100) { placeType = "village"}
+                if (cityData[i].population > 100000) { placeType = "city"}
+                else if (cityData[i].population > 20000) { placeType = "large town"}
+                else if (cityData[i].population > 1000) { placeType = "town"}
+                else if (cityData[i].population > 100) { placeType = "village"}
                 else {placeType = "hamlet"}
             };
         }; 
@@ -121,11 +141,11 @@ class Cities extends Component {
             this.setState({message: "Please select a place!"}); 
             return;
         }
-        let data = this.state.data; 
-        for (let i=0; i<data.length; i++) {
+        let cityData = this.state.cityData; 
+        for (let i=0; i<cityData.length; i++) {
 
-            if (data[i].city === this.state.currentCity) { 
-                if (data[i].latitude > 0) {
+            if (cityData[i].city === this.state.currentCity) { 
+                if (cityData[i].latitude > 0) {
                     this.setState({message: "Northern hemisphere"});
                 return 
             };
@@ -136,48 +156,54 @@ class Cities extends Component {
     };
 
     getMostNorthern() {
-        let data = this.state.data;
-        if (!data.length) {
+        let cityData = this.state.cityData;
+        if (!cityData.length) {
             this.setState({message: "No data in database!"});
             return;
         }
         // Reduce array of objects to find object with highest latitude
-        const max = data.reduce(function(prev, current) {
+        const max = cityData.reduce(function(prev, current) {
             return (prev.latitude > current.latitude) ? prev : current
         });
         this.setState({message: `The northernmost place is ${max.city}.`});
     };
 
     getMostSouthern() {
-        let data = this.state.data;
-        if (!data.length) {
+        let cityData = this.state.cityData;
+        if (!cityData.length) {
             this.setState({message: "No data in database!"});
             return;
         }
         // Reduce array of objects to find object with lowest latitude
-        const min = data.reduce(function(prev, current) {
+        const min = cityData.reduce(function(prev, current) {
             return (prev.latitude < current.latitude) ? prev : current
         });
         this.setState({message: `The southernmost place is ${min.city}.`});
     };
 
-	changePopulation() {
-        let updatedData = this.state.data.map((city) => {
+	async changePopulation() {
+        let updatedData = this.state.cityData.map((city) => {
             if (city.city === this.state.currentCity) {
                 let updatedCity = {...city, population: city.population + Number(this.state.delta)};
                 return updatedCity
             }
             return city;
         });
-        console.log(updatedData)
-        this.setState({data: updatedData});
+        let data = this.state.cityData; 
+        for (let i=0; i<data.length; i++) {
+            if (data[i].city === this.state.currentCity) { 
+                data[i].population += Number(this.state.delta); 
+                await postData(url + 'update', {key: data[i].key, city: data[i].city, population: data[i].population, latitude: data[i].latitude, longitude: data[i].longitude});
+                break;
+            };
+        }; 
+        this.setState({cityData: updatedData});
         this.setState({message: `The population of ${this.state.currentCity} has changed by ${this.state.delta}.`}); 
-        this.setState({currentCity: ""}); 
         this.setState({delta: ""});
     };
     
-    deleteCity(cityToBeDeleted) {
-        let updatedData = [...this.state.data]
+    async deleteCity(cityToBeDeleted) {
+        let updatedData = [...this.state.cityData]
 
         updatedData.map((city, i) => {
             if (city.city === cityToBeDeleted) {
@@ -187,7 +213,15 @@ class Cities extends Component {
             return null;
         });
 
-        this.setState({data: updatedData});
+        let data = this.state.cityData; 
+        for (let i=0; i<data.length; i++) {
+            if (data[i].city === cityToBeDeleted) {
+                await postData(url + 'delete', {key: data[i].key});
+                break; 
+            }; 
+        }
+
+        this.setState({cityData: updatedData});
         this.setState({message: `You have deleted ${cityToBeDeleted}.`}); 
         this.setState({currentCity: ""}); 
     }
@@ -210,26 +244,46 @@ class Cities extends Component {
     }
 
     handlePopulationInput(event) {
-        let text = event.target.value
-        this.setState({inputPopulation: text})
+        let population = Number(event.target.value)
+        if (population < 0 || !Number.isInteger(population)) {
+            this.setState({message: "Please enter a valid number!"});
+            return;
+        }
+        this.setState({message: ""});
+        this.setState({inputPopulation: population})
     }
 
     handleLatitudeInput(event) {
-        let text = event.target.value
-        this.setState({inputLatitude: text})
+        let latitude = event.target.value
+        if (latitude < -90 || latitude > 90) {
+            this.setState({message: "Latitudes range from -90 to +90."});
+            return;
+        }
+        this.setState({message: ""});
+        this.setState({inputLatitude: latitude})
     }
 
     handleLongitudeInput(event) {
-        let text = event.target.value
-        this.setState({inputLongitude: text})
+        let longitude = event.target.value
+        if (longitude < -180 || longitude > 180) {
+            this.setState({message: "Longitudes range from -180 to +180."});
+            return;
+        }
+        this.setState({message: ""});
+        this.setState({inputLongitude: longitude})
     }
     
     handleDelta(event) {
-        let delta = event.target.value
+        let delta = Number(event.target.value)
+        if (!Number.isInteger(delta)) {
+            this.setState({message: "Please enter whole numbers only."});
+            return;
+        }
+        this.setState({message: ""});
         this.setState({delta: delta})
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault(); // Prevent complete page refresh (default behaviour of submit button)
 
         // Check first if all fields have values in them 
@@ -239,36 +293,94 @@ class Cities extends Component {
         };
 
                 
-        let cities = this.state.data; 
+        let cityData = this.state.cityData; 
         let cityName = this.state.searchCity;
-        if(!isNaN(cityName[0]) || cityName[0] == " ") { //Make sure first character is not a number or space
+        if(!isNaN(cityName[0]) || cityName[0] === " ") { //Make sure first character is not a number or space
             let message = `First character must be a letter!`;
             this.setState({message: message});
             this.setState({searchCity: "", inputPopulation: "", inputLatitude: "", inputLongitude: ""});
             return;
         }
         let newCityName = cityName.charAt(0).toUpperCase() + cityName.slice(1); // Capitalize first letter of newly created city 
-        for (let i=0; i<cities.length; i++) { // Check if city exists in database 
-                if (cities[i].city === newCityName) {
-                    this.setState({message: `${cities[i].city} already exists in database.`});
+        for (let i=0; i<cityData.length; i++) { // Check if city exists in database 
+                if (cityData[i].city === newCityName) {
+                    this.setState({message: `${cityData[i].city} already exists in database.`});
                     return; 
                 }
         }
 
         // Add new city data to STATE 
         let newCityData = {
-            key: (cities.length + 1), //     CREATE UUID??
+            key: (cityData.length + 1), //     CREATE UUID??
             city: newCityName, 
-            population: this.state.inputPopulation, 
+            population: Number(this.state.inputPopulation), 
             latitude: this.state.inputLatitude, 
             longitude: this.state.inputLongitude, 
         }
-        this.setState({data: [...this.state.data, newCityData]})
+        this.setState({cityData: [...this.state.cityData, newCityData]});
+        await postData(url + 'add', newCityData);
 
         let message = `You created a new city named ${newCityName}.`;
         this.setState({message: message});
         this.setState({searchCity: "", inputPopulation: "", inputLatitude: "", inputLongitude: ""});
         return;
+    }
+
+    async getRandomCity() {
+        let randomID = getRndInteger(100, 125000); 
+
+        const response = await fetch("https://wft-geo-db.p.rapidapi.com/v1/geo/cities/" + randomID, {
+            "method": "GET",
+            "headers": {
+            "x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
+            "x-rapidapi-key": "3621e108a9msh885bc7ed5553885p1ed7dfjsnf8b75611f536",
+	        }
+        });
+        const json = await response.json();    // parses JSON response into native JavaScript objects
+        json.status = response.status;
+        json.statusText = response.statusText;
+        if (response.status > 200) {return false};
+
+        this.setState({searchCity: json.data.city})
+        this.setState({inputPopulation: json.data.population})
+        this.setState({inputLatitude: json.data.latitude})
+        this.setState({inputLongitude: json.data.longitude})
+
+        // Add new city data to STATE 
+        let cityData = this.state.cityData; 
+        let newCityData = {
+            key: (cityData.length + 1), //     CREATE UUID??
+            city: this.state.searchCity, 
+            population: Number(this.state.inputPopulation), 
+            latitude: this.state.inputLatitude, 
+            longitude: this.state.inputLongitude, 
+        }
+        this.setState({cityData: [...this.state.cityData, newCityData]});
+        await postData(url + 'add', newCityData);
+
+        let message = `You created a new city named ${this.state.searchCity}.`;
+        this.setState({message: message});
+        return;
+
+        // fetch("https://wft-geo-db.p.rapidapi.com/v1/geo/cities/" + randomID, {
+        //     "method": "GET",
+        //     "headers": {
+        //     "x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
+        //     "x-rapidapi-key": "3621e108a9msh885bc7ed5553885p1ed7dfjsnf8b75611f536",
+	    //     }
+        // })
+        // .then(response => {
+        //     console.log("Response: ", response);
+        //     const json = response.json();    // parses JSON response into native JavaScript objects
+        //     json.status = response.status;
+        //     json.statusText = response.statusText;
+        //     console.log(json);
+        //     if (response.status > 200) {return false};
+        //     return json;
+        // })
+        // .catch(err => {
+        //     console.log("Error: ", err);
+        // });
     }
 
     render() {
@@ -279,9 +391,10 @@ class Cities extends Component {
                         <h1 className="display-4 text-center"><i className="fas fa-city text-primary"></i><span className="text-primary"> Cities</span> of the World</h1>
                         <hr/>
                         <div className="text-center">
-                            <Populate data={this.state.data} getMessage={this.handleMessage} loadData={this.loadData}/>
-                            <Clear data={this.state.data} getMessage={this.handleMessage} clearData={this.clearData}/>
+                            <Populate data={this.state.cityData} getMessage={this.handleMessage} loadData={this.loadData}/>
+                            <Clear data={this.state.cityData} getMessage={this.handleMessage} clearData={this.clearData}/>
                             <Button onClick={this.showAll} variant="secondary" size="sm" className="btn-sm btn-secondary mr-4">Show all cities</Button>
+                            <Button onClick={this.getRandomCity} variant="secondary" size="sm" className="btn-sm btn-danger mr-4">RANDOMIZE!</Button>
                         </div>
                         <div className="text-center mt-2">
                             <Button onClick={this.getTotalPopulation} id="totalPopulation" className="btn btn-primary mr-4">Total population</Button>
@@ -328,7 +441,7 @@ class Cities extends Component {
                                     <Form.Group className="text-center mb-5 d-flex align-items-center">
                                         <Form.Control onChange={this.handleDelta} value={this.state.delta} type="number" id="delta" placeholder="Enter a pos. or neg. number" style={{width: "250px"}}></Form.Control>
 
-                                        <Move data={this.state.data} getMessage={this.handleMessage} changePopulation={this.changePopulation} delta={this.state.delta} currentCity={this.state.currentCity}/>
+                                        <Move data={this.state.cityData} getMessage={this.handleMessage} changePopulation={this.changePopulation} delta={this.state.delta} currentCity={this.state.currentCity}/>
 
                                     </Form.Group>
                                 </Form>
@@ -350,7 +463,7 @@ class Cities extends Component {
                                                 </tr>
                                             </thead>
 
-                                            <CityList data={this.state.data} searchCity={this.state.searchCity} currentCity={this.state.currentCity} handleClick={this.changeCurrentCity} handleDeleteButton={this.deleteCity}/>
+                                            <CityList data={this.state.cityData} searchCity={this.state.searchCity} currentCity={this.state.currentCity} handleClick={this.changeCurrentCity} handleDeleteButton={this.deleteCity}/>
 
                                         </Table>
                                     </div> 
@@ -383,12 +496,12 @@ class CityList extends Component {
     }
 
     getStyle(city) {
-        return (city === this.props.currentCity)? {color: "white", backgroundColor: "red", cursor: "crosshair"} : {color: "black", backgroundColor: "white", cursor: "crosshair"}
+        return (city === this.props.currentCity)? {color: "white", backgroundColor: "rgb(73, 91, 170)", cursor: "crosshair"} : {color: "black", backgroundColor: "white", cursor: "crosshair"}
     }
 
     render() {
-        let data = this.props.data;
-        const filteredCities = data.filter(city => {
+        let cityData = this.props.data;
+        const filteredCities = cityData.filter(city => {
             return city.city.toLowerCase().includes(this.props.searchCity.toLowerCase())
         })
         let list = filteredCities.map((city) => {
@@ -398,7 +511,7 @@ class CityList extends Component {
                         <td className="align-middle" style={{lineHeight: "15px", padding: "5px"}}>{city.population}</td>
                         <td className="align-middle" style={{lineHeight: "15px", padding: "5px"}}>{city.latitude}</td>
                         <td className="align-middle" style={{lineHeight: "15px", padding: "5px"}}>{city.longitude}</td>
-                        <td className="align-middle" style={{lineHeight: "15px", padding: "5px"}}><a onClick={() => this.handleDeleteButton(city.city)} className="btn btn-danger btn-sm delete">X</a></td>
+                        <td className="align-middle" style={{lineHeight: "15px", padding: "5px"}}><span style={{cursor: "pointer"}} onClick={() => this.handleDeleteButton(city.city)} className="btn btn-danger btn-sm delete">X</span></td>
                     </tr>
             )
         })
@@ -420,8 +533,8 @@ class Populate extends Component {
     }
 
    handleClick() {
-       let data = this.props.data; 
-       if (data.length) {
+       let cityData = this.props.data; 
+       if (cityData.length) {
            let message = "Data has already been loaded!"; 
            this.props.getMessage(message); 
            return;
@@ -444,8 +557,8 @@ class Clear extends Component {
     }
 
    handleClick() {
-       let data = this.props.data; 
-       if (data.length === 0) {
+       let cityData = this.props.data; 
+       if (cityData.length === 0) {
            let message = "Database empty!"; 
            this.props.getMessage(message); 
            return;
@@ -519,5 +632,12 @@ async function postData(url = '', data = {}) {
         if (response.status > 200) {return false};
         return json;
 }
+
+
+// --------- FUNCTION TO GENERATE A RANDOM INTEGER BETWEEN MIN AND MAX (INCLUSIVE) -------- 
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+  }
+
 
 export default Cities;
