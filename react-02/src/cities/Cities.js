@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Button, Container, Row, Col, Form, Table} from 'react-bootstrap';
+import './cities.css';
 
 
 const url = 'http://localhost:5000/';
@@ -10,6 +11,8 @@ const cities = [
     {key:4, city:"Mumbai", population: 18410000, latitude: 19.0170, longitude: 72.8570},
     {key:5, city:"Sao Paulo", population: 12180000, latitude: -23.5587, longitude: -46.6250},
 ];
+
+let descendingOrder = false; 
 
 
 class Cities extends Component {
@@ -45,6 +48,7 @@ class Cities extends Component {
         this.changePopulation = this.changePopulation.bind(this); 
         this.deleteCity = this.deleteCity.bind(this); 
         this.getRandomCity = this.getRandomCity.bind(this); 
+        this.onSort = this.onSort.bind(this); 
     }
 
     async componentDidMount() {
@@ -327,7 +331,7 @@ class Cities extends Component {
     }
 
     async getRandomCity() {
-        let randomID = getRndInteger(100, 125000); 
+        let randomID = getRndInteger(100, 125000); // Generate a random whole number between 100 and 125000 (this is the range of city IDs in the GeoDB API)
 
         const response = await fetch("https://wft-geo-db.p.rapidapi.com/v1/geo/cities/" + randomID, {
             "method": "GET",
@@ -361,27 +365,27 @@ class Cities extends Component {
         let message = `You created a new city named ${this.state.searchCity}.`;
         this.setState({message: message});
         return;
-
-        // fetch("https://wft-geo-db.p.rapidapi.com/v1/geo/cities/" + randomID, {
-        //     "method": "GET",
-        //     "headers": {
-        //     "x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
-        //     "x-rapidapi-key": "3621e108a9msh885bc7ed5553885p1ed7dfjsnf8b75611f536",
-	    //     }
-        // })
-        // .then(response => {
-        //     console.log("Response: ", response);
-        //     const json = response.json();    // parses JSON response into native JavaScript objects
-        //     json.status = response.status;
-        //     json.statusText = response.statusText;
-        //     console.log(json);
-        //     if (response.status > 200) {return false};
-        //     return json;
-        // })
-        // .catch(err => {
-        //     console.log("Error: ", err);
-        // });
     }
+
+    // Sort values in table columns: a-b for numbers, and strings (localeCompare) for city names
+    onSort(sortKey){  
+        descendingOrder = !descendingOrder; 
+        const data = this.state.cityData;
+        if (descendingOrder) {
+            data.sort((a,b) => {
+                return a[sortKey]-b[sortKey] || a[sortKey].localeCompare(b[sortKey]);
+                }
+            )
+            this.setState({data}); 
+            return;
+        }
+        data.sort((a,b) => {
+            return b[sortKey]-a[sortKey] || b[sortKey].localeCompare(a[sortKey]);
+            }
+        )
+        this.setState({data}); 
+        return;
+      }
 
     render() {
         return (
@@ -453,12 +457,13 @@ class Cities extends Component {
                                     <div className="table-responsive-sm">
 
                                         <Table className="table table-striped">
-                                            <thead className="thead-light" style={{lineHeight: "10px", padding: "0"}}> 
+                                            <thead className="thead-light" style={{padding: "0", cursor: "default"}}> 
+                                                {/* style={{display: "flex", justifyContent: "space-between", alignItems: "center"}} */}
                                                 <tr>
-                                                    <th>City</th>
-                                                    <th>Population</th>
-                                                    <th>Latitude</th>
-                                                    <th>Longitude</th>
+                                                    <th onClick={() => this.onSort('city')}><div className="th-cities">City  <i className="material-icons" style={{fontSize: "1.1em"}}>unfold_more</i></div></th>
+                                                    <th onClick={() => this.onSort('population')}><div className="th-cities">Population  <i className="material-icons" style={{fontSize: "1.1em"}}>unfold_more</i></div></th>
+                                                    <th onClick={() => this.onSort('latitude')}><div className="th-cities">Latitude  <i className="material-icons" style={{fontSize: "1.1em"}}>unfold_more</i></div></th>
+                                                    <th onClick={() => this.onSort('longitude')}><div className="th-cities">Longitude  <i className="material-icons" style={{fontSize: "1.1em"}}>unfold_more</i></div></th>
                                                     <th></th>
                                                 </tr>
                                             </thead>

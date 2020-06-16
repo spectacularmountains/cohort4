@@ -8,7 +8,6 @@
   font-size: calc(8px + 2vmin);
   font-weight: bold;
   height: 8vmin;
-  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -95,7 +94,7 @@
   height: 800px;
   margin: 0;
   font-family: "Arial";
-  background: linear-gradient(to left, rgba(23,2,34,67) 0%, rgba(34,5,88,120) 100%); 
+  /* background: linear-gradient(to left, rgba(23,2,34,67) 0%, rgba(34,5,88,120) 100%);  */
 }
 
 @font-face {
@@ -108,7 +107,7 @@
 .robo {
   font-family: Aeroshodic; 
   font-weight: 10;
-  color: rgba(150,1,23,90); 
+  /* color: rgba(150,1,23,90);  */
 }
 
 
@@ -116,7 +115,7 @@
 .Style-5 {
   margin: 0;
   height: auto;
-  background: linear-gradient(to right, white 0%, rgb(223, 214, 214) 100%); 
+  /* background: linear-gradient(to right, white 0%, rgb(223, 214, 214) 100%);  */
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -268,7 +267,7 @@
 }
 
 .card-mainR {
-  background-color: rgb(255, 250, 251);
+  /* background-color: rgb(255, 250, 251); */
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -303,7 +302,64 @@
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: rgba(150,1,23,90); 
+  /* color: rgba(150,1,23,90);  */
   height: auto;
-  background: linear-gradient(to right, white 0%, rgb(223, 214, 214) 100%); 
+  /* background: linear-gradient(to right, white 0%, rgb(223, 214, 214) 100%);  */
 }
+
+
+
+/* ------------------------------------------------- */
+/* STYLING OF DARK/LIGHT MODE SWITCH  */
+/* ------------------------------------------------- */
+.onoffswitch {
+  position: fixed;
+  top: 15;
+  right: 0;
+  width: 140px;
+  -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.onoffswitch-label {
+  display: block; overflow: hidden; cursor: pointer;
+  border: 2px solid #999999; border-radius: 20px;
+}
+.onoffswitch-inner {
+  display: block; width: 200%; margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+  display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+  font-size: 15px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+  box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+  content: "DARK MODE";
+  padding-left: 10px;
+  background-color: #000000; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+  content: "LIGHT MODE";
+  padding-right: 10px;
+  background-color: #EEEEEE; color: #000000;
+  text-align: right;
+}
+.onoffswitch-switch {
+  display: block; width: 18px; height: 23px; margin: 6px;
+  background: #FFFFFF;
+  position: absolute; top: 0; bottom: 0;
+  right: 106px;
+  border: 2px solid #999999; border-radius: 20px;
+  transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+  margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+  right: 0px; 
+}
+/* ------------------------------------------------- */

@@ -35,6 +35,11 @@ class IconList extends Component {
                 name: "Cities and Communities",
                 highlighted: false
             },
+            {
+                id: 7, 
+                name: "Linked List",
+                highlighted: false
+            },
         ]
     }
     
@@ -76,7 +81,7 @@ class IconList extends Component {
 
     render() {
 
-        // Loop to display 3 mountain icons 
+        // Loop to display mountain icons 
         let list = this.state.mountains.map((mtn) => {
         return <div key={mtn.id} onMouseOver={() => this.handleMouseOver(mtn)} onMouseOut={() => this.handleMouseOut()} onClick={() => this.handleClick(mtn)} style={this.getStyle(mtn)}><Icon /></div>         
         });

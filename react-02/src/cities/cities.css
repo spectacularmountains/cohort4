@@ -1,0 +1,5 @@
+
+.th-cities {
+    display: flex; 
+    justify-content: space-between;
+}

@@ -102,7 +102,7 @@ class Controller extends Component {
                             </div>
                             <div className="column">
                                 <div className="column3">
-                                    <div className="main-description" style={{fontWeight:"bold", backgroundColor: "rgb(233, 232, 232)"}} id="idAccount">{this.state.currentAccount}</div>
+                                    <div className="main-description" style={{fontWeight:"bold", backgroundColor: "rgb(233, 232, 232)", width: "140px"}} id="idAccount">{this.state.currentAccount}</div>
                                 </div>
                             </div>
                             <div className="column">
@@ -123,7 +123,7 @@ class Controller extends Component {
                                 </div>
                             </div>
                             <div className="column">
-                                <div className="column3" style={{backgroundColor: "rgb(233, 232, 232)"}}>
+                                <div className="column3" style={{backgroundColor: "rgb(233, 232, 232)", width: "140px"}}>
                                     <AccountBalance className="main-description" accountNames={this.state.accountNames} accountBalances={this.state.accountBalances} currentAccount={this.state.currentAccount} />
                                 </div>
                             </div>
@@ -281,12 +281,12 @@ class Deposit extends Component {
             <React.Fragment>
                 <div className="column">
                     <div className="column3">
-                        <input type="number" style={{width: "120px"}} value={this.state.value} onKeyDown={this.handleKeyPress} onChange={this.handleChange}/>
+                        <input type="number" style={{width: "140px"}} value={this.state.value} onKeyDown={this.handleKeyPress} onChange={this.handleChange}/>
                     </div>
                 </div>
                 <div className="column">
                     <div className="column4">
-                        <button id="buttonDeposit" onClick={this.handleKeyPress}>DEPOSIT</button>
+                        <button id="buttonDeposit" onClick={this.handleKeyPress} style={{width: "130px"}}>DEPOSIT</button>
                     </div>
                 </div>
             </React.Fragment>
@@ -324,12 +324,12 @@ class Withdraw extends Component {
             <React.Fragment>
                 <div className="column">
                     <div className="column3">
-                        <input type="number" style={{width: "120px"}} value={this.state.value} onKeyDown={this.handleKeyPress} onChange={this.handleChange}/>
+                        <input type="number" style={{width: "140px"}} value={this.state.value} onKeyDown={this.handleKeyPress} onChange={this.handleChange}/>
                     </div>
                 </div>
                 <div className="column">
                     <div className="column4">
-                        <button id="buttonWithdraw" onClick={this.handleKeyPress}>WITHDRAW</button>
+                        <button id="buttonWithdraw" onClick={this.handleKeyPress} style={{width: "130px"}}>WITHDRAW</button>
                     </div>
                 </div>
             </React.Fragment>
@@ -541,12 +541,12 @@ class CreateAccount extends Component {
             <React.Fragment>
                 <div className="column">
                     <div className="column3">
-                        <input type="text" value={this.state.value} id="idCreate" style={{width: "120px"}} onChange={this.handleChange} onKeyDown={this.handleKeyPress}/>
+                        <input type="text" value={this.state.value} id="idCreate" style={{width: "140px"}} onChange={this.handleChange} onKeyDown={this.handleKeyPress}/>
                     </div>
                 </div>
                 <div className="column">
                     <div className="column4">
-                        <button onClick={this.handleKeyPress}>CREATE NEW</button>
+                        <button onClick={this.handleKeyPress} style={{width: "130px"}}>CREATE NEW</button>
                     </div>
                 </div>
             </React.Fragment>
@@ -599,12 +599,12 @@ class RenameAccount extends Component {
             <React.Fragment>
                 <div className="column">
                     <div className="column3">
-                    <input type="text" value={this.state.value} style={{width: "120px"}} onChange={this.handleChange} onKeyDown={this.handleKeyPress}/>
+                    <input type="text" value={this.state.value} style={{width: "140px"}} onChange={this.handleChange} onKeyDown={this.handleKeyPress}/>
                     </div>
                 </div>
                 <div className="column">
                     <div className="column4">
-                        <button onClick={this.handleKeyPress}>RENAME</button>
+                        <button onClick={this.handleKeyPress} style={{width: "130px"}}>RENAME</button>
                     </div>
                 </div>
             </React.Fragment>
@@ -640,7 +640,7 @@ class DeleteAccount extends Component {
             <React.Fragment>
                 <div className="column">
                     <div className="column4">
-                        <button onClick={this.handleClick}>DELETE</button>
+                        <button onClick={this.handleClick} style={{width: "130px"}}>DELETE</button>
                     </div>
                 </div>
             </React.Fragment>
@@ -662,7 +662,7 @@ class StatsButton extends Component {
         return (
             <React.Fragment>
                 <div className="column4">
-                    <button onClick={this.handleClick}>STATS</button>
+                    <button onClick={this.handleClick} style={{width: "130px"}}>STATS</button>
                 </div>
             </React.Fragment>
         )
