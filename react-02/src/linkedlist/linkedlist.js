@@ -1,5 +1,8 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState } from 'react';
 import './linkedlist.css';
+
+let currentIndex = -1; 
+
 
 class Node extends Component {
     constructor(value, prev, next) {
@@ -8,16 +11,8 @@ class Node extends Component {
         this.prev = prev || null;
         this.next = next || null;
     }
-
-    // constructor(data) {
-    //     super(); 
-    //     this.data = data;
-    //     this.next = null;
-    // }
 }
 
-
-// const head = Symbol("head");
 
 class LinkedList extends Component {
     constructor() {
@@ -77,6 +72,16 @@ class LinkedList extends Component {
         } 
     }
 
+    getTotalOfValues() {
+        let current = this.head;
+        let total = 0;
+        while(current) {
+            total += Number(current.value);
+            current = current.next;
+        }
+        return total; 
+    }
+            
     search(value) {
         if (!this.tail) {
             return null;
@@ -93,13 +98,8 @@ class LinkedList extends Component {
             
     }
 
-    // constructor() {
-    //     super(); 
-    //     this[head] = null;
-    // }
-    
-    add(value) {
-        
+   
+    add(value, currentIndex) {
         // create a new node
         const newNode = new Node(value);
         
@@ -108,48 +108,86 @@ class LinkedList extends Component {
             
             // just set the head to the new node
             this.head = newNode;
+            return [null, this.head.value, null, 0]; 
         } else {
             
             // start out by looking at the first node
             let current = this.head;
+            console.log("First node: " + current.value)
             
-            // follow `next` links until you reach the end
-            while (current.next !== null) {
+            // traverse the list until you reach either the end or the index
+            let i = 0; 
+            let storedCurrent = null;
+            while ((current !== null) && (i < currentIndex)) {
+                console.log(i, currentIndex)
+                storedCurrent = current;
                 current = current.next;
+                i++;
             }
+            let nodesToBeShiftedBack;
+            let currentNode;
+            if (storedCurrent.prev && storedCurrent.next) {
+                console.log("Case 1: Insert somewhere in the middle")
+                nodesToBeShiftedBack = storedCurrent.next || null;
+                currentNode = new Node(value); 
+                nodesToBeShiftedBack.prev = currentNode; 
+                storedCurrent.next = currentNode; 
+                currentNode.next = nodesToBeShiftedBack; 
+                currentNode.prev = storedCurrent;
+
+            } else if (!storedCurrent.prev && storedCurrent.next) {
+                console.log("Case 2: Insert after first node")
+                nodesToBeShiftedBack = storedCurrent.next || null;
+                currentNode = new Node(value); 
+                nodesToBeShiftedBack.prev = currentNode; 
+                storedCurrent.next = currentNode; 
+                currentNode.next = nodesToBeShiftedBack; 
+                currentNode.prev = storedCurrent;
+                this.head = storedCurrent; 
+
+            } else {
+                console.log("Case 3: Insert at the end")
+                currentNode = new Node(value); 
+                this.tail = currentNode;
+                storedCurrent.next = currentNode; 
+                currentNode.next = null; 
+                currentNode.prev = storedCurrent;
+            }
+
+            console.log("Prev node: ", currentNode.prev)
+            console.log("Current node: ", currentNode)
+            console.log("Next node: ", currentNode.next)
            
-            // assign the node into the `next` pointer
-            current.next = newNode;            
+            if (!currentNode.next) {
+                return [currentNode.prev.value, currentNode.value, null, i]
+            }
+            return [currentNode.prev.value, currentNode.value, currentNode.next.value, i]
         }
     }
     
     get(index) {
-    
-        // ensure `index` is a positive value
-        if (index > -1) {
-            
-            // the pointer to use for traversal
-            let current = this.head;
-            
-            // used to keep track of where in the list you are
-            let i = 0;
-            
-            // traverse the list until you reach either the end or the index
-            while ((current !== null) && (i < index)) {
-                current = current.next;
-                i++;          
-            }
-            
-            // return the data if `current` isn't null
-            return current !== null ? current.value : undefined;
-        } else {
-            return undefined;
+
+        // the pointer to use for traversal
+        let current = this.head;
+        console.log("this.head ", current)
+        
+        // used to keep track of where in the list you are
+        let i = 0;
+        // traverse the list until you reach either the end or the index
+        while ((current !== null) && (i < index)) {
+            current = current.next;
+            i++;          
         }
+        console.log("Current node: ", current.value)
+        console.log("Previous node: ", current.prev? current.prev.value : null)
+        
+        // return the data if `current` isn't null
+        return ((current !== null) ? current : undefined);
     }
     
     remove(index) {
         
-        // special cases: empty list or invalid `index`
+        // Special case: last node 
         if ((this.head === null) || (index < 0)) {
             throw new RangeError(`Index ${index} does not exist in the list.`);
         }
@@ -162,9 +200,14 @@ class LinkedList extends Component {
             
             // just replace the head with the next node in the list
             this.head = this.head.next;
+            if (this.head) {this.head.prev = null}; 
 
-            // return the data at the previous head of the list
-            return value;
+            let prevNode = null;
+            let currentNode = this.head? this.head.value : null; 
+            let nextNode = this.head? (this.head.next? this.head.next.value : null) : null; 
+            index = this.head? 0 : -1;
+
+            return [prevNode, currentNode, nextNode, value, index];
         }
         
         // pointer use to traverse the list
@@ -191,34 +234,36 @@ class LinkedList extends Component {
         
         // if node was found, remove it
         if (current !== null) {
+            console.log("boobbbbb", current.value, this.head.value, previous.value)
             
             // skip over the node to remove
+            if (previous.prev) {
+                this.head.prev = previous.prev; 
+                console.log(this.head.prev.value)
+                console.log(this.head.value)
+            } else {
+                this.head = previous;
+                this.head.prev = null;
+                previous.prev = this.head.prev 
+                console.log("Previous.prev ", previous.prev)
+            }; 
             previous.next = current.next;
+            console.log(previous.value)
+
             
             // return the value that was just removed from the list
-            return current.value;
         }
-        
-        // if node wasn't found, throw an error
-        throw new RangeError(`Index ${index} does not exist in the list.`);
-    }
-    
-    
-    // The code below makes the list iterable 
+        let prevNode = previous.prev? previous.prev.value : null;
+        console.log("Previous node after deletion: ", previous.prev? previous.prev.value : null)
+        // let prevNode = current.prev.prev? current.prev.prev.value : null;
+        let currentNode = previous.value; 
+        console.log("Current node after deletion: ",previous.value)
+        let nextNode = previous.next? previous.next.value : null; 
+        console.log("Next node after deletion: ",previous.next? previous.next.value : null)
 
-    *values(){
-        
-        let current = this.head;
-        
-        while (current !== null) {
-            yield current.value;
-            current = current.next;
-        }
+        return [prevNode, currentNode, nextNode, current.value, index-1];
     }
     
-    [Symbol.iterator]() {
-        return this.values();
-    }    
 }
 
 
@@ -229,10 +274,24 @@ const list = new LinkedList(); // Instantiate a new Linked List
 function UserInterface() {
     const [inputValue, setInputValue] = useState(""); 
     const [message, setMessage] = useState("Welcome!");
-    const [listArray, setListArray] = useState([]);
-    const [listDisplay, setListDisplay] = useState([]);
-    const [currentNode, setCurrentNode] = useState("");
+    const [prevNode, setPrevNode] = useState(null);
+    const [currentNode, setCurrentNode] = useState(null);
+    const [nextNode, setNextNode] = useState(null);
+    const [total, setTotal] = useState(0);
     
+
+    function getTotal() {
+        if (!list.head) {
+            setTotal(0);
+            setMessage("List is empty!"); 
+            return;
+        }
+        let sum = list.getTotalOfValues(); 
+        setTotal(sum);
+        return;
+    }
+    
+
     function deleteList() {
         if (!list.head) {
             setMessage("List is empty!"); 
@@ -245,74 +304,116 @@ function UserInterface() {
             list.remove(0);
             counter++;
         }
+        list.head = null;
         let wordNode = (counter === 1) ? "node" : "nodes";
         setMessage(`${counter} ${wordNode} deleted.`)
-        setCurrentNode("");
+        
+        // Reset STATE of nodes and current index 
+        setPrevNode(null);
+        setCurrentNode(null);
+        setNextNode(null);
+        setInputValue("");
+        currentIndex = -1;
+        setTotal(0);
 
-        // Delete array of nodes in STATE 
-        setListArray([]);
-
-        // Delete array to be displayed (with arrows) in STATE 
-        setListDisplay([]);
         return;
     }
     
     function add(inputValue) {
-        if (!inputValue) return;
-        setCurrentNode(inputValue);
-        list.add(inputValue);
-        
-        const array = [...list.values()];
-        setListArray(array);
-        
-        let arrayWithArrows = [];
-        for (let item of list) {
-            arrayWithArrows.push(item, "  ->  ");
-        }
-        setListDisplay(arrayWithArrows);
+        if (!inputValue) {
+            setMessage(`Please enter a value!`);
+            return;
+        }        
+        currentIndex++;
+        // setCurrentIndex(newCurrentIndex);
+        let result = list.add(inputValue, currentIndex);
+        console.log("The added node has a value of: " + result[1]);
+        console.log("The current index is: " + result[3]);
+        setPrevNode(result[0])
+        setCurrentNode(result[1]);
+        setNextNode(result[2])
         setMessage(`You have added the following node: ${inputValue}.`);
         setInputValue("");
+
+        // Calculate total of all values 
+        getTotal();
 
         return;
     }
 
-    function get(index) {
-        if (!index || index > listArray.length) return;
+    function prev() {
 
-        let receivedNode = list.get(index)
-        setCurrentNode(receivedNode);
+        // First check if list exists 
+        if (currentIndex === -1) {
+            setMessage(`List does not exist!`);
+            return;
+            }
 
-        setMessage(`The node with index ${index} is: ${receivedNode}.`);
-        setInputValue("");
+        // Check if beginning of list has been reached 
+        if (currentIndex === 0) {
+            setMessage(`At beginning of list!`);
+            setPrevNode(null);
+            return;
+            }
+        
+        // If not, decrease current index by 1 and get all nodes 
+        currentIndex--;
+        let receivedNode = list.get(currentIndex)
+        setPrevNode(!receivedNode.prev? null : receivedNode.prev.value);
+        console.log(!receivedNode.prev? null : receivedNode.prev.value);
+        setCurrentNode(receivedNode.value);
+        setNextNode(!receivedNode.next? null : receivedNode.next.value);
+        setMessage(`Moved to previous node.`);
+
+        return;
+    }
+
+    function next() {
+
+        // First check if list exists 
+        if (currentIndex === -1) {
+            setMessage(`List does not exist!`);
+            return;
+        }
+
+        // Check if end of list has already been reached 
+        let receivedNode = list.get(currentIndex)
+        if (!receivedNode.next) {
+        setMessage(`At end of list!`);
+        setNextNode(null);
+        return;
+        }
+        
+        // If not, then increase current index by 1 and get all nodes (current, prev, and next)
+        currentIndex = currentIndex + 1;
+        receivedNode = list.get(currentIndex)
+
+        setPrevNode(!receivedNode.prev? null : receivedNode.prev.value); 
+        setCurrentNode(receivedNode.value); 
+        setNextNode(!receivedNode.next? null : receivedNode.next.value); 
+        setMessage(`Moved to next node.`);
 
         return;
     }
     
-    function removeNode(index) {
-        if (!index) {
-            setMessage(`Please enter a value!`);
+    function removeNode() {
+        console.log("boo", currentIndex)
+        if (currentIndex < 0) {
+            setMessage(`List is empty!`);
             return;
         }
-        index = Number(index);
-        if (index >= listArray.length) {
-            setInputValue("");
-            setMessage(`This node does not exist!`);
-            return;
-        }
-
-        let removedNode = list.remove(index)
-
-        setMessage(`The following node with index ${index} was deleted: ${removedNode}.`);
-        setInputValue("");
-
-        const array = [...list.values()];
-        setListArray(array);
         
-        let arrayWithArrows = [];
-        for (let item of list) {
-            arrayWithArrows.push(item, "  ->  ");
-        }
-        setListDisplay(arrayWithArrows);
+        let result = list.remove(currentIndex);
+
+        setMessage(`The following node with index ${currentIndex} was deleted: ${result[3]}.`);
+        setPrevNode(result[0]);
+        setCurrentNode(result[1]);
+        setNextNode(result[2]);
+        setInputValue("");
+        currentIndex = result[4];
+        console.log(currentIndex)
+        
+        getTotal();
 
         return;
     }
@@ -331,14 +432,20 @@ function UserInterface() {
                     <button className="linkedListButton" onClick={() => add(inputValue)}>
                         Insert
                     </button>
-                    <button className="linkedListButton" onClick={() => get(inputValue)}>
-                        Get (index)
-                    </button>
-                    <button className="linkedListButton" onClick={() => removeNode(inputValue)}>
+                    <button className="linkedListButton" onClick={() => removeNode()}>
                         Delete
                     </button>
-                    <button className="linkedListButton" onClick="perform('search')">
-                        Search
+
+                    <br/>
+
+                    <button className="linkedListButton" onClick={() => prev()} style={{background: "grey"}}>
+                        &#60; Prev Node ({prevNode})
+                    </button>
+                    <button disabled className="linkedListButton" style={{background: "red", cursor: "auto"}}>
+                        Current Node ({currentNode})
+                    </button>
+                    <button className="linkedListButton" onClick={() => next()} style={{background: "grey"}}>
+                        Next Node ({nextNode}) &#62; 
                     </button>
                 </div>
                 <div className="line">
@@ -348,32 +455,12 @@ function UserInterface() {
             <div className="seperate-line"></div>
             <div className="result line">
                 <div>{message}</div>
-                <div id="current-size" className="line"></div>
+                <div id="current-size" className="line">Total amount of all nodes: {total}</div>
                 <div id="search-result"></div>
                 <div id="list-look" className="line"></div>
             </div>
-                    <ShowList listArray={listArray} listDisplay={listDisplay} currentNode={currentNode}/>
         </div>
     )
-}
-
-function ShowList(props) {
-
-    const { listArray, listDisplay, currentNode } = props;
-
-    
-    return (
-        <div>
-            <div>
-            {listDisplay}
-            </div>
-            <br/>
-            <div id="current-status" className="line">Current node: {currentNode}</div>
-            <div>Length of list: {listArray.length} nodes.</div>
-            <div>Head (first node): {listArray[0]}</div>
-            <div>Tail (last node): {listArray[listArray.length-1]}</div>
-        </div>
-        );
 }
 
 
