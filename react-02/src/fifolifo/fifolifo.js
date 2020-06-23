@@ -3,7 +3,6 @@ import {Button, Container, Row, Col } from 'react-bootstrap';
 import './fifolifo.css';
 
 
-
 class Stack extends Component { // FIFO
     constructor() {
         super();
@@ -14,12 +13,10 @@ class Stack extends Component { // FIFO
     push(element) {
         this.size++; 
         this.storage[this.size] = element; 
-        console.log("Storage: ", this.storage)
         return [this.size, this.storage]
     }
 
     pop() {
-        let deletedElement = this.storage[this.size]; 
         delete this.storage[this.size]; 
         this.size--;
         return [this.size, this.storage]; 
@@ -44,13 +41,13 @@ class Queue extends Component { //LIFO
     enqueue(element) {
         this.storage[this.tail] = element; 
         this.tail++;
+        return [this.storage]
     }
 
-    dequeue(element) {
-        let deletedElement = this.storage[this.head];
+    dequeue() {
         delete this.storage[this.head];
         this.head++; 
-        return deletedElement; 
+        return [this.storage]; 
     }
 }
 
@@ -63,37 +60,105 @@ function FifoLifoController() {
     const [message, setMessage] = useState("Welcome!"); 
     const [stackSize, setStackSize] = useState(0); 
     const [stackArray, setStackArray] = useState([]); 
+    const [queueArray, setQueueArray] = useState([]); 
+    const [justRemoved, setJustRemoved] = useState(false); // To keep track of whether an item was just removed (true) or added (false)
 
     function handleAdd() {
-        let counter = stackSize + 1;
-        let result = stack.push(counter);
-        setStackSize(result[0]);
-
-        let array = [];
-        for (const element in result[1]) {
-            array.unshift(result[1][element]);
+        if (stackSize === 10) {
+            setMessage("Maximum size reached!");
+            return;
         }
-        setStackArray(array);
+        let counter = stackSize + 1;
+        let resultS = stack.push(counter); let resultQ = queue.enqueue(queue.tail + 1);
+        setStackSize(resultS[0]); // Same as Queue Size 
+
+        // Add values of STACK objects into array (for display in UI)
+        let arrayS = [];
+        for (const element in resultS[1]) {
+            arrayS.unshift(resultS[1][element]);
+        }
+        setStackArray(arrayS);
+
+        // Add values of QUEUE objects into array (for display in UI)
+        let arrayQ = [];
+        for (const element in resultQ[0]) {
+            arrayQ.push(resultQ[0][element]);
+        }
+        setQueueArray(arrayQ);
+
+        setJustRemoved(false);
         setMessage("Added one item to the stack and queue.");
         return;
     }
-
+    
     function handleRemove() {
+        if (!stackSize) {
+            setMessage("All data removed.")
+            return;
+        }  
+        
+        let resultS = stack.pop(); let resultQ = queue.dequeue()
+        setStackSize(resultS[0]);
+        
+        let arrayS = [];
+        for (const element in resultS[1]) {
+            arrayS.unshift(resultS[1][element]);
+        }
+        setStackArray(arrayS);
+
+        let arrayQ = [];
+        for (const element in resultQ[0]) {
+            arrayQ.push(resultQ[0][element]);
+        }
+        setQueueArray(arrayQ);
+
+
+        setJustRemoved(true);
+        setMessage("Removed one item from the stack and queue.");
+        
+        return;
+    }
+
+    function handleClear() {
         if (!stackSize) return; 
 
-        let result = stack.pop()
-        setStackSize(result[0]);
+        stack.storage = {};
+        stack.size = 0;
+        setStackSize(0);
+        setStackArray([]); 
+        
+        queue.storage = {}; 
+        queue.head = queue.tail = 0; 
+        setQueueArray([]); 
 
-        let array = [];
-        for (const element in result[1]) {
-            array.unshift(result[1][element]);
-        }
-        setStackArray(array);
-        setMessage("Removed one item from the stack and queue.");
+        setMessage("All data cleared.");
 
         return;
     }
 
+    function getStyleStack(item) {
+        if (justRemoved) {
+            return {backgroundColor: "lightgrey"}; 
+        }
+        if (item===stack.size) {
+            return {backgroundColor: "darkgrey"};
+        } else {
+            return {backgroundColor: "lightgrey"};
+        }
+    }
+
+    function getStyleQueue(item) {
+        if (justRemoved) {
+            return {backgroundColor: "lightgrey"};
+        }
+        if (item===queue.tail) {
+            return {backgroundColor: "darkgrey"};
+        } else {
+            return {backgroundColor: "lightgrey"};
+        }
+    }
+
+    
     return (
         <React.Fragment>
                 <Container className="mt-4">
@@ -106,6 +171,9 @@ function FifoLifoController() {
                             </Button>
                             <Button onClick={() => handleRemove()} className="btn btn-primary mr-4">
                                     Remove
+                            </Button>
+                            <Button onClick={() => handleClear()} className="btn btn-primary mr-4">
+                                    Clear
                             </Button>
                         </div>
                     </Container>
@@ -137,8 +205,12 @@ function FifoLifoController() {
                             <div>
                                 <h1>QUEUE</h1>
                             </div>
+                            <br/>
+                            <div><strong>Stack size: </strong>{stackSize}</div>
                             <Container className="border border-grey rounded bg-light text-primary mb-2" style={{width: "200px", height: "300px"}}>
+                            <div className="queue">
                                 <QueueComponent />
+                            </div>
                             </Container>
                         </Col>
 
@@ -150,9 +222,13 @@ function FifoLifoController() {
     function StackComponent() {
         let stackList = stackArray.map((item) => {
             return (
-                <div className="regularBar" style={item===stackSize? {backgroundColor: "darkgrey"} : {backgroundColor: "lightgrey"}}><span>{item}</span><br/></div> 
+                <div className="regularBar" key={item} style={getStyleStack(item)}><span>{item}</span><br/></div> 
             )
         })
+        if (justRemoved) {
+            let removedBar = <div key={stack.size+1} className="fadingBar"><span>{stack.size+1}</span><br/></div>
+            stackList.unshift(removedBar);
+        }
         return (
             <React.Fragment>
                 {stackList}
@@ -161,18 +237,22 @@ function FifoLifoController() {
     }
 
     function QueueComponent() {
-        let stackList = stackArray.map((item) => {
+        let queueList = queueArray.map((item) => { 
             return (
-                <div className="regularBar" style={item===stackSize? {backgroundColor: "darkgrey"} : {backgroundColor: "lightgrey"}}><span>{item}</span><br/></div> 
+                <div className="regularBar" key={item} style={getStyleQueue(item)}><span>{item}</span><br/></div> 
             )
-        })
+        });
+        if (justRemoved) {
+            let removedBar = <div key={queue.head} className="fadingBar"><span>{queue.head}</span><br/></div>
+            queueList.unshift(removedBar);
+        }
         return (
-            <React.Fragment>
-                <div>Stack size: {stackSize}</div>
-                <div>Stack content: {stackList}</div>
+            <React.Fragment >
+                {queueList}
             </React.Fragment>
         )
     }
+
 }
 
 

@@ -8,8 +8,56 @@
     font-weight: bold;
 }
 
+.fadingBar {
+    width: 190px;
+    height: 25px; 
+    border: 2px solid grey;
+    border-radius: 5px;
+    margin-bottom: 2px;
+    color: grey;
+    font-weight: normal;
+    animation-name: fadeOut; 
+    -webkit-animation: fadeOut;
+    -moz-animation: fadeOut;
+    -o-animation: fadeOut;
+    -ms-animation: fadeOut;
+    animation-duration: 1s;
+    opacity: 0;
+}
+
+        @keyframes fadeOut {
+            0% {opacity:1;}
+            100% {opacity:0;}
+        }
+
+        @-moz-keyframes fadeOut {
+        0% {opacity:1;}
+        100% {opacity:0;}
+        }
+
+        @-webkit-keyframes fadeOut {
+        0% {opacity:1;}
+        100% {opacity:0;}
+        }
+
+        @-o-keyframes fadeOut {
+        0% {opacity:1;}
+        100% {opacity:0;}
+        }
+
+        @-ms-keyframes fadeOut {
+        0% {opacity:1;}
+        100% {opacity:0;}
+        }
+
 .stack {
     position: absolute;
     bottom: 0;
     margin-bottom: 10px;
   }
+
+.queue {
+    position: absolute;
+    top: 50;
+    margin-bottom: 10px;
+}
