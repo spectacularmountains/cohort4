@@ -88,46 +88,46 @@ class Controller extends Component {
                         <div className="card-header">CHOCOLATE BANK LTD.</div>
                         <div className="card-main">
 
-                        {/* //-- ROW 1 -- */}
-                        <div className="row">
-                            <div className="column">
+                        {/* //-- rowAcc 1 -- */}
+                        <div className="rowAcc">
+                            <div className="columnAcc">
                                 <div className="column1">
                                     <i className="material-icons">account_balance</i>
                                 </div>
                             </div>
-                            <div className="column">
+                            <div className="columnAcc">
                                 <div className="column2">
                                     <div className="main-description">Account:</div>
                                 </div>
                             </div>
-                            <div className="column">
+                            <div className="columnAcc">
                                 <div className="column3">
                                     <div className="main-description" style={{fontWeight:"bold", backgroundColor: "rgb(233, 232, 232)", width: "140px"}} id="idAccount">{this.state.currentAccount}</div>
                                 </div>
                             </div>
-                            <div className="column">
+                            <div className="columnAcc">
                                 <StatsButton handleShowHide={this.showHideStats}/>
                             </div>
                         </div>
 
-                        {/* //-- ROW 2 -- */}
-                        <div className="row">
-                            <div className="column">
+                        {/* //-- rowAcc 2 -- */}
+                        <div className="rowAcc">
+                            <div className="columnAcc">
                                 <div className="column1">
                                     <i className="material-icons">attach_money</i>
                                 </div>
                             </div>
-                            <div className="column">
+                            <div className="columnAcc">
                                 <div className="column2">
                                     <div className="main-description">Current balance:</div>
                                 </div>
                             </div>
-                            <div className="column">
+                            <div className="columnAcc">
                                 <div className="column3" style={{backgroundColor: "rgb(233, 232, 232)", width: "140px"}}>
                                     <AccountBalance className="main-description" accountNames={this.state.accountNames} accountBalances={this.state.accountBalances} currentAccount={this.state.currentAccount} />
                                 </div>
                             </div>
-                            <div className="column">
+                            <div className="columnAcc">
                                 <div className="column4">
                                     {/* //-- This cell is empty --> */}
                                 </div>
@@ -135,13 +135,13 @@ class Controller extends Component {
                         </div>
 
                         {/* //-- ROW 3 --// */}
-                        <div className="row">
-                            <div className="column">
+                        <div className="rowAcc">
+                            <div className="columnAcc">
                                 <div className="column1">
                                     <i className="material-icons">add_circle</i>
                                 </div>
                             </div>
-                            <div className="column">
+                            <div className="columnAcc">
                                 <div className="column2">
                                     <div className="main-description">Deposit amount:</div>
                                 </div>
@@ -150,13 +150,13 @@ class Controller extends Component {
                         </div>
 
                         {/* //-- ROW 4 -- */}
-                        <div className="row">
-                            <div className="column">
+                        <div className="rowAcc">
+                            <div className="columnAcc">
                                 <div className="column1">
                                     <i className="material-icons">remove_circle_outline</i>
                                 </div>
                             </div>
-                            <div className="column">
+                            <div className="columnAcc">
                                 <div className="column2">
                                     <div className="main-description">Withdraw amount:</div>
                                 </div>
@@ -165,13 +165,13 @@ class Controller extends Component {
                         </div>
 
                         {/* //-- ROW 5 -- */}
-                        <div className="row">
-                            <div className="column">
+                        <div className="rowAcc">
+                            <div className="columnAcc">
                                 <div className="column1">
                                     <i className="material-icons">check_circle</i>
                                 </div>
                             </div>
-                            <div className="column">
+                            <div className="columnAcc">
                                 <div className="column2">
                                     <div className="main-description">Create account:</div>
                                 </div>
@@ -180,13 +180,13 @@ class Controller extends Component {
                         </div>
 
                         {/* //-- ROW 6 -- */}
-                        <div className="row">
-                            <div className="column">
+                        <div className="rowAcc">
+                            <div className="columnAcc">
                                 <div className="column1">
                                     <i className="material-icons">text_format</i>
                                 </div>
                             </div>
-                            <div className="column">
+                            <div className="columnAcc">
                                 <div className="column2">
                                     <div className="main-description">Rename account:</div>
                                 </div>
@@ -195,18 +195,18 @@ class Controller extends Component {
                         </div>
 
                         {/* //-- ROW 7 -- */}
-                        <div className="row">
-                            <div className="column">
+                        <div className="rowAcc">
+                            <div className="columnAcc">
                                 <div className="column1">
                                     <i className="material-icons">delete</i>
                                 </div>
                             </div>
-                            <div className="column">
+                            <div className="columnAcc">
                                 <div className="column2">
                                     <div className="main-description">Delete account</div>
                                 </div>
                             </div>
-                            <div className="column">
+                            <div className="columnAcc">
                                 <div className="column3">
                                     {/* //-- This cell is empty --> */}
                                 </div>
@@ -216,7 +216,7 @@ class Controller extends Component {
                         </div>
 
                         {/* //-- ROW 8 -- */}
-                        <div className="row">
+                        <div className="rowAcc">
                             <div className="quad-column">
                                 <div className="column1">
                                     <div className="message" id="idMessage">{this.state.message}</div>
@@ -279,12 +279,12 @@ class Deposit extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="column">
+                <div className="columnAcc">
                     <div className="column3">
                         <input type="number" style={{width: "140px"}} value={this.state.value} onKeyDown={this.handleKeyPress} onChange={this.handleChange}/>
                     </div>
                 </div>
-                <div className="column">
+                <div className="columnAcc">
                     <div className="column4">
                         <button id="buttonDeposit" onClick={this.handleKeyPress} style={{width: "130px"}}>DEPOSIT</button>
                     </div>
@@ -322,12 +322,12 @@ class Withdraw extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="column">
+                <div className="columnAcc">
                     <div className="column3">
                         <input type="number" style={{width: "140px"}} value={this.state.value} onKeyDown={this.handleKeyPress} onChange={this.handleChange}/>
                     </div>
                 </div>
-                <div className="column">
+                <div className="columnAcc">
                     <div className="column4">
                         <button id="buttonWithdraw" onClick={this.handleKeyPress} style={{width: "130px"}}>WITHDRAW</button>
                     </div>
@@ -539,12 +539,12 @@ class CreateAccount extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="column">
+                <div className="columnAcc">
                     <div className="column3">
                         <input type="text" value={this.state.value} id="idCreate" style={{width: "140px"}} onChange={this.handleChange} onKeyDown={this.handleKeyPress}/>
                     </div>
                 </div>
-                <div className="column">
+                <div className="columnAcc">
                     <div className="column4">
                         <button onClick={this.handleKeyPress} style={{width: "130px"}}>CREATE NEW</button>
                     </div>
@@ -597,12 +597,12 @@ class RenameAccount extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="column">
+                <div className="columnAcc">
                     <div className="column3">
                     <input type="text" value={this.state.value} style={{width: "140px"}} onChange={this.handleChange} onKeyDown={this.handleKeyPress}/>
                     </div>
                 </div>
-                <div className="column">
+                <div className="columnAcc">
                     <div className="column4">
                         <button onClick={this.handleKeyPress} style={{width: "130px"}}>RENAME</button>
                     </div>
@@ -638,7 +638,7 @@ class DeleteAccount extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="column">
+                <div className="columnAcc">
                     <div className="column4">
                         <button onClick={this.handleClick} style={{width: "130px"}}>DELETE</button>
                     </div>

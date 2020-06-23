@@ -188,13 +188,13 @@
   text-transform: capitalize;
   }
 
-.row {
+.rowAcc {
 	display: flex;
 	flex-direction: row;
 	width: 100%; 
 }
 
-.column {
+.columnAcc {
 	display: flex;
   flex-direction: column;
 	flex-basis: 100%;
@@ -363,3 +363,12 @@
   right: 0px; 
 }
 /* ------------------------------------------------- */
+
+.Style-8 {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: auto;
+}

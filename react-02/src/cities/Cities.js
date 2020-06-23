@@ -392,7 +392,7 @@ class Cities extends Component {
             <React.Fragment>
                 <Container className="mt-4" style={{width: "850px"}}>
                     <Container>
-                        <h1 className="display-4 text-center"><i className="fas fa-city text-primary"></i><span className="text-primary"> Cities</span> of the World</h1>
+                        <p className="display-3 text-center"><i className="fas fa-city text-primary"></i><span className="text-primary"> Cities</span> of the World</p>
                         <hr/>
                         <div className="text-center">
                             <Populate data={this.state.cityData} getMessage={this.handleMessage} loadData={this.loadData}/>

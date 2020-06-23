@@ -40,6 +40,11 @@ class IconList extends Component {
                 name: "Linked List",
                 highlighted: false
             },
+            {
+                id: 8, 
+                name: "Stack & Queue",
+                highlighted: false
+            },
         ]
     }
     

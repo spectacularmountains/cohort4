@@ -7,6 +7,7 @@ import RoboFriends from '../robofriends/containers/Robo'
 import Bank from '../bank/Controller'
 import Cities from '../cities/Cities'
 import LinkedList from '../linkedlist/linkedlist'
+import FifoLifoController from '../fifolifo/fifolifo'
 
 
 function CurrentApp(props) {
@@ -27,6 +28,8 @@ function CurrentApp(props) {
             return <Cities />
         } else if (props.currentApp === 7) {
             return <LinkedList />
+        } else if (props.currentApp === 8) {
+            return <FifoLifoController />
         } 
 }
 
