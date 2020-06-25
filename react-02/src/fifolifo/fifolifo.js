@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import {Button, Container, Row, Col } from 'react-bootstrap';
 import './fifolifo.css';
 
@@ -20,10 +20,6 @@ class Stack extends Component { // FIFO
         delete this.storage[this.size]; 
         this.size--;
         return [this.size, this.storage]; 
-    }
-
-    peek() {
-        return this.storage[this.size]; 
     }
 }
 
@@ -62,7 +58,18 @@ function FifoLifoController() {
     const [stackArray, setStackArray] = useState([]); 
     const [queueArray, setQueueArray] = useState([]); 
     const [justRemoved, setJustRemoved] = useState(false); // To keep track of whether an item was just removed (true) or added (false)
+    const [headerStyle, setHeaderStyle] = useState(null);
 
+
+    useEffect(() => {
+        let wait = setInterval(() => {setHeaderStyle(null)}, 150)
+        return () => {
+            setHeaderStyle({color: "rgb(217, 252, 255)", fontWeight: "bold"});
+            clearInterval(wait);
+        };
+    }, [stackSize]); 
+    
+  
     function handleAdd() {
         if (stackSize === 10) {
             setMessage("Maximum size reached!");
@@ -93,6 +100,7 @@ function FifoLifoController() {
     
     function handleRemove() {
         if (!stackSize) {
+            setJustRemoved(false);
             setMessage("All data removed.")
             return;
         }  
@@ -120,8 +128,6 @@ function FifoLifoController() {
     }
 
     function handleClear() {
-        if (!stackSize) return; 
-
         stack.storage = {};
         stack.size = 0;
         setStackSize(0);
@@ -131,6 +137,7 @@ function FifoLifoController() {
         queue.head = queue.tail = 0; 
         setQueueArray([]); 
 
+        setJustRemoved(false);
         setMessage("All data cleared.");
 
         return;
@@ -188,10 +195,10 @@ function FifoLifoController() {
                     <Row>
                         <Col className="border border-grey rounded text-center">
                             <div>
-                                <h1>STACK</h1>
+                                <h1 style={headerStyle}>STACK</h1>
                             </div>
                             <br/>
-                            <div><strong>Stack size: </strong>{stackSize}</div>
+                            <div><strong>Stack size: </strong><span style={headerStyle}>{stackSize}</span></div>
                             <Container className="border border-grey rounded bg-light text-primary mb-2" style={{width: "200px", height: "300px"}}>
                             <div className="stack">
                                 <StackComponent />
@@ -203,10 +210,10 @@ function FifoLifoController() {
 
                         <Col className=" border border-grey rounded text-center"> 
                             <div>
-                                <h1>QUEUE</h1>
+                                <h1 style={headerStyle}>QUEUE</h1>
                             </div>
                             <br/>
-                            <div><strong>Stack size: </strong>{stackSize}</div>
+                            <div><strong>Queue size: </strong><span style={headerStyle}>{stackSize}</span></div>
                             <Container className="border border-grey rounded bg-light text-primary mb-2" style={{width: "200px", height: "300px"}}>
                             <div className="queue">
                                 <QueueComponent />

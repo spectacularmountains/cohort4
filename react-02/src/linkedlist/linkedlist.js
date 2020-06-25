@@ -4,6 +4,7 @@ import './linkedlist.css';
 let currentIndex = -1; 
 
 
+
 class Node extends Component {
     constructor(value, prev, next) {
         super(); 

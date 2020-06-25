@@ -42,7 +42,7 @@ class IconList extends Component {
             },
             {
                 id: 8, 
-                name: "Stack & Queue",
+                name: "Stacks & Queues",
                 highlighted: false
             },
         ]

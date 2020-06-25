@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import MountainIcon from './MountainIcon'
 import Greeting from './Greeting'
 import TicTacToe from '../tictactoe/TicTacToe'
