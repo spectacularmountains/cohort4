@@ -70,7 +70,7 @@ function FifoLifoController() {
     }, [stackSize]); 
     
   
-    function handleAdd() {
+    const handleAdd = () => {
         if (stackSize === 10) {
             setMessage("Maximum size reached!");
             return;
@@ -98,7 +98,7 @@ function FifoLifoController() {
         return;
     }
     
-    function handleRemove() {
+    const handleRemove = () => {
         if (!stackSize) {
             setJustRemoved(false);
             setMessage("All data removed.")
@@ -127,7 +127,7 @@ function FifoLifoController() {
         return;
     }
 
-    function handleClear() {
+    const handleClear = () => {
         stack.storage = {};
         stack.size = 0;
         setStackSize(0);
@@ -143,7 +143,7 @@ function FifoLifoController() {
         return;
     }
 
-    function getStyleStack(item) {
+    const getStyleStack = (item) => {
         if (justRemoved) {
             return {backgroundColor: "lightgrey"}; 
         }
@@ -154,7 +154,7 @@ function FifoLifoController() {
         }
     }
 
-    function getStyleQueue(item) {
+    const getStyleQueue = (item) => {
         if (justRemoved) {
             return {backgroundColor: "lightgrey"};
         }

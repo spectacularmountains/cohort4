@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Button, Container, Row, Col, Form, Table} from 'react-bootstrap';
 import './cities.css';
-
+import {v4 as uuid} from "uuid";
 
 const url = 'http://localhost:5000/';
 const cities = [
@@ -80,7 +80,6 @@ class Cities extends Component {
             };
             this.setState({cityData: cities});
             this.setState({message: `Database loaded. Currently ${cities.length} entries in database.`});
-            console.log("data loaded")
             return;
         } 
         catch(err) {
@@ -258,11 +257,12 @@ class Cities extends Component {
     }
 
     handleLatitudeInput(event) {
-        let latitude = event.target.value
+        let latitude = event.target.value;
         if (latitude < -90 || latitude > 90) {
             this.setState({message: "Latitudes range from -90 to +90."});
             return;
         }
+        latitude = Math.round( latitude * 1e5 ) / 1e5; // Rounds latitude to 5 significant digits 
         this.setState({message: ""});
         this.setState({inputLatitude: latitude})
     }
@@ -273,6 +273,7 @@ class Cities extends Component {
             this.setState({message: "Longitudes range from -180 to +180."});
             return;
         }
+        longitude = Math.round( longitude * 1e5 ) / 1e5; // Rounds latitude to 5 significant digits 
         this.setState({message: ""});
         this.setState({inputLongitude: longitude})
     }
@@ -315,7 +316,7 @@ class Cities extends Component {
 
         // Add new city data to STATE 
         let newCityData = {
-            key: (cityData.length + 1), //     CREATE UUID??
+            key: uuid(), //     CREATE UUID 
             city: newCityName, 
             population: Number(this.state.inputPopulation), 
             latitude: this.state.inputLatitude, 
@@ -347,13 +348,15 @@ class Cities extends Component {
 
         this.setState({searchCity: json.data.city})
         this.setState({inputPopulation: json.data.population})
-        this.setState({inputLatitude: json.data.latitude})
-        this.setState({inputLongitude: json.data.longitude})
+        let latitude = Math.round( json.data.latitude * 1e5 ) / 1e5; // Rounds latitude to 5 significant digits 
+        this.setState({inputLatitude: latitude})
+        let longitude = Math.round( json.data.longitude * 1e5 ) / 1e5; // Rounds latitude to 5 significant digits 
+        this.setState({inputLongitude: longitude})
 
         // Add new city data to STATE 
         let cityData = this.state.cityData; 
         let newCityData = {
-            key: (cityData.length + 1), //     CREATE UUID??
+            key: uuid(), //     CREATE UUID
             city: this.state.searchCity, 
             population: Number(this.state.inputPopulation), 
             latitude: this.state.inputLatitude, 
