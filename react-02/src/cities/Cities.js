@@ -354,7 +354,6 @@ class Cities extends Component {
         this.setState({inputLongitude: longitude})
 
         // Add new city data to STATE 
-        let cityData = this.state.cityData; 
         let newCityData = {
             key: uuid(), //     CREATE UUID
             city: this.state.searchCity, 

@@ -6,7 +6,7 @@ import { ThemeContext } from './contexts/ThemeContext';
 
 class App extends Component {
   state = {
-    textOutput: "Welcome to the Three Mountains!", 
+    textOutput: "Welcome to the Eight Mountains!", 
     currentApp: 1,
   };
 
@@ -56,7 +56,7 @@ class DarkLightSwitch extends Component {
     return (
         <div className="onoffswitch">
           <input onClick={()=> toggleTheme()} type="checkbox" name="onoffswitch" className="onoffswitch-checkbox" id="myonoffswitch" tabIndex="0" />
-          <label className="onoffswitch-label" for="myonoffswitch">
+          <label className="onoffswitch-label" htmlFor="myonoffswitch">
               <span className="onoffswitch-inner"></span>
               <span className="onoffswitch-switch"></span>
           </label>

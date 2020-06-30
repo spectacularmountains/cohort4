@@ -8,7 +8,7 @@ class Controller extends Component {
             accountNames: ["Chequing", "Savings", "Investment"],
             accountBalances: [25, 150, 3000],
             message: "Welcome!",
-            statsDisplayed: true, 
+            statsDisplayed: false, 
         }
         this.getDeposit = this.getDeposit.bind(this); 
         this.changeCurrentAccount = this.changeCurrentAccount.bind(this); 
@@ -122,9 +122,12 @@ class Controller extends Component {
                                     <div className="main-description">Current balance:</div>
                                 </div>
                             </div>
+
                             <div className="columnAcc">
-                                <div className="column3" style={{backgroundColor: "rgb(233, 232, 232)", width: "140px"}}>
-                                    <AccountBalance className="main-description" accountNames={this.state.accountNames} accountBalances={this.state.accountBalances} currentAccount={this.state.currentAccount} />
+                                <div className="column3">
+                                    <div className="main-description" style={{fontWeight:"bold", backgroundColor: "rgb(233, 232, 232)", width: "140px"}}>
+                                        <AccountBalance accountNames={this.state.accountNames} accountBalances={this.state.accountBalances} currentAccount={this.state.currentAccount} />
+                                    </div>
                                 </div>
                             </div>
                             <div className="columnAcc">
@@ -494,8 +497,7 @@ class Stats extends Component {
 
 function AccountBalance(props) {
     let {currentAccount, accountNames, accountBalances} = props;
-    let currentBalance; 
-    currentBalance = accountNames.map((account, i) => {
+    let currentBalance = accountNames.map((account, i) => {
         if (account === currentAccount) {
             return accountBalances[i];
         }
