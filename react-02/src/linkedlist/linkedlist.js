@@ -236,20 +236,26 @@ class LinkedList extends Component {
         // if node was found, remove it
         if (current !== null) {
             console.log("boobbbbb", current.value, this.head.value, previous.value)
+
+            let next = current.next
+            previous.next = next
+            if (next) {
+                next.prev = previous
+            }
             
-            // skip over the node to remove
-            if (previous.prev) {
-                this.head.prev = previous.prev; 
-                console.log(this.head.prev.value)
-                console.log(this.head.value)
-            } else {
-                this.head = previous;
-                this.head.prev = null;
-                previous.prev = this.head.prev 
-                console.log("Previous.prev ", previous.prev)
-            }; 
-            previous.next = current.next;
-            console.log(previous.value)
+            // // skip over the node to remove
+            // if (previous.prev) {
+            //     this.head.prev = previous.prev; 
+            //     console.log(this.head.prev.value)
+            //     console.log(this.head.value)
+            // } else {
+            //     this.head = previous;
+            //     this.head.prev = null;
+            //     previous.prev = this.head.prev 
+            //     console.log("Previous.prev ", previous.prev)
+            // }; 
+            // previous.next = current.next;
+            // console.log(previous.value)
 
             
             // return the value that was just removed from the list
